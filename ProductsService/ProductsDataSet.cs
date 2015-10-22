@@ -15,5 +15,8 @@ namespace ProductsService
 
         [DebuggerDisplay("{ProductCategoryID}, {ProductSubcategoryID}, {Name}")]
         public partial class ProductSubcategoriesRow { }
+
+        [DebuggerDisplay("{ProductName}, {Quantity}, {ProductListPrice}, {Value}")]
+        public partial class ShoppingCartItemsRow { }
     }
 }
