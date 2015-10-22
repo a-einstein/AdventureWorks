@@ -36,9 +36,9 @@ namespace ProductsService {
         
         private ShoppingCartsDataTable tableShoppingCarts;
         
-        private global::System.Data.DataRelation relationFK_ProductsOverview_ShoppingCartItem;
-        
         private global::System.Data.DataRelation relationFK_ShoppingCart_ShoppingCartItem;
+        
+        private global::System.Data.DataRelation relationFK_ProductsOverview_ShoppingCartItem;
         
         private global::System.Data.DataRelation relationFK_ProductSubcategory_ProductCategory_ProductCategoryID;
         
@@ -326,8 +326,8 @@ namespace ProductsService {
                     this.tableShoppingCarts.InitVars();
                 }
             }
-            this.relationFK_ProductsOverview_ShoppingCartItem = this.Relations["FK_ProductsOverview_ShoppingCartItem"];
             this.relationFK_ShoppingCart_ShoppingCartItem = this.Relations["FK_ShoppingCart_ShoppingCartItem"];
+            this.relationFK_ProductsOverview_ShoppingCartItem = this.Relations["FK_ProductsOverview_ShoppingCartItem"];
             this.relationFK_ProductSubcategory_ProductCategory_ProductCategoryID = this.Relations["FK_ProductSubcategory_ProductCategory_ProductCategoryID"];
         }
         
@@ -352,13 +352,6 @@ namespace ProductsService {
             this.tableShoppingCarts = new ShoppingCartsDataTable();
             base.Tables.Add(this.tableShoppingCarts);
             global::System.Data.ForeignKeyConstraint fkc;
-            fkc = new global::System.Data.ForeignKeyConstraint("FK_ProductsOverview_ShoppingCartItem", new global::System.Data.DataColumn[] {
-                        this.tableProductsOverview.ProductIDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableShoppingCartItems.ProductIDColumn});
-            this.tableShoppingCartItems.Constraints.Add(fkc);
-            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
-            fkc.DeleteRule = global::System.Data.Rule.Cascade;
-            fkc.UpdateRule = global::System.Data.Rule.Cascade;
             fkc = new global::System.Data.ForeignKeyConstraint("FK_ShoppingCart_ShoppingCartItem", new global::System.Data.DataColumn[] {
                         this.tableShoppingCarts.ShoppingCartIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableShoppingCartItems.ShoppingCartIDColumn});
@@ -366,14 +359,21 @@ namespace ProductsService {
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = global::System.Data.Rule.Cascade;
             fkc.UpdateRule = global::System.Data.Rule.Cascade;
-            this.relationFK_ProductsOverview_ShoppingCartItem = new global::System.Data.DataRelation("FK_ProductsOverview_ShoppingCartItem", new global::System.Data.DataColumn[] {
+            fkc = new global::System.Data.ForeignKeyConstraint("FK_ProductsOverview_ShoppingCartItem", new global::System.Data.DataColumn[] {
                         this.tableProductsOverview.ProductIDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableShoppingCartItems.ProductIDColumn}, false);
-            this.Relations.Add(this.relationFK_ProductsOverview_ShoppingCartItem);
+                        this.tableShoppingCartItems.ProductIDColumn});
+            this.tableShoppingCartItems.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
+            fkc.DeleteRule = global::System.Data.Rule.Cascade;
+            fkc.UpdateRule = global::System.Data.Rule.Cascade;
             this.relationFK_ShoppingCart_ShoppingCartItem = new global::System.Data.DataRelation("FK_ShoppingCart_ShoppingCartItem", new global::System.Data.DataColumn[] {
                         this.tableShoppingCarts.ShoppingCartIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableShoppingCartItems.ShoppingCartIDColumn}, false);
             this.Relations.Add(this.relationFK_ShoppingCart_ShoppingCartItem);
+            this.relationFK_ProductsOverview_ShoppingCartItem = new global::System.Data.DataRelation("FK_ProductsOverview_ShoppingCartItem", new global::System.Data.DataColumn[] {
+                        this.tableProductsOverview.ProductIDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableShoppingCartItems.ProductIDColumn}, false);
+            this.Relations.Add(this.relationFK_ProductsOverview_ShoppingCartItem);
             this.relationFK_ProductSubcategory_ProductCategory_ProductCategoryID = new global::System.Data.DataRelation("FK_ProductSubcategory_ProductCategory_ProductCategoryID", new global::System.Data.DataColumn[] {
                         this.tableProductCategories.ProductCategoryIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableProductSubcategories.ProductCategoryIDColumn}, false);
@@ -2329,6 +2329,7 @@ namespace ProductsService {
                 this.columnProductColor.ReadOnly = true;
                 this.columnProductListPrice.ReadOnly = true;
                 this.columnValue.ReadOnly = true;
+                this.columnValue.DefaultValue = ((decimal)(0m));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3705,23 +3706,23 @@ namespace ProductsService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ProductsOverviewRow ProductsOverviewRow {
-                get {
-                    return ((ProductsOverviewRow)(this.GetParentRow(this.Table.ParentRelations["FK_ProductsOverview_ShoppingCartItem"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_ProductsOverview_ShoppingCartItem"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ShoppingCartsRow ShoppingCartsRow {
                 get {
                     return ((ShoppingCartsRow)(this.GetParentRow(this.Table.ParentRelations["FK_ShoppingCart_ShoppingCartItem"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_ShoppingCart_ShoppingCartItem"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ProductsOverviewRow ProductsOverviewRow {
+                get {
+                    return ((ProductsOverviewRow)(this.GetParentRow(this.Table.ParentRelations["FK_ProductsOverview_ShoppingCartItem"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_ProductsOverview_ShoppingCartItem"]);
                 }
             }
             
