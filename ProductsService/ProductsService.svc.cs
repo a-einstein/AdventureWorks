@@ -1,14 +1,16 @@
-﻿using System.Threading.Tasks;
+﻿using Common.DomainClasses;
+using Common.Dtos;
+using System.Threading.Tasks;
 
 namespace ProductsService
 {
     public class ProductsService : IProductsService
     {
-        async Task<ProductsOverviewListDto> IProductsService.GetProductsOverview()
+        async Task<ProductsOverviewList> IProductsService.GetProductsOverviewBy(int productCategoryID, int productSubcategoryID, string productNameString)
         {
             var task = Task.Factory.StartNew(() =>
             {
-                var listDto = ShoppingWrapper.Instance.GetProductsOverview();
+                var listDto = ShoppingWrapper.Instance.GetProductsOverview(productCategoryID, productSubcategoryID, productNameString);
 
                 return listDto;
             });
@@ -16,7 +18,7 @@ namespace ProductsService
             return await task;
         }
 
-        async Task<ProductDetailsRowDto> IProductsService.GetProductDetails(int productId)
+        async Task<Product> IProductsService.GetProductDetails(int productId)
         {
             var task = Task.Factory.StartNew(() =>
             {
@@ -28,7 +30,7 @@ namespace ProductsService
             return await task;
         }
 
-        async Task<ProductCategoryListDto> IProductsService.GetProductCategories()
+        async Task<ProductCategoryList> IProductsService.GetProductCategories()
         {
             var task = Task.Factory.StartNew(() =>
             {
@@ -40,7 +42,7 @@ namespace ProductsService
             return await task;
         }
 
-        async Task<ProductSubcategoryListDto> IProductsService.GetProductSubcategories()
+        async Task<ProductSubcategoryList> IProductsService.GetProductSubcategories()
         {
             var task = Task.Factory.StartNew(() =>
             {

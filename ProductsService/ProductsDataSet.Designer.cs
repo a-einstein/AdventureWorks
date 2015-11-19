@@ -36,9 +36,9 @@ namespace ProductsService {
         
         private ShoppingCartsDataTable tableShoppingCarts;
         
-        private global::System.Data.DataRelation relationFK_ShoppingCart_ShoppingCartItem;
-        
         private global::System.Data.DataRelation relationFK_ProductsOverview_ShoppingCartItem;
+        
+        private global::System.Data.DataRelation relationFK_ShoppingCart_ShoppingCartItem;
         
         private global::System.Data.DataRelation relationFK_ProductSubcategory_ProductCategory_ProductCategoryID;
         
@@ -326,8 +326,8 @@ namespace ProductsService {
                     this.tableShoppingCarts.InitVars();
                 }
             }
-            this.relationFK_ShoppingCart_ShoppingCartItem = this.Relations["FK_ShoppingCart_ShoppingCartItem"];
             this.relationFK_ProductsOverview_ShoppingCartItem = this.Relations["FK_ProductsOverview_ShoppingCartItem"];
+            this.relationFK_ShoppingCart_ShoppingCartItem = this.Relations["FK_ShoppingCart_ShoppingCartItem"];
             this.relationFK_ProductSubcategory_ProductCategory_ProductCategoryID = this.Relations["FK_ProductSubcategory_ProductCategory_ProductCategoryID"];
         }
         
@@ -352,13 +352,6 @@ namespace ProductsService {
             this.tableShoppingCarts = new ShoppingCartsDataTable();
             base.Tables.Add(this.tableShoppingCarts);
             global::System.Data.ForeignKeyConstraint fkc;
-            fkc = new global::System.Data.ForeignKeyConstraint("FK_ShoppingCart_ShoppingCartItem", new global::System.Data.DataColumn[] {
-                        this.tableShoppingCarts.ShoppingCartIDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableShoppingCartItems.ShoppingCartIDColumn});
-            this.tableShoppingCartItems.Constraints.Add(fkc);
-            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
-            fkc.DeleteRule = global::System.Data.Rule.Cascade;
-            fkc.UpdateRule = global::System.Data.Rule.Cascade;
             fkc = new global::System.Data.ForeignKeyConstraint("FK_ProductsOverview_ShoppingCartItem", new global::System.Data.DataColumn[] {
                         this.tableProductsOverview.ProductIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableShoppingCartItems.ProductIDColumn});
@@ -366,14 +359,21 @@ namespace ProductsService {
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = global::System.Data.Rule.Cascade;
             fkc.UpdateRule = global::System.Data.Rule.Cascade;
-            this.relationFK_ShoppingCart_ShoppingCartItem = new global::System.Data.DataRelation("FK_ShoppingCart_ShoppingCartItem", new global::System.Data.DataColumn[] {
+            fkc = new global::System.Data.ForeignKeyConstraint("FK_ShoppingCart_ShoppingCartItem", new global::System.Data.DataColumn[] {
                         this.tableShoppingCarts.ShoppingCartIDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableShoppingCartItems.ShoppingCartIDColumn}, false);
-            this.Relations.Add(this.relationFK_ShoppingCart_ShoppingCartItem);
+                        this.tableShoppingCartItems.ShoppingCartIDColumn});
+            this.tableShoppingCartItems.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
+            fkc.DeleteRule = global::System.Data.Rule.Cascade;
+            fkc.UpdateRule = global::System.Data.Rule.Cascade;
             this.relationFK_ProductsOverview_ShoppingCartItem = new global::System.Data.DataRelation("FK_ProductsOverview_ShoppingCartItem", new global::System.Data.DataColumn[] {
                         this.tableProductsOverview.ProductIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableShoppingCartItems.ProductIDColumn}, false);
             this.Relations.Add(this.relationFK_ProductsOverview_ShoppingCartItem);
+            this.relationFK_ShoppingCart_ShoppingCartItem = new global::System.Data.DataRelation("FK_ShoppingCart_ShoppingCartItem", new global::System.Data.DataColumn[] {
+                        this.tableShoppingCarts.ShoppingCartIDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableShoppingCartItems.ShoppingCartIDColumn}, false);
+            this.Relations.Add(this.relationFK_ShoppingCart_ShoppingCartItem);
             this.relationFK_ProductSubcategory_ProductCategory_ProductCategoryID = new global::System.Data.DataRelation("FK_ProductSubcategory_ProductCategory_ProductCategoryID", new global::System.Data.DataColumn[] {
                         this.tableProductCategories.ProductCategoryIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableProductSubcategories.ProductCategoryIDColumn}, false);
@@ -3564,7 +3564,7 @@ namespace ProductsService {
                 }
             }
             
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public int Quantity {
                 get {
@@ -3706,23 +3706,23 @@ namespace ProductsService {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ShoppingCartsRow ShoppingCartsRow {
-                get {
-                    return ((ShoppingCartsRow)(this.GetParentRow(this.Table.ParentRelations["FK_ShoppingCart_ShoppingCartItem"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_ShoppingCart_ShoppingCartItem"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ProductsOverviewRow ProductsOverviewRow {
                 get {
                     return ((ProductsOverviewRow)(this.GetParentRow(this.Table.ParentRelations["FK_ProductsOverview_ShoppingCartItem"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_ProductsOverview_ShoppingCartItem"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ShoppingCartsRow ShoppingCartsRow {
+                get {
+                    return ((ShoppingCartsRow)(this.GetParentRow(this.Table.ParentRelations["FK_ShoppingCart_ShoppingCartItem"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_ShoppingCart_ShoppingCartItem"]);
                 }
             }
             
@@ -4190,7 +4190,7 @@ namespace ProductsService.ProductsDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT        Production.Product.ProductID, Production.Product.Name, Production.Product.Color, Production.Product.ListPrice, Production.Product.Size, Production.Product.SizeUnitMeasureCode, 
@@ -4204,6 +4204,47 @@ FROM            Production.ProductSubcategory INNER JOIN
                          Production.Product.ProductID = Production.ProductProductPhoto.ProductID
 ORDER BY Production.Product.Name";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT        Production.Product.ProductID, Production.Product.Name, Production.P" +
+                "roduct.Color, Production.Product.ListPrice, Production.Product.Size, Production." +
+                "Product.SizeUnitMeasureCode, \r\n                         Production.Product.Weigh" +
+                "tUnitMeasureCode, Production.Product.Weight, Production.ProductPhoto.ThumbNailPh" +
+                "oto, Production.ProductCategory.ProductCategoryID, \r\n                         Pr" +
+                "oduction.ProductCategory.Name AS ProductCategory, Production.ProductSubcategory." +
+                "ProductSubcategoryID, Production.ProductSubcategory.Name AS ProductSubcategory\r\n" +
+                "FROM            Production.ProductSubcategory INNER JOIN\r\n                      " +
+                "   Production.ProductCategory ON Production.ProductSubcategory.ProductCategoryID" +
+                " = Production.ProductCategory.ProductCategoryID RIGHT OUTER JOIN\r\n              " +
+                "           Production.Product ON Production.ProductSubcategory.ProductSubcategor" +
+                "yID = Production.Product.ProductSubcategoryID LEFT OUTER JOIN\r\n                 " +
+                "        Production.ProductPhoto INNER JOIN\r\n                         Production." +
+                "ProductProductPhoto ON Production.ProductPhoto.ProductPhotoID = Production.Produ" +
+                "ctProductPhoto.ProductPhotoID ON \r\n                         Production.Product.P" +
+                "roductID = Production.ProductProductPhoto.ProductID\r\nWHERE        (@ProductCateg" +
+                "oryID = - 1) AND (@ProductSubcategoryID = - 1) AND (@ProductNamePattern = \'\') OR" +
+                "\r\n                         (Production.ProductSubcategory.ProductSubcategoryID =" +
+                " @ProductSubcategoryID) AND (@ProductCategoryID = - 1) AND (@ProductNamePattern " +
+                "= \'\') OR\r\n                         (Production.ProductSubcategory.ProductCategor" +
+                "yID = @ProductCategoryID) AND (@ProductSubcategoryID = - 1) AND (@ProductNamePat" +
+                "tern = \'\') OR\r\n                         (Production.ProductSubcategory.ProductCa" +
+                "tegoryID = @ProductCategoryID) AND (Production.ProductSubcategory.ProductSubcate" +
+                "goryID = @ProductSubcategoryID) AND (@ProductNamePattern = \'\') OR\r\n             " +
+                "            (Production.Product.Name LIKE @ProductNamePattern) AND (@ProductCate" +
+                "goryID = - 1) AND (@ProductSubcategoryID = - 1) OR\r\n                         (Pr" +
+                "oduction.ProductSubcategory.ProductSubcategoryID = @ProductSubcategoryID) AND (P" +
+                "roduction.Product.Name LIKE @ProductNamePattern) AND (@ProductCategoryID = - 1) " +
+                "OR\r\n                         (Production.ProductSubcategory.ProductCategoryID = " +
+                "@ProductCategoryID) AND (Production.Product.Name LIKE @ProductNamePattern) AND (" +
+                "@ProductSubcategoryID = - 1) OR\r\n                         (Production.ProductSub" +
+                "category.ProductCategoryID = @ProductCategoryID) AND (Production.ProductSubcateg" +
+                "ory.ProductSubcategoryID = @ProductSubcategoryID) AND \r\n                        " +
+                " (Production.Product.Name LIKE @ProductNamePattern)\r\nORDER BY Production.Product" +
+                ".Name";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductCategoryID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ProductCategoryID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductSubcategoryID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ProductSubcategoryID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductNamePattern", global::System.Data.SqlDbType.NVarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, "Name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4225,6 +4266,46 @@ ORDER BY Production.Product.Name";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual ProductsDataSet.ProductsOverviewDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            ProductsDataSet.ProductsOverviewDataTable dataTable = new ProductsDataSet.ProductsOverviewDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillBy(ProductsDataSet.ProductsOverviewDataTable dataTable, int ProductCategoryID, int ProductSubcategoryID, string ProductNamePattern) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ProductCategoryID));
+            this.Adapter.SelectCommand.Parameters[1].Value = ((int)(ProductSubcategoryID));
+            if ((ProductNamePattern == null)) {
+                throw new global::System.ArgumentNullException("ProductNamePattern");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[2].Value = ((string)(ProductNamePattern));
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual ProductsDataSet.ProductsOverviewDataTable GetDataBy(int ProductCategoryID, int ProductSubcategoryID, string ProductNamePattern) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ProductCategoryID));
+            this.Adapter.SelectCommand.Parameters[1].Value = ((int)(ProductSubcategoryID));
+            if ((ProductNamePattern == null)) {
+                throw new global::System.ArgumentNullException("ProductNamePattern");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[2].Value = ((string)(ProductNamePattern));
+            }
             ProductsDataSet.ProductsOverviewDataTable dataTable = new ProductsDataSet.ProductsOverviewDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;

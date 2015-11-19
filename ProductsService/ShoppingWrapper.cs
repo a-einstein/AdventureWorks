@@ -1,4 +1,6 @@
-﻿using ProductsService.ProductsDataSetTableAdapters;
+﻿using Common.DomainClasses;
+using Common.Dtos;
+using ProductsService.ProductsDataSetTableAdapters;
 using System;
 using ProductCategoriesDataTable = ProductsService.ProductsDataSet.ProductCategoriesDataTable;
 using ProductCategoriesRow = ProductsService.ProductsDataSet.ProductCategoriesRow;
@@ -44,10 +46,9 @@ namespace ProductsService
 
         private ProductsDataSet productsDataSet;
 
-        // TODO filter.
-        public ProductsOverviewListDto GetProductsOverview()
+        public ProductsOverviewList GetProductsOverview(int productCategoryID, int productSubcategoryID, string productNameString)
         {
-            FillProductsTable();
+            FillProductsTable(productCategoryID, productSubcategoryID, productNameString);
 
             return Convert(productsDataSet.ProductsOverview);
         }
@@ -60,17 +61,28 @@ namespace ProductsService
             productsTableAdapter.Fill(productsDataSet.ProductsOverview);
         }
 
-        private static ProductsOverviewListDto Convert(ProductsDataSet.ProductsOverviewDataTable table)
+        private void FillProductsTable(int productCategoryID, int productSubcategoryID, string productNameString)
         {
-            var listDto = new ProductsOverviewListDto();
+            var productsTableAdapter = new ProductsOverviewTableAdapter() { ClearBeforeFill = true };
+
+            var productNamePattern = string.IsNullOrEmpty(productNameString)
+                ? string.Empty
+                : string.Format("%{0}%", productNameString);
+
+            productsTableAdapter.FillBy(productsDataSet.ProductsOverview, productCategoryID, productSubcategoryID, productNamePattern);
+        }
+
+        private static ProductsOverviewList Convert(ProductsDataSet.ProductsOverviewDataTable table)
+        {
+            var listDto = new ProductsOverviewList();
 
             foreach (var tableRow in table.Rows)
             {
                 var row = tableRow as ProductsOverviewRow;
 
-                var rowDto = new ProductsOverviewRowDto()
+                var rowDto = new ProductsOverviewObject()
                 {
-                    ProductID = row.ProductID,
+                    Id = row.ProductID,
                     Name = row.Name,
                     Color = row.Color,
                     ListPrice = row.ListPrice,
@@ -91,7 +103,7 @@ namespace ProductsService
         }
 
         // TODO Check filter types.
-        public ProductDetailsRowDto GetProductDetails(int productID)
+        public Product GetProductDetails(int productID)
         {
             ProductDetailsRow details = GetProductDetailsBy(productID);
 
@@ -110,11 +122,11 @@ namespace ProductsService
             return details;
         }
 
-        private static ProductDetailsRowDto Convert(ProductDetailsRow row)
+        private static Product Convert(ProductDetailsRow row)
         {
-            var rowDto = new ProductDetailsRowDto()
+            var rowDto = new Product()
             {
-                ProductID = row.ProductID,
+                Id = row.ProductID,
                 Name = row.Name,
                 Color = row.Color,
                 ListPrice = row.ListPrice,
@@ -134,7 +146,7 @@ namespace ProductsService
             return rowDto;
         }
 
-        public ProductCategoryListDto GetProductCategories()
+        public ProductCategoryList GetProductCategories()
         {
             FillProductCategoriesTable();
 
@@ -149,17 +161,17 @@ namespace ProductsService
             categoriesTableAdapter.Fill(productsDataSet.ProductCategories);
         }
 
-        private static ProductCategoryListDto Convert(ProductCategoriesDataTable table)
+        private static ProductCategoryList Convert(ProductCategoriesDataTable table)
         {
-            var listDto = new ProductCategoryListDto();
+            var listDto = new ProductCategoryList();
 
             foreach (var tableRow in table.Rows)
             {
                 var row = tableRow as ProductCategoriesRow;
 
-                var rowDto = new ProductCategoryRowDto()
+                var rowDto = new ProductCategory()
                 {
-                    ProductCategoryID = row.ProductCategoryID,
+                    Id = row.ProductCategoryID,
                     Name = row.Name
                 };
 
@@ -169,7 +181,7 @@ namespace ProductsService
             return listDto;
         }
 
-        public ProductSubcategoryListDto GetProductSubcategories()
+        public ProductSubcategoryList GetProductSubcategories()
         {
             FillProductSubcategoriesTable();
 
@@ -183,17 +195,17 @@ namespace ProductsService
             subcategoriesTableAdapter.Fill(productsDataSet.ProductSubcategories);
         }
 
-        private static ProductSubcategoryListDto Convert(ProductSubcategoriesDataTable table)
+        private static ProductSubcategoryList Convert(ProductSubcategoriesDataTable table)
         {
-            var listDto = new ProductSubcategoryListDto();
+            var listDto = new ProductSubcategoryList();
 
             foreach (var tableRow in table.Rows)
             {
                 var row = tableRow as ProductSubcategoriesRow;
 
-                var rowDto = new ProductSubcategoryRowDto()
+                var rowDto = new ProductSubcategory()
                 {
-                    ProductSubcategoryID = row.ProductSubcategoryID,
+                    Id = row.ProductSubcategoryID,
                     Name = row.Name,
                     ProductCategoryID = row.ProductCategoryID
                 };
