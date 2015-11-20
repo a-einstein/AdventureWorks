@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Common.DomainClasses
 {
     [DataContract]
-    [DebuggerDisplay("{ProductID}, {Name}, {ProductListPrice}, {Quantity}, {Value}")]
+    [DebuggerDisplay("{Id}, {Name}, {ProductListPrice}, {Quantity}, {Value}")]
     public partial class CartItem : DomainClass
     {
         [DataMember]

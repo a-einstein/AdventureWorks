@@ -1,10 +1,8 @@
-﻿using System.Diagnostics;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace Common.DomainClasses
 {
     [DataContract]
-    [DebuggerDisplay("{ProductID}, {Name}")]
     public partial class ProductsOverviewObject : DomainClass, IShoppingProduct
     {
         [DataMember]
