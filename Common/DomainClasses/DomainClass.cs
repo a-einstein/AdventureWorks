@@ -14,6 +14,11 @@ namespace Common.DomainClasses
         [DataMember]
         public string Name { get; set; }
 
+        public override string ToString()
+        {
+            return Name; 
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Currently for selective raising of events, before turning properties into full DependencyProperties.

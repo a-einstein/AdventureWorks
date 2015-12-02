@@ -13,6 +13,9 @@ namespace ProductsService
 {
     // TODO Maybe put this functionality into the partial sub classes of ProductsDataSet. But ProductsDataSet could not be a singleton .
     // Other option: make properties here on wrapper sub classes which are instantiated with a single dataset. The constructor should be restricted some way.
+
+    // > TODO Replace the DataSet by Entity Framework.
+
     class ShoppingWrapper
     {
         private ShoppingWrapper()
@@ -57,7 +60,6 @@ namespace ProductsService
         {
             var productsTableAdapter = new ProductsOverviewTableAdapter() { ClearBeforeFill = true };
 
-            // Note this currently takes in all of the table data. Of course this should be prefiltered and/or paged in a realistic situation. 
             productsTableAdapter.Fill(productsDataSet.ProductsOverview);
         }
 
@@ -157,7 +159,6 @@ namespace ProductsService
         {
             var categoriesTableAdapter = new ProductCategoriesTableAdapter() { ClearBeforeFill = true };
 
-            // Note this only retrieves the data once, whereas it would probably retrieve it every time in a realistic situation.
             categoriesTableAdapter.Fill(productsDataSet.ProductCategories);
         }
 
