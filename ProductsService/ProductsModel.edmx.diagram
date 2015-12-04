@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2960547dd30149beb5dc00f682c9d14f" Name="Diagram1">
+        <EntityTypeShape EntityType="ProductsService.ProductsModel.Product" Width="3.375" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProductsService.ProductsModel.ProductCategory" Width="2.125" PointX="0.5" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProductsService.ProductsModel.ProductPhoto" Width="1.5" PointX="11.5" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProductsService.ProductsModel.ProductProductPhoto" Width="1.5" PointX="10.375" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProductsService.ProductsModel.ProductSubcategory" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <AssociationConnector Association="ProductsService.ProductsModel.FK_Product_ProductSubcategory_ProductSubcategoryID" ManuallyRouted="false" />
+        <AssociationConnector Association="ProductsService.ProductsModel.FK_ProductProductPhoto_Product_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="ProductsService.ProductsModel.FK_ProductSubcategory_ProductCategory_ProductCategoryID" ManuallyRouted="false" />
+        <AssociationConnector Association="ProductsService.ProductsModel.FK_ProductProductPhoto_ProductPhoto_ProductPhotoID" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ProductsService.ProductsModel.ProductDescription" Width="1.5" PointX="0.75" PointY="10.375" />
+        <EntityTypeShape EntityType="ProductsService.ProductsModel.ProductModel" Width="1.5" PointX="0.75" PointY="6" />
+        <EntityTypeShape EntityType="ProductsService.ProductsModel.ProductModelProductDescriptionCulture" Width="1.5" PointX="3" PointY="6.25" />
+        <AssociationConnector Association="ProductsService.ProductsModel.FK_Product_ProductModel_ProductModelID" />
+        <AssociationConnector Association="ProductsService.ProductsModel.FK_ProductModelProductDescriptionCulture_ProductDescription_ProductDescriptionID" />
+        <AssociationConnector Association="ProductsService.ProductsModel.FK_ProductModelProductDescriptionCulture_ProductModel_ProductModelID" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

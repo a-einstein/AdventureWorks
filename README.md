@@ -2,9 +2,10 @@
 
 #### Purpose
 * Supplying a database service tailored to my WPF project.
+* Making use of Entity Framework.
 
 #### Notes
-* This is a pretty rough cut early version.
+* This is still a pretty rough cut early version.
 
 #### Prerequisites
 * The service assumes the presence of an AdventureWorks2014 database, to which a connection should be configured.

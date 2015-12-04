@@ -1,27 +1,15 @@
-﻿using Common.DomainClasses;
-using Common.Dtos;
-using ProductsService.ProductsDataSetTableAdapters;
+﻿using Common.Dtos;
+using ProductsService.ProductsModel;
 using System;
-using ProductCategoriesDataTable = ProductsService.ProductsDataSet.ProductCategoriesDataTable;
-using ProductCategoriesRow = ProductsService.ProductsDataSet.ProductCategoriesRow;
-using ProductDetailsRow = ProductsService.ProductsDataSet.ProductDetailsRow;
-using ProductsOverviewRow = ProductsService.ProductsDataSet.ProductsOverviewRow;
-using ProductSubcategoriesDataTable = ProductsService.ProductsDataSet.ProductSubcategoriesDataTable;
-using ProductSubcategoriesRow = ProductsService.ProductsDataSet.ProductSubcategoriesRow;
+using System.Linq;
 
 namespace ProductsService
 {
-    // TODO Maybe put this functionality into the partial sub classes of ProductsDataSet. But ProductsDataSet could not be a singleton .
-    // Other option: make properties here on wrapper sub classes which are instantiated with a single dataset. The constructor should be restricted some way.
-
-    // > TODO Replace the DataSet by Entity Framework.
-
+    // TODO This can probably be moved to the service.
     class ShoppingWrapper
     {
         private ShoppingWrapper()
-        {
-            productsDataSet = new ProductsDataSet();
-        }
+        { }
 
         private static volatile ShoppingWrapper instance;
         private static object syncRoot = new Object();
@@ -36,7 +24,9 @@ namespace ProductsService
                     lock (syncRoot)
                     {
                         if (instance == null)
+                        {
                             instance = new ShoppingWrapper();
+                        }
                     }
                 }
 
@@ -45,176 +35,157 @@ namespace ProductsService
         }
 
         // Choose for an int as this is the actual type of the Id.
-        public int NoId { get { return -1; } }
-
-        private ProductsDataSet productsDataSet;
+        public int noId = -1;
 
         public ProductsOverviewList GetProductsOverview(int productCategoryID, int productSubcategoryID, string productNameString)
         {
-            FillProductsTable(productCategoryID, productSubcategoryID, productNameString);
-
-            return Convert(productsDataSet.ProductsOverview);
-        }
-
-        private void FillProductsTable()
-        {
-            var productsTableAdapter = new ProductsOverviewTableAdapter() { ClearBeforeFill = true };
-
-            productsTableAdapter.Fill(productsDataSet.ProductsOverview);
-        }
-
-        private void FillProductsTable(int productCategoryID, int productSubcategoryID, string productNameString)
-        {
-            var productsTableAdapter = new ProductsOverviewTableAdapter() { ClearBeforeFill = true };
-
-            var productNamePattern = string.IsNullOrEmpty(productNameString)
-                ? string.Empty
-                : string.Format("%{0}%", productNameString);
-
-            productsTableAdapter.FillBy(productsDataSet.ProductsOverview, productCategoryID, productSubcategoryID, productNamePattern);
-        }
-
-        private static ProductsOverviewList Convert(ProductsDataSet.ProductsOverviewDataTable table)
-        {
-            var listDto = new ProductsOverviewList();
-
-            foreach (var tableRow in table.Rows)
+            using (var entitiesContext = new Entities())
             {
-                var row = tableRow as ProductsOverviewRow;
+                IQueryable<Common.DomainClasses.ProductsOverviewObject> query =
+                    from product in entitiesContext.Products
+                    from productProductPhotoes in product.ProductProductPhotoes
+                    where
+                    (
+                        // No filters.
+                        // TODO Forbid both here as in GUI until paged.
+                        (productNameString == null) && (productSubcategoryID == noId) && (productCategoryID == noId) ||
 
-                var rowDto = new ProductsOverviewObject()
+                        // Category.
+                        (productNameString == null) && (productSubcategoryID == noId) && (product.ProductSubcategory.ProductCategoryID == productCategoryID) ||
+
+                        // Category && Subcategory.
+                        (productNameString == null) && (product.ProductSubcategory.ProductCategoryID == productCategoryID) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryID) ||
+
+                        // Category && Subcategory && Name.
+                        (product.ProductSubcategory.ProductCategoryID == productCategoryID) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryID) && product.Name.Contains(productNameString) ||
+
+                        // Category && Name.
+                        (productSubcategoryID == noId) && (product.ProductSubcategory.ProductCategoryID == productCategoryID) && product.Name.Contains(productNameString) ||
+
+                        // Name.
+                        (productCategoryID == noId) && (productSubcategoryID == noId) && product.Name.Contains(productNameString)
+                    )
+                    orderby product.Name
+                    select new Common.DomainClasses.ProductsOverviewObject()
+                    {
+                        Id = product.ProductID,
+                        Name = product.Name,
+                        Color = product.Color,
+                        ListPrice = product.ListPrice,
+                        Size = product.Size,
+                        SizeUnitMeasureCode = product.SizeUnitMeasureCode,
+                        WeightUnitMeasureCode = product.WeightUnitMeasureCode,
+                        ThumbNailPhoto = productProductPhotoes.ProductPhoto.ThumbNailPhoto,
+                        ProductCategoryID = product.ProductSubcategory.ProductCategoryID,
+                        ProductCategory = product.ProductSubcategory.ProductCategory.Name,
+                        ProductSubcategoryID = product.ProductSubcategory.ProductSubcategoryID,
+                        ProductSubcategory = product.ProductSubcategory.Name
+                    };
+
+                var result = new ProductsOverviewList();
+
+                // Note that the query executes on the ToList.
+                foreach (var item in query.ToList())
                 {
-                    Id = row.ProductID,
-                    Name = row.Name,
-                    Color = row.Color,
-                    ListPrice = row.ListPrice,
-                    Size = row.Size,
-                    SizeUnitMeasureCode = row.SizeUnitMeasureCode,
-                    WeightUnitMeasureCode = row.WeightUnitMeasureCode,
-                    ThumbNailPhoto = row.ThumbNailPhoto,
-                    ProductCategoryID = row.ProductCategoryID,
-                    ProductCategory = row.ProductCategory,
-                    ProductSubcategory = row.ProductSubcategory,
-                    ProductSubcategoryID = row.ProductSubcategoryID
-                };
+                    result.Add(item);
+                }
 
-                listDto.Add(rowDto);
+                return result;
             }
-
-            return listDto;
         }
 
-        // TODO Check filter types.
-        public Product GetProductDetails(int productID)
+        public Common.DomainClasses.Product GetProductDetails(int productID)
         {
-            ProductDetailsRow details = GetProductDetailsBy(productID);
-
-            return Convert(details);
-        }
-
-        private static ProductDetailsRow GetProductDetailsBy(int productID)
-        {
-            var productTableAdapter = new ProductDetailsTableAdapter() { ClearBeforeFill = true };
-
-            // Note this always tries to retrieve a record from the DB.
-            var productDetailsTable = productTableAdapter.GetDataBy(productID);
-
-            var details = productDetailsTable.FindByProductID(productID);
-
-            return details;
-        }
-
-        private static Product Convert(ProductDetailsRow row)
-        {
-            var rowDto = new Product()
+            using (var entitiesContext = new Entities())
             {
-                Id = row.ProductID,
-                Name = row.Name,
-                Color = row.Color,
-                ListPrice = row.ListPrice,
-                Size = row.Size,
-                SizeUnitMeasureCode = row.SizeUnitMeasureCode,
-                Weight = row.Weight,
-                WeightUnitMeasureCode = row.WeightUnitMeasureCode,
-                LargePhoto = row.LargePhoto,
-                ProductCategoryID = row.ProductCategoryID,
-                ProductCategory = row.ProductCategory,
-                ProductSubcategoryID = row.ProductSubcategoryID,
-                ProductSubcategory = row.ProductSubcategory,
-                ModelName = row.ModelName,
-                Description = row.Description
-            };
+                IQueryable<Common.DomainClasses.Product> query =
+                    // Note this benefits from the joins already defined in the model.
+                    from product in entitiesContext.Products
+                    from productProductPhotoes in product.ProductProductPhotoes
+                    from productModelProductDescriptionCulture in product.ProductModel.ProductModelProductDescriptionCultures
+                    where
+                    (
+                        (product.ProductID == productID) &&
 
-            return rowDto;
+                        // TODO Should this be used by &&?
+                        (productModelProductDescriptionCulture.CultureID == "en") // HACK
+                    )
+                    select new Common.DomainClasses.Product()
+                    {
+                        Id = product.ProductID,
+                        Name = product.Name,
+                        Color = product.Color,
+                        ListPrice = product.ListPrice,
+                        Size = product.Size,
+                        SizeUnitMeasureCode = product.SizeUnitMeasureCode,
+                        // TODO Change type.
+                        //Weight = product.Weight,
+                        WeightUnitMeasureCode = product.WeightUnitMeasureCode,
+                        LargePhoto = productProductPhotoes.ProductPhoto.LargePhoto,
+                        ProductCategoryID = product.ProductSubcategory.ProductCategoryID,
+                        ProductCategory = product.ProductSubcategory.ProductCategory.Name,
+                        ProductSubcategoryID = product.ProductSubcategory.ProductSubcategoryID,
+                        ProductSubcategory = product.ProductSubcategory.Name,
+                        ModelName = product.ProductModel.Name,
+                        Description = productModelProductDescriptionCulture.ProductDescription.Description
+                    };
+
+                // Note that the query executes on the FirstOrDefault.
+                var result = query.FirstOrDefault();
+
+                return result;
+            }
         }
 
         public ProductCategoryList GetProductCategories()
         {
-            FillProductCategoriesTable();
-
-            return Convert(productsDataSet.ProductCategories);
-        }
-
-        private void FillProductCategoriesTable()
-        {
-            var categoriesTableAdapter = new ProductCategoriesTableAdapter() { ClearBeforeFill = true };
-
-            categoriesTableAdapter.Fill(productsDataSet.ProductCategories);
-        }
-
-        private static ProductCategoryList Convert(ProductCategoriesDataTable table)
-        {
-            var listDto = new ProductCategoryList();
-
-            foreach (var tableRow in table.Rows)
+            using (var entitiesContext = new Entities())
             {
-                var row = tableRow as ProductCategoriesRow;
+                IQueryable<Common.DomainClasses.ProductCategory> query =
+                    from productCategory in entitiesContext.ProductCategories
+                    orderby productCategory.Name
+                    select new Common.DomainClasses.ProductCategory()
+                    {
+                        Id = productCategory.ProductCategoryID,
+                        Name = productCategory.Name
+                    };
 
-                var rowDto = new ProductCategory()
+                var result = new ProductCategoryList();
+
+                // Note that the query executes on the ToList.
+                foreach (var item in query.ToList())
                 {
-                    Id = row.ProductCategoryID,
-                    Name = row.Name
-                };
+                    result.Add(item);
+                }
 
-                listDto.Add(rowDto);
+                return result;
             }
-
-            return listDto;
         }
 
         public ProductSubcategoryList GetProductSubcategories()
         {
-            FillProductSubcategoriesTable();
-
-            return Convert(productsDataSet.ProductSubcategories);
-        }
-
-        private void FillProductSubcategoriesTable()
-        {
-            var subcategoriesTableAdapter = new ProductSubcategoriesTableAdapter() { ClearBeforeFill = true };
-
-            subcategoriesTableAdapter.Fill(productsDataSet.ProductSubcategories);
-        }
-
-        private static ProductSubcategoryList Convert(ProductSubcategoriesDataTable table)
-        {
-            var listDto = new ProductSubcategoryList();
-
-            foreach (var tableRow in table.Rows)
+            using (var entitiesContext = new Entities())
             {
-                var row = tableRow as ProductSubcategoriesRow;
+                IQueryable<Common.DomainClasses.ProductSubcategory> query =
+                    from productSubcategory in entitiesContext.ProductSubcategories
+                    orderby productSubcategory.Name
+                    select new Common.DomainClasses.ProductSubcategory()
+                    {
+                        Id = productSubcategory.ProductSubcategoryID,
+                        Name = productSubcategory.Name,
+                        ProductCategoryID = productSubcategory.ProductCategoryID
+                    };
 
-                var rowDto = new ProductSubcategory()
+                var result = new ProductSubcategoryList();
+
+                // Note that the query executes on the ToList.
+                foreach (var item in query.ToList())
                 {
-                    Id = row.ProductSubcategoryID,
-                    Name = row.Name,
-                    ProductCategoryID = row.ProductCategoryID
-                };
+                    result.Add(item);
+                }
 
-                listDto.Add(rowDto);
+                return result;
             }
-
-            return listDto;
         }
     }
 }
