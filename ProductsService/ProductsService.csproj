@@ -140,7 +140,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="ShoppingWrapper.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
