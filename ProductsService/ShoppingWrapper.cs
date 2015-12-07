@@ -76,9 +76,9 @@ namespace ProductsService
                         SizeUnitMeasureCode = product.SizeUnitMeasureCode,
                         WeightUnitMeasureCode = product.WeightUnitMeasureCode,
                         ThumbNailPhoto = productProductPhotoes.ProductPhoto.ThumbNailPhoto,
-                        ProductCategoryID = product.ProductSubcategory.ProductCategoryID,
+                        ProductCategoryId = product.ProductSubcategory.ProductCategoryID,
                         ProductCategory = product.ProductSubcategory.ProductCategory.Name,
-                        ProductSubcategoryID = product.ProductSubcategory.ProductSubcategoryID,
+                        ProductSubcategoryId = product.ProductSubcategory.ProductSubcategoryID,
                         ProductSubcategory = product.ProductSubcategory.Name
                     };
 
@@ -114,17 +114,17 @@ namespace ProductsService
                     {
                         Id = product.ProductID,
                         Name = product.Name,
+                        ProductNumber = product.ProductNumber,
                         Color = product.Color,
                         ListPrice = product.ListPrice,
                         Size = product.Size,
                         SizeUnitMeasureCode = product.SizeUnitMeasureCode,
-                        // TODO Change type.
-                        //Weight = product.Weight,
+                        Weight = product.Weight,
                         WeightUnitMeasureCode = product.WeightUnitMeasureCode,
                         LargePhoto = productProductPhotoes.ProductPhoto.LargePhoto,
-                        ProductCategoryID = product.ProductSubcategory.ProductCategoryID,
+                        ProductCategoryId = product.ProductSubcategory.ProductCategoryID,
                         ProductCategory = product.ProductSubcategory.ProductCategory.Name,
-                        ProductSubcategoryID = product.ProductSubcategory.ProductSubcategoryID,
+                        ProductSubcategoryId = product.ProductSubcategory.ProductSubcategoryID,
                         ProductSubcategory = product.ProductSubcategory.Name,
                         ModelName = product.ProductModel.Name,
                         Description = productModelProductDescriptionCulture.ProductDescription.Description
@@ -173,7 +173,7 @@ namespace ProductsService
                     {
                         Id = productSubcategory.ProductSubcategoryID,
                         Name = productSubcategory.Name,
-                        ProductCategoryID = productSubcategory.ProductCategoryID
+                        ProductCategoryId = productSubcategory.ProductCategoryID
                     };
 
                 var result = new ProductSubcategoryList();

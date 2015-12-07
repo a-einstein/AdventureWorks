@@ -8,6 +8,6 @@ namespace Common.DomainClasses
     public partial class ProductSubcategory : DomainClass
     {
         [DataMember]
-        public int ProductCategoryID { get; set; }
+        public int ProductCategoryId { get; set; }
     }
 }

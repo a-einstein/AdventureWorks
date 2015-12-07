@@ -24,7 +24,7 @@ namespace Common.DomainClasses
         public byte[] ThumbNailPhoto { get; set; }
 
         [DataMember]
-        public int ProductCategoryID { get; set; }
+        public int ProductCategoryId { get; set; }
 
         [DataMember]
         public string ProductCategory { get; set; }
@@ -33,6 +33,6 @@ namespace Common.DomainClasses
         public string ProductSubcategory { get; set; }
 
         [DataMember]
-        public int ProductSubcategoryID { get; set; }
+        public int ProductSubcategoryId { get; set; }
     }
 }

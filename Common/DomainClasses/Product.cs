@@ -6,6 +6,9 @@ namespace Common.DomainClasses
     public partial class Product : DomainClass, IShoppingProduct
     {
         [DataMember]
+        public string ProductNumber { get; set; }
+
+        [DataMember]
         public string Color { get; set; }
 
         [DataMember]
@@ -18,7 +21,7 @@ namespace Common.DomainClasses
         public string SizeUnitMeasureCode { get; set; }
 
         [DataMember]
-        public decimal Weight { get; set; }
+        public decimal? Weight { get; set; }
 
         [DataMember]
         public string WeightUnitMeasureCode { get; set; }
@@ -27,13 +30,13 @@ namespace Common.DomainClasses
         public byte[] LargePhoto { get; set; }
 
         [DataMember]
-        public int ProductCategoryID { get; set; }
+        public int? ProductCategoryId { get; set; }
 
         [DataMember]
         public string ProductCategory { get; set; }
 
         [DataMember]
-        public int ProductSubcategoryID { get; set; }
+        public int? ProductSubcategoryId { get; set; }
 
         [DataMember]
         public string ProductSubcategory { get; set; }
