@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Common.DomainClasses
 {
     [DataContract]
-    [DebuggerDisplay("{ProductCategoryID}, {Id}, {Name}")]
+    [DebuggerDisplay("{ProductCategoryId}, {Id}, {Name}")]
     public partial class ProductSubcategory : DomainClass
     {
         [DataMember]

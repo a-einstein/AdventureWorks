@@ -64,7 +64,7 @@ namespace ProductsService
         // Choose for an int as this is the actual type of the Id.
         private const int noId = -1;
 
-        private ProductsOverviewList GetProductsOverview(int productCategoryID, int productSubcategoryID, string productNameString)
+        private ProductsOverviewList GetProductsOverview(int productCategoryId, int productSubcategoryId, string productNameString)
         {
             using (var entitiesContext = new ProductsModel.Entities())
             {
@@ -73,24 +73,28 @@ namespace ProductsService
                     from productProductPhotoes in product.ProductProductPhotoes
                     where
                     (
+                        // Note that ProductCategory is reached through ProductSubcategory.
+                        // Note that product.ProductSubcategoryID is nullable strangely, so there might be no product.ProductSubcategory.
+                        // This junk actually exists in the current DB and has to be tested for.
+
                         // No filters.
                         // TODO Forbid both here as in GUI until paged.
-                        (productNameString == null) && (productSubcategoryID == noId) && (productCategoryID == noId) ||
+                        (productNameString == null) && (productSubcategoryId == noId) && (productCategoryId == noId) ||
 
                         // Category.
-                        (productNameString == null) && (productSubcategoryID == noId) && (product.ProductSubcategory.ProductCategoryID == productCategoryID) ||
+                        (productNameString == null) && (productSubcategoryId == noId) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) ||
 
                         // Category && Subcategory.
-                        (productNameString == null) && (product.ProductSubcategory.ProductCategoryID == productCategoryID) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryID) ||
+                        (productNameString == null) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryId) ||
 
                         // Category && Subcategory && Name.
-                        (product.ProductSubcategory.ProductCategoryID == productCategoryID) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryID) && product.Name.Contains(productNameString) ||
+                        (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryId) && product.Name.Contains(productNameString) ||
 
                         // Category && Name.
-                        (productSubcategoryID == noId) && (product.ProductSubcategory.ProductCategoryID == productCategoryID) && product.Name.Contains(productNameString) ||
+                        (productSubcategoryId == noId) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && product.Name.Contains(productNameString) ||
 
                         // Name.
-                        (productCategoryID == noId) && (productSubcategoryID == noId) && product.Name.Contains(productNameString)
+                        (productCategoryId == noId) && (productSubcategoryId == noId) && product.Name.Contains(productNameString)
                     )
                     orderby product.Name
                     select new Common.DomainClasses.ProductsOverviewObject()
@@ -103,10 +107,10 @@ namespace ProductsService
                         SizeUnitMeasureCode = product.SizeUnitMeasureCode,
                         WeightUnitMeasureCode = product.WeightUnitMeasureCode,
                         ThumbNailPhoto = productProductPhotoes.ProductPhoto.ThumbNailPhoto,
-                        ProductCategoryId = product.ProductSubcategory.ProductCategoryID,
-                        ProductCategory = product.ProductSubcategory.ProductCategory.Name,
-                        ProductSubcategoryId = product.ProductSubcategory.ProductSubcategoryID,
-                        ProductSubcategory = product.ProductSubcategory.Name
+                        ProductCategoryId = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductCategoryID : noId,
+                        ProductCategory = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductCategory.Name : null,
+                        ProductSubcategoryId = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductSubcategoryID : noId,
+                        ProductSubcategory = (product.ProductSubcategory != null) ? product.ProductSubcategory.Name : null
                     };
 
                 var result = new ProductsOverviewList();
