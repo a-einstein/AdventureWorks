@@ -64,7 +64,9 @@ namespace ProductsService
         // Choose for an int as this is the actual type of the Id.
         private const int noId = -1;
 
-        private ProductsOverviewList GetProductsOverview(int productCategoryId, int productSubcategoryId, string productNameString)
+
+        // TODO Maybe change into universal filter descriptors.
+        private ProductsOverviewList GetProductsOverview(int productCategoryId, int productSubcategoryId, string searchString)
         {
             using (var entitiesContext = new ProductsModel.Entities())
             {
@@ -79,22 +81,22 @@ namespace ProductsService
 
                         // No filters.
                         // TODO Forbid both here as in GUI until paged.
-                        (productNameString == null) && (productSubcategoryId == noId) && (productCategoryId == noId) ||
+                        (searchString == null) && (productSubcategoryId == noId) && (productCategoryId == noId) ||
 
                         // Category.
-                        (productNameString == null) && (productSubcategoryId == noId) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) ||
+                        (searchString == null) && (productSubcategoryId == noId) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) ||
 
                         // Category && Subcategory.
-                        (productNameString == null) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryId) ||
+                        (searchString == null) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryId) ||
 
-                        // Category && Subcategory && Name.
-                        (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryId) && product.Name.Contains(productNameString) ||
+                        // Category && Subcategory && String.
+                        (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryId) && (product.Color.Contains(searchString) || product.Name.Contains(searchString)) ||
 
-                        // Category && Name.
-                        (productSubcategoryId == noId) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && product.Name.Contains(productNameString) ||
+                        // Category && String.
+                        (productSubcategoryId == noId) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.Color.Contains(searchString) || product.Name.Contains(searchString)) ||
 
-                        // Name.
-                        (productCategoryId == noId) && (productSubcategoryId == noId) && product.Name.Contains(productNameString)
+                        // String.
+                        (productCategoryId == noId) && (productSubcategoryId == noId) && (product.Color.Contains(searchString) || product.Name.Contains(searchString))
                     )
                     orderby product.Name
                     select new Common.DomainClasses.ProductsOverviewObject()
