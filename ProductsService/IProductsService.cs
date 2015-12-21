@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace ProductsService
 {
     [ServiceContract]
-    public interface IProductsService
+    interface IProductsService
     {
         [OperationContract(AsyncPattern = true)]
         Task<ProductsOverviewList> GetProductsOverviewBy(int productCategoryID, int productSubcategoryID, string productNameString);
