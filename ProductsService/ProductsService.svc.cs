@@ -9,7 +9,7 @@ namespace ProductsService
     {
         #region Public
 
-        async Task<ProductsOverviewList> IProductsService.GetProductsOverviewBy(int productCategoryID, int productSubcategoryID, string productNameString)
+        async Task<ProductsOverviewList> IProductsService.GetProductsOverviewBy(int? productCategoryID, int? productSubcategoryID, string productNameString)
         {
             var task = Task.Factory.StartNew(() =>
             {
@@ -61,12 +61,8 @@ namespace ProductsService
 
         #region Private
 
-        // Choose for an int as this is the actual type of the Id.
-        private const int noId = -1;
-
-
         // TODO Maybe change into universal filter descriptors.
-        private ProductsOverviewList GetProductsOverview(int productCategoryId, int productSubcategoryId, string searchString)
+        private ProductsOverviewList GetProductsOverview(int? productCategoryId, int? productSubcategoryId, string searchString)
         {
             using (var entitiesContext = new ProductsModel.Entities())
             {
@@ -81,10 +77,10 @@ namespace ProductsService
 
                         // No filters.
                         // TODO Forbid both here as in GUI until paged.
-                        (searchString == null) && (productSubcategoryId == noId) && (productCategoryId == noId) ||
+                        (searchString == null) && (!productSubcategoryId.HasValue) && (!productCategoryId.HasValue) ||
 
                         // Category.
-                        (searchString == null) && (productSubcategoryId == noId) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) ||
+                        (searchString == null) && (!productSubcategoryId.HasValue) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) ||
 
                         // Category && Subcategory.
                         (searchString == null) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryId) ||
@@ -93,10 +89,10 @@ namespace ProductsService
                         (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryId) && (product.Color.Contains(searchString) || product.Name.Contains(searchString)) ||
 
                         // Category && String.
-                        (productSubcategoryId == noId) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.Color.Contains(searchString) || product.Name.Contains(searchString)) ||
+                        (!productSubcategoryId.HasValue) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.Color.Contains(searchString) || product.Name.Contains(searchString)) ||
 
                         // String.
-                        (productCategoryId == noId) && (productSubcategoryId == noId) && (product.Color.Contains(searchString) || product.Name.Contains(searchString))
+                        (!productCategoryId.HasValue) && (!productSubcategoryId.HasValue) && (product.Color.Contains(searchString) || product.Name.Contains(searchString))
                     )
                     orderby product.Name
                     select new Common.DomainClasses.ProductsOverviewObject()
@@ -105,13 +101,17 @@ namespace ProductsService
                         Name = product.Name,
                         Color = product.Color,
                         ListPrice = product.ListPrice,
+
                         Size = product.Size,
                         SizeUnitMeasureCode = product.SizeUnitMeasureCode,
+
                         WeightUnitMeasureCode = product.WeightUnitMeasureCode,
                         ThumbNailPhoto = productProductPhotoes.ProductPhoto.ThumbNailPhoto,
-                        ProductCategoryId = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductCategoryID : noId,
+
+                        ProductCategoryId = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductCategoryID : (int?)null,
                         ProductCategory = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductCategory.Name : null,
-                        ProductSubcategoryId = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductSubcategoryID : noId,
+
+                        ProductSubcategoryId = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductSubcategoryID : (int?)null,
                         ProductSubcategory = (product.ProductSubcategory != null) ? product.ProductSubcategory.Name : null
                     };
 

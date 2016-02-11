@@ -9,7 +9,7 @@ namespace ProductsService
     interface IProductsService
     {
         [OperationContract(AsyncPattern = true)]
-        Task<ProductsOverviewList> GetProductsOverviewBy(int productCategoryID, int productSubcategoryID, string productNameString);
+        Task<ProductsOverviewList> GetProductsOverviewBy(int? productCategoryID, int? productSubcategoryID, string productNameString);
 
         [OperationContract(AsyncPattern = true)]
         Task<Product> GetProductDetails(int productId);

@@ -9,11 +9,12 @@ namespace Common.DomainClasses
     [DebuggerDisplay("{Id}, {Name}")]
     public abstract class DomainClass : IEmptyAble, INotifyPropertyChanged
     {
-        // TODO Make Id nullable?
-        private static int NoId { get { return -1; } }
-
+        // This has been made nullable for practical reasons, 
+        // particularly to enable empty elements in dropdown lists.
+        // These elements can also be convenient for filtering.
+        // Besides that a new object to be inserted may not have a true Id yet.
         [DataMember]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [DataMember]
         public string Name { get; set; }
@@ -23,9 +24,10 @@ namespace Common.DomainClasses
             return Name; 
         }
 
+        // TODO Make this a property?
         public bool IsEmpty()
         {
-            return Id == NoId;
+            return !Id.HasValue;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
