@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Common.General;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 
@@ -6,8 +7,11 @@ namespace Common.DomainClasses
 {
     [DataContract]
     [DebuggerDisplay("{Id}, {Name}")]
-    public abstract class DomainClass : INotifyPropertyChanged
+    public abstract class DomainClass : IEmptyAble, INotifyPropertyChanged
     {
+        // TODO Make Id nullable?
+        private static int NoId { get { return -1; } }
+
         [DataMember]
         public int Id { get; set; }
 
@@ -17,6 +21,11 @@ namespace Common.DomainClasses
         public override string ToString()
         {
             return Name; 
+        }
+
+        public bool IsEmpty()
+        {
+            return Id == NoId;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

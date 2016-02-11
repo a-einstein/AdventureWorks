@@ -54,6 +54,7 @@
     <Compile Include="DomainClasses\ProductsOverviewObject.cs" />
     <Compile Include="DomainClasses\ProductSubcategory.cs" />
     <Compile Include="Dtos\ProductSubcategoryList.cs" />
+    <Compile Include="General\IEmptyAble.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
