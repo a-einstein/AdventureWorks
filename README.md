@@ -2,7 +2,9 @@
 
 #### Purpose
 * Supplying a database service tailored to my WPF project.
-* Making use of Entity Framework.
+
+#### Aspects
+* Makes use of Entity Framework.
 
 #### Notes
 * This is still a pretty rough cut early version.
