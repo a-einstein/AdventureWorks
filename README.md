@@ -1,13 +1,10 @@
-## AdventureWorksServices
+## AdventureWorks
 
 #### Purpose
-* Supplying a database service tailored to my WPF project.
+* Supplying database services tailored to my shop projects.
 
 #### Aspects
 * Makes use of Entity Framework.
-
-#### Notes
-* This is still a pretty rough cut early version.
 
 #### Prerequisites
 * The service assumes the presence of an AdventureWorks2014 database, to which a connection should be configured.
