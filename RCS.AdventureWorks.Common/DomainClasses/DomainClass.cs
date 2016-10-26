@@ -35,12 +35,7 @@ namespace RCS.AdventureWorks.Common.DomainClasses
         // Currently for selective raising of events, before turning properties into full DependencyProperties.
         protected void RaisePropertyChanged(string propertyName)
         {
-            var handler = PropertyChanged;
-
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
