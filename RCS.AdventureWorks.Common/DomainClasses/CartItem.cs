@@ -32,7 +32,7 @@ namespace RCS.AdventureWorks.Common.DomainClasses
             {
                 quantity = value;
                 Value = ProductListPrice * Quantity;
-                RaisePropertyChanged("Quantity");
+                RaisePropertyChanged(nameof(Quantity));
             }
         }
 
@@ -45,7 +45,7 @@ namespace RCS.AdventureWorks.Common.DomainClasses
             set
             {
                 this.value = value;
-                RaisePropertyChanged("Value");
+                RaisePropertyChanged(nameof(Value));
             }
         }
     }
