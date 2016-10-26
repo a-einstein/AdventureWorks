@@ -22,13 +22,12 @@ namespace RCS.AdventureWorks.Common.DomainClasses
 
         public override string ToString()
         {
-            return Name; 
+            return Name;
         }
 
-        // TODO Make this a property?
-        public bool IsEmpty()
+        public bool IsEmpty
         {
-            return !Id.HasValue;
+            get { return !Id.HasValue; }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

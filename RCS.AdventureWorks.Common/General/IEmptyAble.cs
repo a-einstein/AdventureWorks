@@ -2,6 +2,6 @@
 {
     public interface IEmptyAble
     {
-        bool IsEmpty();
+        bool IsEmpty { get; }
     }
 }
