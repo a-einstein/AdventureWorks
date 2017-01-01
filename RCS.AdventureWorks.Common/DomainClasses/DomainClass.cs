@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace RCS.AdventureWorks.Common.DomainClasses
 {
     [DataContract]
-    [DebuggerDisplay("{Id}, {Name}")]
+    [DebuggerDisplay("{Id.Value}, {Name}")]
     public abstract class DomainClass : IEmptyAble, INotifyPropertyChanged
     {
         // This has been made nullable for practical reasons, 

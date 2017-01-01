@@ -76,8 +76,9 @@ namespace  RCS.AdventureWorks.Services.Products
                         // This junk actually exists in the current DB and has to be tested for.
 
                         // No filters.
-                        // TODO Forbid both here as in GUI until paged.
-                        (searchString == null) && (!productSubcategoryId.HasValue) && (!productCategoryId.HasValue) ||
+                        // Disable this here at least until paged.
+                        // Preferably have this visually disabled in GUI too.
+                        //(searchString == null) && (!productSubcategoryId.HasValue) && (!productCategoryId.HasValue) ||
 
                         // Category.
                         (searchString == null) && (!productSubcategoryId.HasValue) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) ||
