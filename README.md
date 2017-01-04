@@ -1,5 +1,8 @@
 ## AdventureWorks
 
+Submitted to code analysis by **[Better Code Hub](https://bettercodehub.com)**.  
+Current score: [![BCH compliance](https://bettercodehub.com/edge/badge/a-einstein/AdventureWorks)](https://bettercodehub.com)  
+
 #### Purpose
 * Supplying database services tailored to my shop projects.
 
