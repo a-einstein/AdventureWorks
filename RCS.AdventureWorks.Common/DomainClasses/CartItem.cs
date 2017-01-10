@@ -4,7 +4,8 @@ using System.Runtime.Serialization;
 namespace RCS.AdventureWorks.Common.DomainClasses
 {
     [DataContract]
-    [DebuggerDisplay("{Id}, {Name}, {ProductListPrice}, {Quantity}, {Value}")]
+    // Note this is not implemented in Mono.
+    [DebuggerDisplay("{Id.HasValue ? Id.Value : 0}, {Name}, {ProductListPrice}, {Quantity}, {Value}")]
     public partial class CartItem : DomainClass
     {
         [DataMember]

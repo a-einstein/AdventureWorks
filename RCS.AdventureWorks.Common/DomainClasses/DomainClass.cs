@@ -7,7 +7,8 @@ using System.Runtime.Serialization;
 namespace RCS.AdventureWorks.Common.DomainClasses
 {
     [DataContract]
-    [DebuggerDisplay("{Id.Value}, {Name}")]
+    // Note this is not implemented in Mono.
+    [DebuggerDisplay("{Id.HasValue ? Id.Value : 0}, {Name}")]
     public abstract class DomainClass : IEmptyAble, INotifyPropertyChanged
     {
         // This has been made nullable for practical reasons, 

@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 namespace RCS.AdventureWorks.Common.Dtos
 {
     [CollectionDataContract]
+    // Note this is not implemented in Mono.
     [DebuggerDisplay("Count = {Count}")]
     public partial class CartItemsList : List<CartItem>
     {
