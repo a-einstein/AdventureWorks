@@ -7,6 +7,7 @@ Current score: [![BCH compliance](https://bettercodehub.com/edge/badge/a-einstei
 * Supplying WCF database services tailored to my shop projects, working on the standard AdventureWorks database.
 
 #### Aspects
+* C#.
 * Entity Framework.
 * WCF.
 * Asynchronisity.
