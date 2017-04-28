@@ -9,7 +9,7 @@ Current score: [![BCH compliance](https://bettercodehub.com/edge/badge/a-einstei
 #### Aspects
 * C#.
 * Entity Framework.
-* WCF + https.
+* WCF + SSL.
 * Asynchronisity.
 * SQL Server.
 
