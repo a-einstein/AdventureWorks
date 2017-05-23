@@ -1,4 +1,3 @@
-## AdventureWorks
 
 Submitted to code analysis by **[Better Code Hub](https://bettercodehub.com)**.  
 Current score: [![BCH compliance](https://bettercodehub.com/edge/badge/a-einstein/AdventureWorks)](https://bettercodehub.com)  
@@ -8,10 +7,12 @@ Current score: [![BCH compliance](https://bettercodehub.com/edge/badge/a-einstei
 
 #### Aspects
 * C#.
+* SQL Server.
+* Azure Database.
 * Entity Framework.
 * WCF + SSL.
 * Asynchronisity.
-* SQL Server.
+
 
 #### Prerequisites
 * The service assumes the presence of an AdventureWorks2014 database, to which a connection should be configured.
