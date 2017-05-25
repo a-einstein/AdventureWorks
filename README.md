@@ -8,7 +8,8 @@ Current score: [![BCH compliance](https://bettercodehub.com/edge/badge/a-einstei
 #### Aspects
 * C#.
 * SQL Server.
-* Azure Database.
+* Use a Azure Database.
+* Be deployed as an Azure service.
 * Entity Framework.
 * WCF + SSL.
 * Asynchronisity.
