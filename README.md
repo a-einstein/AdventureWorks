@@ -1,9 +1,25 @@
 
-Submitted to code analysis by **[Better Code Hub](https://bettercodehub.com)**.  
-Current score: [![BCH compliance](https://bettercodehub.com/edge/badge/a-einstein/AdventureWorks)](https://bettercodehub.com)  
+## AdventureWorks
+
+#### Description
+WCF database service tailored for my shop projects, working on the standard AdventureWorks database. Currently this is running on Azure and can be configured to by appropriate client applications.
+
+#### News
+This project is now integrated with Visual Studio Team Services (VSTS) too.
 
 #### Purpose
-* Supplying WCF database services tailored to my shop projects, working on the standard AdventureWorks database.
+* Explore various techniques based on C#, EF and WCF.
+* Manage the code by Git and GitHub.
+* Explore continuous integration by using buildmanager TeamCity.
+* Explore Scrum process management by integration with Jira or Visual Studio Team Services (VSTS).
+
+#### Prerequisites
+* The service assumes the presence of an AdventureWorks2014 database, to which a connection should be configured.
+* Note that currently a self signed certifcate on the server is enough to let the https binding function and be accepted by an Android device.
+* For the contents of this database I refer to http://msftdbprodsamples.codeplex.com/releases/view/125550
+
+#### Notes
+* Submitted to code analysis by [Better Code Hub](https://bettercodehub.com). Current score: [![BCH compliance](https://bettercodehub.com/edge/badge/a-einstein/AdventureWorks)](https://bettercodehub.com)  
 
 #### Aspects
 * C#.
@@ -13,9 +29,3 @@ Current score: [![BCH compliance](https://bettercodehub.com/edge/badge/a-einstei
 * Entity Framework.
 * WCF + SSL.
 * Asynchronisity.
-
-
-#### Prerequisites
-* The service assumes the presence of an AdventureWorks2014 database, to which a connection should be configured.
-* Note that currently a self signed certifcate on the server is enough to let the https binding function and be accepted by an Android device.
-* For the contents of this database I refer to http://msftdbprodsamples.codeplex.com/releases/view/125550
