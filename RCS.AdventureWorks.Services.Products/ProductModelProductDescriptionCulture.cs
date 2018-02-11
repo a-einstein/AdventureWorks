@@ -7,19 +7,35 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace  RCS.AdventureWorks.Services.Products.ProductsModel
+namespace RCS.AdventureWorks.Services.Products.ProductsModel
 {
-    using System;
-    using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    // HACK Maually added.
+    // Need the attributes because of https://github.com/npgsql/EntityFramework6.Npgsql/issues/88
+    [Table("ProductModelProductDescriptionCulture", Schema = "Production")]
     public partial class ProductModelProductDescriptionCulture
     {
+        [Key]
+        [Column(Order = 0)]
         public int ProductModelID { get; set; }
+
+        [Key]
+        [Column(Order = 1)]
         public int ProductDescriptionID { get; set; }
+
+        [Key]
+        [Column(Order = 2)]
         public string CultureID { get; set; }
+
+        [Column(Order = 3)]
         public System.DateTime ModifiedDate { get; set; }
     
+        [Column(Order = 4)]
         public virtual ProductDescription ProductDescription { get; set; }
+
+        [Column(Order = 5)]
         public virtual ProductModel ProductModel { get; set; }
     }
 }

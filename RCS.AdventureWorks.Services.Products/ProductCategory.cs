@@ -7,11 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace  RCS.AdventureWorks.Services.Products.ProductsModel
+namespace RCS.AdventureWorks.Services.Products.ProductsModel
 {
-    using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    // HACK Maually added.
+    // Need the attributes because of https://github.com/npgsql/EntityFramework6.Npgsql/issues/88
+    [Table("ProductCategory", Schema = "Production")]
     public partial class ProductCategory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

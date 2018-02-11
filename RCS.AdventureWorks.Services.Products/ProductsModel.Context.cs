@@ -7,12 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace  RCS.AdventureWorks.Services.Products.ProductsModel
+namespace RCS.AdventureWorks.Services.Products.ProductsModel
 {
-    using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
     public partial class Entities : DbContext
     {
         public Entities()
@@ -22,9 +21,12 @@ namespace  RCS.AdventureWorks.Services.Products.ProductsModel
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            throw new UnintentionalCodeFirstException();
+            // HACK Maually added.
+            // Prevent an exception while using npgsql.
+            // TODO Not yet clear how to handle this.
+            //throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<ProductPhoto> ProductPhotoes { get; set; }

@@ -81,10 +81,12 @@ namespace  RCS.AdventureWorks.Services.Products
                         //(searchString == null) && (!productSubcategoryId.HasValue) && (!productCategoryId.HasValue) ||
 
                         // Category.
-                        (searchString == null) && (!productSubcategoryId.HasValue) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) ||
+                        // HACK Disabled string comparison because of https://github.com/npgsql/EntityFramework6.Npgsql/issues/60
+                        //
+                        /*(searchString == null) &&*/ (!productSubcategoryId.HasValue) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) ||
 
                         // Category && Subcategory.
-                        (searchString == null) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryId) ||
+                        /*(searchString == null) &&*/ (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryId) /*||
 
                         // Category && Subcategory && String.
                         (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryId) && (product.Color.Contains(searchString) || product.Name.Contains(searchString)) ||
@@ -94,6 +96,7 @@ namespace  RCS.AdventureWorks.Services.Products
 
                         // String.
                         (!productCategoryId.HasValue) && (!productSubcategoryId.HasValue) && (product.Color.Contains(searchString) || product.Name.Contains(searchString))
+                        */
                     )
                     orderby product.Name
                     select new Common.DomainClasses.ProductsOverviewObject()
