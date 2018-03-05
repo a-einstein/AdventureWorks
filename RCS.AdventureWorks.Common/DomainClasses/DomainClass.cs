@@ -3,9 +3,10 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 
-// TODO Rename to Domain?
 namespace RCS.AdventureWorks.Common.DomainClasses
 {
+    // Note these classes in fact are DTO's too.
+    // TODO Reconsider namespaces and whether this should be a separately included project elsewhere.
     [DataContract]
     // Note this is not implemented in Mono.
     [DebuggerDisplay("{Id.HasValue ? Id.Value : 0}, {Name}")]

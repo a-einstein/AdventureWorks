@@ -25,7 +25,6 @@ namespace RCS.AdventureWorks.Common.DomainClasses
 
         int quantity;
 
-        [DataMember]
         public int Quantity
         {
             get { return quantity; }
@@ -39,7 +38,6 @@ namespace RCS.AdventureWorks.Common.DomainClasses
 
         decimal value;
 
-        [DataMember]
         public decimal Value
         {
             get { return value; }
