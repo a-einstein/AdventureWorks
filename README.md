@@ -2,10 +2,10 @@
 ## AdventureWorks
 
 #### Description
-WCF database service tailored for my shop projects, working on the standard AdventureWorks database. Currently this is running on Azure and can be configured to by appropriate client applications.
+WCF database service tailored for my shop projects, working on the standard AdventureWorks database.
 
 #### News
-This project is now integrated with Visual Studio Team Services (VSTS) too.
+This data service  is no longer functional on Azure.
 
 #### Purpose
 * Explore various techniques based on C#, EF and WCF.
