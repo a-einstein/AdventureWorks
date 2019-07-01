@@ -66,7 +66,7 @@ namespace  RCS.AdventureWorks.Services.Products
         {
             using (var entitiesContext = new ProductsModel.Entities())
             {
-                IQueryable<Common.DomainClasses.ProductsOverviewObject> query =
+                IQueryable<ProductsOverviewObject> query =
                     from product in entitiesContext.Products
                     from productProductPhotoes in product.ProductProductPhotoes
                     where
@@ -96,7 +96,7 @@ namespace  RCS.AdventureWorks.Services.Products
                         (!productCategoryId.HasValue) && (!productSubcategoryId.HasValue) && (product.Color.Contains(searchString) || product.Name.Contains(searchString))
                     )
                     orderby product.Name
-                    select new Common.DomainClasses.ProductsOverviewObject()
+                    select new ProductsOverviewObject()
                     {
                         Id = product.ProductID,
                         Name = product.Name,
@@ -130,11 +130,11 @@ namespace  RCS.AdventureWorks.Services.Products
             }
         }
 
-        private Common.DomainClasses.Product GetProductDetails(int productID)
+        private Product GetProductDetails(int productID)
         {
             using (var entitiesContext = new ProductsModel.Entities())
             {
-                IQueryable<Common.DomainClasses.Product> query =
+                IQueryable<Product> query =
                     // Note this benefits from the joins already defined in the model.
                     from product in entitiesContext.Products
                     from productProductPhotoes in product.ProductProductPhotoes
@@ -146,7 +146,7 @@ namespace  RCS.AdventureWorks.Services.Products
                         // TODO Should this be used by &&?
                         (productModelProductDescriptionCulture.CultureID == "en") // HACK
                     )
-                    select new Common.DomainClasses.Product()
+                    select new Product()
                     {
                         Id = product.ProductID,
                         Name = product.Name,
@@ -177,10 +177,10 @@ namespace  RCS.AdventureWorks.Services.Products
         {
             using (var entitiesContext = new ProductsModel.Entities())
             {
-                IQueryable<Common.DomainClasses.ProductCategory> query =
+                IQueryable<ProductCategory> query =
                     from productCategory in entitiesContext.ProductCategories
                     orderby productCategory.Name
-                    select new Common.DomainClasses.ProductCategory()
+                    select new ProductCategory()
                     {
                         Id = productCategory.ProductCategoryID,
                         Name = productCategory.Name
@@ -202,10 +202,10 @@ namespace  RCS.AdventureWorks.Services.Products
         {
             using (var entitiesContext = new ProductsModel.Entities())
             {
-                IQueryable<Common.DomainClasses.ProductSubcategory> query =
+                IQueryable<ProductSubcategory> query =
                     from productSubcategory in entitiesContext.ProductSubcategories
                     orderby productSubcategory.Name
-                    select new Common.DomainClasses.ProductSubcategory()
+                    select new ProductSubcategory()
                     {
                         Id = productSubcategory.ProductSubcategoryID,
                         Name = productSubcategory.Name,
