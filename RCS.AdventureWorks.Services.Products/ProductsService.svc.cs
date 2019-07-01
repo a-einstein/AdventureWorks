@@ -11,7 +11,7 @@ namespace  RCS.AdventureWorks.Services.Products
 
         async Task<ProductsOverviewList> IProductsService.GetProductsOverviewBy(int? productCategoryID, int? productSubcategoryID, string productNameString)
         {
-            var task = Task.Factory.StartNew(() =>
+            var task = Task.Run(() =>
             {
                 var listDto = GetProductsOverview(productCategoryID, productSubcategoryID, productNameString);
 
@@ -23,7 +23,7 @@ namespace  RCS.AdventureWorks.Services.Products
 
         async Task<Product> IProductsService.GetProductDetails(int productId)
         {
-            var task = Task.Factory.StartNew(() =>
+            var task = Task.Run(() =>
             {
                 var rowDto = GetProductDetails(productId);
 
@@ -35,7 +35,7 @@ namespace  RCS.AdventureWorks.Services.Products
 
         async Task<ProductCategoryList> IProductsService.GetProductCategories()
         {
-            var task = Task.Factory.StartNew(() =>
+            var task = Task.Run(() =>
             {
                 var listDto = GetProductCategories();
 
@@ -47,7 +47,7 @@ namespace  RCS.AdventureWorks.Services.Products
 
         async Task<ProductSubcategoryList> IProductsService.GetProductSubcategories()
         {
-            var task = Task.Factory.StartNew(() =>
+            var task = Task.Run(() =>
             {
                 var listDto = GetProductSubcategories();
 
