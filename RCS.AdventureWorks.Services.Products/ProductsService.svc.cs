@@ -18,7 +18,7 @@ namespace  RCS.AdventureWorks.Services.Products
                 return listDto;
             });
 
-            return await task;
+            return await task.ConfigureAwait(false);
         }
 
         async Task<Product> IProductsService.GetProductDetails(int productId)
@@ -30,7 +30,7 @@ namespace  RCS.AdventureWorks.Services.Products
                 return rowDto;
             });
 
-            return await task;
+            return await task.ConfigureAwait(false);
         }
 
         async Task<ProductCategoryList> IProductsService.GetProductCategories()
@@ -42,7 +42,7 @@ namespace  RCS.AdventureWorks.Services.Products
                 return listDto;
             });
 
-            return await task;
+            return await task.ConfigureAwait(false);
         }
 
         async Task<ProductSubcategoryList> IProductsService.GetProductSubcategories()
@@ -54,7 +54,7 @@ namespace  RCS.AdventureWorks.Services.Products
                 return listDto;
             });
 
-            return await task;
+            return await task.ConfigureAwait(false);
         }
 
         #endregion
