@@ -3,7 +3,7 @@ using RCS.AdventureWorks.Common.Dtos;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace  RCS.AdventureWorks.Services.Products
+namespace RCS.AdventureWorks.Services.Products
 {
     public class ProductsService : IProductsService
     {
@@ -60,7 +60,6 @@ namespace  RCS.AdventureWorks.Services.Products
         #endregion
 
         #region Private
-
         // TODO Maybe change into universal filter descriptors.
         private ProductsOverviewList GetProductsOverview(int? productCategoryId, int? productSubcategoryId, string searchString)
         {
@@ -71,17 +70,23 @@ namespace  RCS.AdventureWorks.Services.Products
                     from productProductPhotoes in product.ProductProductPhotoes
                     where
                     (
-                        // Note that ProductCategory is reached through ProductSubcategory.
-                        // Note that product.ProductSubcategoryID is nullable strangely, so there might be no product.ProductSubcategory.
-                        // This junk actually exists in the current DB and has to be tested for.
+                        // Note that ProductCategory is reached through ProductSubcategory. 
+                        // - Product.ProductSubcategoryId -> ProductSubcategory
+                        // - ProductSubcategory.ProductCategoryId -> ProductCategory
+                        // Note that Product.ProductSubcategoryID is nullable. So Product mag have no ProductSubcategory and thus ProductCategory.
+                        // This actually occurs in the current DB and has to be tested for.
+
+                        // Note one cannot use functions like Expression<Func<ProductsModel.Product, bool>> FunctionName(parameters) lifted outside.
+                        // Note one cannot us 'null propagating operators' like '?.' to simplify.
 
                         // No filters.
                         // Disable this here at least until paged.
                         // Preferably have this visually disabled in GUI too.
                         //(searchString == null) && (!productSubcategoryId.HasValue) && (!productCategoryId.HasValue) ||
 
-                        // Category.
+                        // Category only passed.
                         (searchString == null) && (!productSubcategoryId.HasValue) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) ||
+                        //searchForCategoryExpression ||
 
                         // Category && Subcategory.
                         (searchString == null) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryId) ||
@@ -92,7 +97,7 @@ namespace  RCS.AdventureWorks.Services.Products
                         // Category && String.
                         (!productSubcategoryId.HasValue) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.Color.Contains(searchString) || product.Name.Contains(searchString)) ||
 
-                        // String.
+                        // String only.
                         (!productCategoryId.HasValue) && (!productSubcategoryId.HasValue) && (product.Color.Contains(searchString) || product.Name.Contains(searchString))
                     )
                     orderby product.Name
@@ -120,7 +125,7 @@ namespace  RCS.AdventureWorks.Services.Products
 
                 var result = new ProductsOverviewList();
 
-                // Note that the query executes on the ToList.
+                // Note that the query executes on ToList.
                 foreach (var item in query.ToList())
                 {
                     result.Add(item);
