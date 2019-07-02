@@ -68,39 +68,40 @@ namespace RCS.AdventureWorks.Services.Products
                 IQueryable<ProductsOverviewObject> query =
                     from product in entitiesContext.Products
                     from productProductPhotoes in product.ProductProductPhotoes
-                    where
-                    (
-                        // Note that ProductCategory is reached through ProductSubcategory. 
-                        // - Product.ProductSubcategoryId -> ProductSubcategory
-                        // - ProductSubcategory.ProductCategoryId -> ProductCategory
-                        // Note that Product.ProductSubcategoryID is nullable. So Product mag have no ProductSubcategory and thus ProductCategory.
-                        // This actually occurs in the current DB and has to be tested for.
+                    
+                    // Note that ProductCategory is reached through ProductSubcategory. 
+                    // - Product.ProductSubcategoryId -> ProductSubcategory
+                    // - ProductSubcategory.ProductCategoryId -> ProductCategory
+                    // Note that Product.ProductSubcategoryID is nullable. So Product mag have no ProductSubcategory and thus ProductCategory.
+                    // This actually occurs in the current DB and has to be tested for.
+                    
+                    // Note one cannot use functions like Expression<Func<ProductsModel.Product, bool>> FunctionName(parameters) lifted outside.
+                    // Note one cannot us 'null propagating operators' like '?.' to simplify.
+                    
+                    // Do not use at least until paged.
+                    // Preferably have this visually disabled in GUI too.
+                    let noFilter =
+                        (searchString == null) && (!productSubcategoryId.HasValue) && (!productCategoryId.HasValue)
 
-                        // Note one cannot use functions like Expression<Func<ProductsModel.Product, bool>> FunctionName(parameters) lifted outside.
-                        // Note one cannot us 'null propagating operators' like '?.' to simplify.
+                    let categoryFilterable =
+                        (searchString == null) && (!productSubcategoryId.HasValue) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId)
 
-                        // No filters.
-                        // Disable this here at least until paged.
-                        // Preferably have this visually disabled in GUI too.
-                        //(searchString == null) && (!productSubcategoryId.HasValue) && (!productCategoryId.HasValue) ||
+                    let categoryAndSubcategoryFilterable =
+                        (searchString == null) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryId)
 
-                        // Category only passed.
-                        (searchString == null) && (!productSubcategoryId.HasValue) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) ||
-                        //searchForCategoryExpression ||
+                    let categoryAndSubcategoryAndStringFilterable =
+                        (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryId) && (product.Color.Contains(searchString) || product.Name.Contains(searchString))
 
-                        // Category && Subcategory.
-                        (searchString == null) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryId) ||
+                    let categoryAndStringFilterable =
+                        (!productSubcategoryId.HasValue) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.Color.Contains(searchString) || product.Name.Contains(searchString))
 
-                        // Category && Subcategory && String.
-                        (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryId) && (product.Color.Contains(searchString) || product.Name.Contains(searchString)) ||
-
-                        // Category && String.
-                        (!productSubcategoryId.HasValue) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.Color.Contains(searchString) || product.Name.Contains(searchString)) ||
-
-                        // String only.
+                    let stringFilterable =
                         (!productCategoryId.HasValue) && (!productSubcategoryId.HasValue) && (product.Color.Contains(searchString) || product.Name.Contains(searchString))
-                    )
+
+                    where categoryFilterable || categoryAndSubcategoryFilterable || categoryAndSubcategoryAndStringFilterable || categoryAndStringFilterable || stringFilterable
+
                     orderby product.Name
+
                     select new ProductsOverviewObject()
                     {
                         Id = product.ProductID,
