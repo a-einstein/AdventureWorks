@@ -68,37 +68,72 @@ namespace RCS.AdventureWorks.Services.Products
                 IQueryable<ProductsOverviewObject> query =
                     from product in entitiesContext.Products
                     from productProductPhotoes in product.ProductProductPhotoes
-                    
-                    // Note that ProductCategory is reached through ProductSubcategory. 
-                    // - Product.ProductSubcategoryId -> ProductSubcategory
-                    // - ProductSubcategory.ProductCategoryId -> ProductCategory
-                    // Note that Product.ProductSubcategoryID is nullable. So Product mag have no ProductSubcategory and thus ProductCategory.
-                    // This actually occurs in the current DB and has to be tested for.
-                    
-                    // Note one cannot use functions like Expression<Func<ProductsModel.Product, bool>> FunctionName(parameters) lifted outside.
-                    // Note one cannot us 'null propagating operators' like '?.' to simplify.
-                    
-                    // Do not use at least until paged.
+
+                        // Note that ProductCategory is reached through ProductSubcategory. 
+                        // - Product.ProductSubcategoryId -> ProductSubcategory
+                        // - ProductSubcategory.ProductCategoryId -> ProductCategory
+                        // Note that Product.ProductSubcategoryID is nullable. So Product may have no ProductSubcategory and thus no ProductCategory.
+                        // But for a ProductCategory to be applied on a Product, a ProductSubcategory has to be set too.
+                        // This actually occurs in the current DB and has to be tested for.
+
+                        // Note one cannot use functions like Expression<Func<ProductsModel.Product, bool>> FunctionName(parameters) lifted outside.
+                        // Note one cannot us 'null propagating operators' like '?.' to simplify.
+
+                    let categoryTest =
+                        product.ProductSubcategory != null &&
+                        product.ProductSubcategory.ProductCategoryID == productCategoryId
+
+                    let subcategoryTest =
+                        product.ProductSubcategoryID == productSubcategoryId
+
+                    let stringTest =
+                        product.Color.Contains(searchString) || product.Name.Contains(searchString)
+
+                    // The filters must be mutually exclusive.
+                   
+                    // Do not use this until at least  paged.
                     // Preferably have this visually disabled in GUI too.
                     let noFilter =
-                        (searchString == null) && (!productSubcategoryId.HasValue) && (!productCategoryId.HasValue)
+                        !productCategoryId.HasValue &&
+                        !productSubcategoryId.HasValue &&
+                        string.IsNullOrEmpty(searchString)
 
-                    let categoryFilterable =
-                        (searchString == null) && (!productSubcategoryId.HasValue) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId)
+                    let categoryFilter =
+                        productCategoryId.HasValue &&
+                        !productSubcategoryId.HasValue &&
+                        string.IsNullOrEmpty(searchString) &&
+                        categoryTest
 
-                    let categoryAndSubcategoryFilterable =
-                        (searchString == null) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryId)
+                    let subcategoryFilter =
+                        productCategoryId.HasValue &&
+                        productSubcategoryId.HasValue &&
+                        string.IsNullOrEmpty(searchString) &&
+                        subcategoryTest
 
-                    let categoryAndSubcategoryAndStringFilterable =
-                        (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryId) && (product.Color.Contains(searchString) || product.Name.Contains(searchString))
+                    let categoryAndStringFilter =
+                        productCategoryId.HasValue &&
+                        !productSubcategoryId.HasValue &&
+                        !string.IsNullOrEmpty(searchString) &&
+                        categoryTest &&
+                        stringTest
 
-                    let categoryAndStringFilterable =
-                        (!productSubcategoryId.HasValue) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.Color.Contains(searchString) || product.Name.Contains(searchString))
+                    let fullFilter =
+                        productCategoryId.HasValue &&
+                        productSubcategoryId.HasValue &&
+                        !string.IsNullOrEmpty(searchString) &&
+                        categoryTest &&
+                        subcategoryTest &&
+                        stringTest
 
-                    let stringFilterable =
-                        (!productCategoryId.HasValue) && (!productSubcategoryId.HasValue) && (product.Color.Contains(searchString) || product.Name.Contains(searchString))
+                    let stringFilter =
+                        !productCategoryId.HasValue &&
+                        !productSubcategoryId.HasValue &&
+                        !string.IsNullOrEmpty(searchString) &&
+                        stringTest
 
-                    where categoryFilterable || categoryAndSubcategoryFilterable || categoryAndSubcategoryAndStringFilterable || categoryAndStringFilterable || stringFilterable
+                    // The filters must be mutually exclusive.
+                    // Filter from most to least restrictive.
+                    where fullFilter || subcategoryFilter || categoryAndStringFilter || categoryFilter || stringFilter
 
                     orderby product.Name
 
@@ -159,15 +194,21 @@ namespace RCS.AdventureWorks.Services.Products
                         ProductNumber = product.ProductNumber,
                         Color = product.Color,
                         ListPrice = product.ListPrice,
+
                         Size = product.Size,
                         SizeUnitMeasureCode = product.SizeUnitMeasureCode,
+
                         Weight = product.Weight,
                         WeightUnitMeasureCode = product.WeightUnitMeasureCode,
+
                         LargePhoto = productProductPhotoes.ProductPhoto.LargePhoto,
+
                         ProductCategoryId = product.ProductSubcategory.ProductCategoryID,
                         ProductCategory = product.ProductSubcategory.ProductCategory.Name,
+
                         ProductSubcategoryId = product.ProductSubcategory.ProductSubcategoryID,
                         ProductSubcategory = product.ProductSubcategory.Name,
+
                         ModelName = product.ProductModel.Name,
                         Description = productModelProductDescriptionCulture.ProductDescription.Description
                     };
