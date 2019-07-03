@@ -3,7 +3,7 @@ using RCS.AdventureWorks.Common.Dtos;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace  RCS.AdventureWorks.Services.Products
+namespace RCS.AdventureWorks.Services.Products
 {
     public class ProductsService : IProductsService
     {
@@ -11,92 +11,133 @@ namespace  RCS.AdventureWorks.Services.Products
 
         async Task<ProductsOverviewList> IProductsService.GetProductsOverviewBy(int? productCategoryID, int? productSubcategoryID, string productNameString)
         {
-            var task = Task.Factory.StartNew(() =>
+            var task = Task.Run(() =>
             {
                 var listDto = GetProductsOverview(productCategoryID, productSubcategoryID, productNameString);
 
                 return listDto;
             });
 
-            return await task;
+            return await task.ConfigureAwait(false);
         }
 
         async Task<Product> IProductsService.GetProductDetails(int productId)
         {
-            var task = Task.Factory.StartNew(() =>
+            var task = Task.Run(() =>
             {
                 var rowDto = GetProductDetails(productId);
 
                 return rowDto;
             });
 
-            return await task;
+            return await task.ConfigureAwait(false);
         }
 
         async Task<ProductCategoryList> IProductsService.GetProductCategories()
         {
-            var task = Task.Factory.StartNew(() =>
+            var task = Task.Run(() =>
             {
                 var listDto = GetProductCategories();
 
                 return listDto;
             });
 
-            return await task;
+            return await task.ConfigureAwait(false);
         }
 
         async Task<ProductSubcategoryList> IProductsService.GetProductSubcategories()
         {
-            var task = Task.Factory.StartNew(() =>
+            var task = Task.Run(() =>
             {
                 var listDto = GetProductSubcategories();
 
                 return listDto;
             });
 
-            return await task;
+            return await task.ConfigureAwait(false);
         }
 
         #endregion
 
         #region Private
-
         // TODO Maybe change into universal filter descriptors.
         private ProductsOverviewList GetProductsOverview(int? productCategoryId, int? productSubcategoryId, string searchString)
         {
             using (var entitiesContext = new ProductsModel.Entities())
             {
-                IQueryable<Common.DomainClasses.ProductsOverviewObject> query =
+                IQueryable<ProductsOverviewObject> query =
                     from product in entitiesContext.Products
                     from productProductPhotoes in product.ProductProductPhotoes
-                    where
-                    (
-                        // Note that ProductCategory is reached through ProductSubcategory.
-                        // Note that product.ProductSubcategoryID is nullable strangely, so there might be no product.ProductSubcategory.
-                        // This junk actually exists in the current DB and has to be tested for.
 
-                        // No filters.
-                        // Disable this here at least until paged.
-                        // Preferably have this visually disabled in GUI too.
-                        //(searchString == null) && (!productSubcategoryId.HasValue) && (!productCategoryId.HasValue) ||
+                        // Note that ProductCategory is reached through ProductSubcategory. 
+                        // - Product.ProductSubcategoryId -> ProductSubcategory
+                        // - ProductSubcategory.ProductCategoryId -> ProductCategory
+                        // Note that Product.ProductSubcategoryID is nullable. So Product may have no ProductSubcategory and thus no ProductCategory.
+                        // But for a ProductCategory to be applied on a Product, a ProductSubcategory has to be set too.
+                        // This actually occurs in the current DB and has to be tested for.
 
-                        // Category.
-                        (searchString == null) && (!productSubcategoryId.HasValue) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) ||
+                        // Note one cannot use functions like Expression<Func<ProductsModel.Product, bool>> FunctionName(parameters) lifted outside.
+                        // Note one cannot us 'null propagating operators' like '?.' to simplify.
 
-                        // Category && Subcategory.
-                        (searchString == null) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryId) ||
+                    let categoryTest =
+                        product.ProductSubcategory != null &&
+                        product.ProductSubcategory.ProductCategoryID == productCategoryId
 
-                        // Category && Subcategory && String.
-                        (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.ProductSubcategory.ProductSubcategoryID == productSubcategoryId) && (product.Color.Contains(searchString) || product.Name.Contains(searchString)) ||
+                    let subcategoryTest =
+                        product.ProductSubcategoryID == productSubcategoryId
 
-                        // Category && String.
-                        (!productSubcategoryId.HasValue) && (product.ProductSubcategory != null) && (product.ProductSubcategory.ProductCategoryID == productCategoryId) && (product.Color.Contains(searchString) || product.Name.Contains(searchString)) ||
+                    let stringTest =
+                        product.Color.Contains(searchString) || product.Name.Contains(searchString)
 
-                        // String.
-                        (!productCategoryId.HasValue) && (!productSubcategoryId.HasValue) && (product.Color.Contains(searchString) || product.Name.Contains(searchString))
-                    )
+                    // The filters must be mutually exclusive.
+                   
+                    // Do not use this until at least  paged.
+                    // Preferably have this visually disabled in GUI too.
+                    let noFilter =
+                        !productCategoryId.HasValue &&
+                        !productSubcategoryId.HasValue &&
+                        string.IsNullOrEmpty(searchString)
+
+                    let categoryFilter =
+                        productCategoryId.HasValue &&
+                        !productSubcategoryId.HasValue &&
+                        string.IsNullOrEmpty(searchString) &&
+                        categoryTest
+
+                    let subcategoryFilter =
+                        productCategoryId.HasValue &&
+                        productSubcategoryId.HasValue &&
+                        string.IsNullOrEmpty(searchString) &&
+                        subcategoryTest
+
+                    let categoryAndStringFilter =
+                        productCategoryId.HasValue &&
+                        !productSubcategoryId.HasValue &&
+                        !string.IsNullOrEmpty(searchString) &&
+                        categoryTest &&
+                        stringTest
+
+                    let fullFilter =
+                        productCategoryId.HasValue &&
+                        productSubcategoryId.HasValue &&
+                        !string.IsNullOrEmpty(searchString) &&
+                        categoryTest &&
+                        subcategoryTest &&
+                        stringTest
+
+                    let stringFilter =
+                        !productCategoryId.HasValue &&
+                        !productSubcategoryId.HasValue &&
+                        !string.IsNullOrEmpty(searchString) &&
+                        stringTest
+
+                    // The filters must be mutually exclusive.
+                    // Filter from most to least restrictive.
+                    where fullFilter || subcategoryFilter || categoryAndStringFilter || categoryFilter || stringFilter
+
                     orderby product.Name
-                    select new Common.DomainClasses.ProductsOverviewObject()
+
+                    select new ProductsOverviewObject()
                     {
                         Id = product.ProductID,
                         Name = product.Name,
@@ -110,15 +151,17 @@ namespace  RCS.AdventureWorks.Services.Products
                         ThumbNailPhoto = productProductPhotoes.ProductPhoto.ThumbNailPhoto,
 
                         ProductCategoryId = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductCategoryID : (int?)null,
+                        // Dont use fix for IDE0031 (yet). Check: https://github.com/dotnet/roslyn/issues/17623
                         ProductCategory = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductCategory.Name : null,
 
                         ProductSubcategoryId = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductSubcategoryID : (int?)null,
+                        // Dont use fix for IDE0031 (yet). Check: https://github.com/dotnet/roslyn/issues/17623
                         ProductSubcategory = (product.ProductSubcategory != null) ? product.ProductSubcategory.Name : null
                     };
 
                 var result = new ProductsOverviewList();
 
-                // Note that the query executes on the ToList.
+                // Note that the query executes on ToList.
                 foreach (var item in query.ToList())
                 {
                     result.Add(item);
@@ -128,11 +171,11 @@ namespace  RCS.AdventureWorks.Services.Products
             }
         }
 
-        private Common.DomainClasses.Product GetProductDetails(int productID)
+        private Product GetProductDetails(int productID)
         {
             using (var entitiesContext = new ProductsModel.Entities())
             {
-                IQueryable<Common.DomainClasses.Product> query =
+                IQueryable<Product> query =
                     // Note this benefits from the joins already defined in the model.
                     from product in entitiesContext.Products
                     from productProductPhotoes in product.ProductProductPhotoes
@@ -144,22 +187,28 @@ namespace  RCS.AdventureWorks.Services.Products
                         // TODO Should this be used by &&?
                         (productModelProductDescriptionCulture.CultureID == "en") // HACK
                     )
-                    select new Common.DomainClasses.Product()
+                    select new Product()
                     {
                         Id = product.ProductID,
                         Name = product.Name,
                         ProductNumber = product.ProductNumber,
                         Color = product.Color,
                         ListPrice = product.ListPrice,
+
                         Size = product.Size,
                         SizeUnitMeasureCode = product.SizeUnitMeasureCode,
+
                         Weight = product.Weight,
                         WeightUnitMeasureCode = product.WeightUnitMeasureCode,
+
                         LargePhoto = productProductPhotoes.ProductPhoto.LargePhoto,
+
                         ProductCategoryId = product.ProductSubcategory.ProductCategoryID,
                         ProductCategory = product.ProductSubcategory.ProductCategory.Name,
+
                         ProductSubcategoryId = product.ProductSubcategory.ProductSubcategoryID,
                         ProductSubcategory = product.ProductSubcategory.Name,
+
                         ModelName = product.ProductModel.Name,
                         Description = productModelProductDescriptionCulture.ProductDescription.Description
                     };
@@ -175,10 +224,10 @@ namespace  RCS.AdventureWorks.Services.Products
         {
             using (var entitiesContext = new ProductsModel.Entities())
             {
-                IQueryable<Common.DomainClasses.ProductCategory> query =
+                IQueryable<ProductCategory> query =
                     from productCategory in entitiesContext.ProductCategories
                     orderby productCategory.Name
-                    select new Common.DomainClasses.ProductCategory()
+                    select new ProductCategory()
                     {
                         Id = productCategory.ProductCategoryID,
                         Name = productCategory.Name
@@ -200,10 +249,10 @@ namespace  RCS.AdventureWorks.Services.Products
         {
             using (var entitiesContext = new ProductsModel.Entities())
             {
-                IQueryable<Common.DomainClasses.ProductSubcategory> query =
+                IQueryable<ProductSubcategory> query =
                     from productSubcategory in entitiesContext.ProductSubcategories
                     orderby productSubcategory.Name
-                    select new Common.DomainClasses.ProductSubcategory()
+                    select new ProductSubcategory()
                     {
                         Id = productSubcategory.ProductSubcategoryID,
                         Name = productSubcategory.Name,
