@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'P:\projects\RCS\shopping\services\AdventureWorks\RCS.AdventureWorks.Services.Products\ProductsModel.edmx'. 
+﻿// T4 code generation is enabled for model 'R:\RCS\shopping\services\AdventureWorks\RCS.AdventureWorks.Services.Products\ProductsModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
