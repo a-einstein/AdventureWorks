@@ -1,0 +1,3 @@
+[submodule "RCS.AdventureWorks.Common"]
+	path = RCS.AdventureWorks.Common
+	url = R:\\RCS\\shopping\\shared\\RCS.AdventureWorks.Common
