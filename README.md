@@ -5,7 +5,7 @@
 WCF database service tailored for my shop projects, working on the standard AdventureWorks database.
 
 #### News
-* Integrated with Connected to Azure Devops build and release pipelines.
+* Integrated with Azure Devops build and release pipelines.
 * This data service  is no longer fully functional on Azure.
 
 #### Purpose
