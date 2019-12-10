@@ -277,7 +277,9 @@ namespace RCS.AdventureWorks.Services.Products
                 return result;
             }
         }
+        #endregion
 
+        #region Private Categories
         private Dtos.ProductCategoryList GetProductCategories()
         {
             using (var entitiesContext = new ProductsModel.Entities())
