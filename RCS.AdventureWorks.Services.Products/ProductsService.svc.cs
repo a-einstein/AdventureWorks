@@ -236,7 +236,7 @@ namespace RCS.AdventureWorks.Services.Products
                 IQueryable<DomainClasses.Product> query =
                     // Note this benefits from the joins already defined in the model.
                     from product in entitiesContext.Products
-                    from productProductPhotoes in product.ProductProductPhotoes
+                    from productProductPhoto in product.ProductProductPhotoes
                     from productModelProductDescriptionCulture in product.ProductModel.ProductModelProductDescriptionCultures
                     where
                     (
@@ -259,7 +259,7 @@ namespace RCS.AdventureWorks.Services.Products
                         Weight = product.Weight,
                         WeightUnitMeasureCode = product.WeightUnitMeasureCode,
 
-                        LargePhoto = productProductPhotoes.ProductPhoto.LargePhoto,
+                        LargePhoto = productProductPhoto.ProductPhoto.LargePhoto,
 
                         ProductCategoryId = product.ProductSubcategory.ProductCategoryID,
                         ProductCategory = product.ProductSubcategory.ProductCategory.Name,
