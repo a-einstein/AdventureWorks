@@ -31,6 +31,8 @@ WCF database service tailored for my shop projects, working on the standard Adve
 * Entity Framework.
 * WCF + SSL.
 * Asynchronisity.
+* LINQ.
+* LinqKit.
 
 #### Installation
 The service cannot be installed plug & play, as the database is not included and configured to. But for demo purposes the following stubs are available. 
