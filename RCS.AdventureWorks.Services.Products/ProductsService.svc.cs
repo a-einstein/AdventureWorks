@@ -187,11 +187,9 @@ namespace RCS.AdventureWorks.Services.Products
                 ThumbNailPhoto = product.ProductProductPhotoes.FirstOrDefault().ProductPhoto.ThumbNailPhoto,
 
                 ProductCategoryId = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductCategoryID : (int?)null,
-                // Dont use fix for IDE0031 (yet). Check: https://github.com/dotnet/roslyn/issues/17623
                 ProductCategory = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductCategory.Name : null,
 
                 ProductSubcategoryId = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductSubcategoryID : (int?)null,
-                // Dont use fix for IDE0031 (yet). Check: https://github.com/dotnet/roslyn/issues/17623
                 ProductSubcategory = (product.ProductSubcategory != null) ? product.ProductSubcategory.Name : null
             };
         }
