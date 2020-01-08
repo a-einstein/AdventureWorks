@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RCS.AdventureWorks.Products.Standard;
 
 namespace RCS.AdventureWorks.Api.Products
 {
@@ -18,6 +19,8 @@ namespace RCS.AdventureWorks.Api.Products
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<AdventureWorks2014Context>();
+
             services.AddControllers();
         }
 
