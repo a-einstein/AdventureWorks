@@ -1,38 +1,48 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RCS.AdventureWorks.Products.Standard;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DomainClasses = RCS.AdventureWorks.Common.DomainClasses;
+using Dtos = RCS.AdventureWorks.Common.Dtos;
 
 namespace RCS.AdventureWorks.Api.Products.Controllers
 {
+    // Note the implicit transformation from [controller] to the class name without 'controller'.
     [Route("api/[controller]")]
     [ApiController]
     public class ProductSubcategoriesController : ControllerBase
     {
         #region construction
-        private readonly AdventureWorks2014Context _context;
+        // Note this is shared instead created in usings as in ProductsService.
+        private readonly AdventureWorks2014Context dbContext;
 
         public ProductSubcategoriesController(AdventureWorks2014Context context)
         {
-            _context = context;
+            dbContext = context;
         }
         #endregion
 
+        // Note the implicit transformation from the paths to the function names.
         #region API
         // GET: api/ProductSubcategories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductSubcategory>>> GetProductSubcategory()
+        public async Task<ActionResult<Dtos.ProductSubcategoryList>> GetProductSubcategory()
         {
-            return await _context.ProductSubcategory.ToListAsync();
-        }
+            //return await dbContext.ProductSubcategory.ToListAsync();
 
+            // TODO make async.
+            return GetProductSubcategories();
+        }
+        #endregion
+
+        // TODO Currently not yet checked/corrected/removed. Made private.
+        #region API not (yet) to be used.
         // GET: api/ProductSubcategories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductSubcategory>> GetProductSubcategory(int id)
+        private async Task<ActionResult<ProductSubcategory>> GetProductSubcategory(int id)
         {
-            var productSubcategory = await _context.ProductSubcategory.FindAsync(id);
+            var productSubcategory = await dbContext.ProductSubcategory.FindAsync(id);
 
             if (productSubcategory == null)
             {
@@ -46,18 +56,18 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProductSubcategory(int id, ProductSubcategory productSubcategory)
+        private async Task<IActionResult> PutProductSubcategory(int id, ProductSubcategory productSubcategory)
         {
             if (id != productSubcategory.ProductSubcategoryId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(productSubcategory).State = EntityState.Modified;
+            dbContext.Entry(productSubcategory).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await dbContext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -78,26 +88,26 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<ProductSubcategory>> PostProductSubcategory(ProductSubcategory productSubcategory)
+        private async Task<ActionResult<ProductSubcategory>> PostProductSubcategory(ProductSubcategory productSubcategory)
         {
-            _context.ProductSubcategory.Add(productSubcategory);
-            await _context.SaveChangesAsync();
+            dbContext.ProductSubcategory.Add(productSubcategory);
+            await dbContext.SaveChangesAsync();
 
             return CreatedAtAction("GetProductSubcategory", new { id = productSubcategory.ProductSubcategoryId }, productSubcategory);
         }
 
         // DELETE: api/ProductSubcategories/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ProductSubcategory>> DeleteProductSubcategory(int id)
+        private async Task<ActionResult<ProductSubcategory>> DeleteProductSubcategory(int id)
         {
-            var productSubcategory = await _context.ProductSubcategory.FindAsync(id);
+            var productSubcategory = await dbContext.ProductSubcategory.FindAsync(id);
             if (productSubcategory == null)
             {
                 return NotFound();
             }
 
-            _context.ProductSubcategory.Remove(productSubcategory);
-            await _context.SaveChangesAsync();
+            dbContext.ProductSubcategory.Remove(productSubcategory);
+            await dbContext.SaveChangesAsync();
 
             return productSubcategory;
         }
@@ -106,7 +116,30 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         #region private
         private bool ProductSubcategoryExists(int id)
         {
-            return _context.ProductSubcategory.Any(e => e.ProductSubcategoryId == id);
+            return dbContext.ProductSubcategory.Any(e => e.ProductSubcategoryId == id);
+        }
+
+        private Dtos.ProductSubcategoryList GetProductSubcategories()
+        {
+            IQueryable<DomainClasses.ProductSubcategory> query =
+                from productSubcategory in dbContext.ProductSubcategory
+                orderby productSubcategory.Name
+                select new DomainClasses.ProductSubcategory()
+                {
+                    Id = productSubcategory.ProductSubcategoryId,
+                    Name = productSubcategory.Name,
+                    ProductCategoryId = productSubcategory.ProductCategoryId
+                };
+
+            var result = new Dtos.ProductSubcategoryList();
+
+            // Note that the query executes on the ToList.
+            foreach (var item in query.ToList())
+            {
+                result.Add(item);
+            }
+
+            return result;
         }
         #endregion
     }
