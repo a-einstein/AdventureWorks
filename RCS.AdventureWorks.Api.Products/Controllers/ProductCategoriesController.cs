@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using RCS.AdventureWorks.Products.Standard;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RCS.AdventureWorks.Products.Standard;
 
 namespace RCS.AdventureWorks.Api.Products.Controllers
 {
@@ -13,13 +11,16 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
     [ApiController]
     public class ProductCategoriesController : ControllerBase
     {
+        #region construction
         private readonly AdventureWorks2014Context _context;
 
         public ProductCategoriesController(AdventureWorks2014Context context)
         {
             _context = context;
         }
+        #endregion
 
+        #region API
         // GET: api/ProductCategories
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductCategory>>> GetProductCategory()
@@ -100,10 +101,13 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
 
             return productCategory;
         }
+        #endregion
 
+        #region private
         private bool ProductCategoryExists(int id)
         {
             return _context.ProductCategory.Any(e => e.ProductCategoryId == id);
         }
+        #endregion
     }
 }
