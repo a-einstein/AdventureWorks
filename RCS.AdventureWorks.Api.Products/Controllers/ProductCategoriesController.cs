@@ -29,10 +29,14 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         [HttpGet]
         public async Task<ActionResult<Dtos.ProductCategoryList>> GetProductCategory()
         {
-            //return await dbContext.ProductCategory.ToListAsync();
+            var task = Task.Run(() =>
+            {
+                var listDto = GetProductCategories();
 
-            // TODO make async.
-            return GetProductCategories();
+                return listDto;
+            });
+
+            return await task.ConfigureAwait(false);
         }
         #endregion
 
