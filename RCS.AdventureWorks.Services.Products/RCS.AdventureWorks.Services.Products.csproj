@@ -170,6 +170,10 @@
       <Project>{493d8ed2-1ba9-436c-981f-3a84523fa8a0}</Project>
       <Name>RCS.AdventureWorks.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RCS.AdventureWorks.Products\RCS.AdventureWorks.Products.csproj">
+      <Project>{79E06FB7-B53B-415F-897B-BABB980C8AF4}</Project>
+      <Name>RCS.AdventureWorks.Products</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\analyzers\dotnet\cs\Microsoft.CodeAnalysis.VersionCheckAnalyzer.resources.dll" />
