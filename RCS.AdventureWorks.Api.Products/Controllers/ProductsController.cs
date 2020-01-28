@@ -29,16 +29,15 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         // Note the implicit transformation from the entity names to the function names.
 
         #region API
-        [HttpGet("category={productCategoryId:int:min(1)}")]
-        [HttpGet("category={productCategoryId:int:min(1)}/subcategory={productSubcategoryId:int:min(1)}")]
-        [HttpGet("string={searchString:minlength(3)}")]
-        [HttpGet("category={productCategoryId:int:min(1)}/string={searchString:minlength(3)}")]
-        [HttpGet("category={productCategoryId:int:min(1)}/subcategory={productSubcategoryId:int:min(1)}/string={searchString:minlength(3)}")]
-        public async Task<ActionResult<Dtos.ProductsOverviewList>> GetProduct(int? productCategoryId, int? productSubcategoryId, string searchString)
+        // Note this part of routing is to avoid ambiguity.
+        [HttpGet("overview")]
+        // Optional query parameters may be used. Names must be exact matches (case insensitive), order does not matter. Names are kept short.
+        // Example: https://rcsworks.nl/ProductsApi/api/Products/overview?category=3&subcategory=21&word=yel
+        public async Task<ActionResult<Dtos.ProductsOverviewList>> GetProduct(int? category, int? subcategory, string word)
         {
             var task = Task.Run(() =>
             {
-                var listDto = GetProductsOverview(productCategoryId, productSubcategoryId, searchString);
+                var listDto = GetProductsOverview(category, subcategory, word);
 
                 return listDto;
             });
@@ -46,7 +45,9 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
             return await task.ConfigureAwait(false);
         }
 
-        [HttpGet("{id:int:min(1)}")]
+        // Note this part of routing is to avoid ambiguity.
+        [HttpGet("details")]
+        // Example: https://localhost:44372/api/Products/details?id=883
         public async Task<ActionResult<DomainClasses.Product>> GetProduct(int id)
         {
             var task = Task.Run(() =>
