@@ -9,7 +9,7 @@ using Dtos = RCS.AdventureWorks.Common.Dtos;
 namespace RCS.AdventureWorks.Api.Products.Controllers
 {
     // Note the implicit transformation from [controller] to the class name without 'controller'.
-    [Route("api/[controller]")]
+    [Route("/[controller]")]
     [ApiController]
     public class ProductSubcategoriesController : ControllerBase
     {
