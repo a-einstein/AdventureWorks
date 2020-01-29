@@ -6,8 +6,7 @@ namespace RCS.AdventureWorks.Api.Products
     public class Program
     {
         // TODO
-        // Creeren RCS.AdventureWorks.Products voor gemeenschappelijke acties? (edmx, private delen ProductsService.svc.cs)
-        // Hernoemen RCS.AdventureWorks.Common?
+        // Rename RCS.AdventureWorks.Common?
 
         public static void Main(string[] args)
         {
