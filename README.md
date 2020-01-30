@@ -17,7 +17,7 @@ Both Web API and WCF database service tailored for my shop projects, working on 
 
 #### Prerequisites
 * The service assumes the presence of an AdventureWorks2014 database, to which a connection should be configured.
-* For the contents of this database I refer to http://msftdbprodsamples.codeplex.com/releases/view/125550
+* For the contents of this database I refer to the **[AdventureWorks page](https://docs.microsoft.com/en-us/sql/samples/adventureworks-install-configure)**.
 
 #### Notes
 * Submitted to code analysis by [Better Code Hub](https://bettercodehub.com). Current score: [![BCH compliance](https://bettercodehub.com/edge/badge/a-einstein/AdventureWorks)](https://bettercodehub.com)  
@@ -38,4 +38,6 @@ Both Web API and WCF database service tailored for my shop projects, working on 
 #### Installation
 * This service is mainly intended to be installed on my domain and used by my clients. Running and acces is on request.
 * The service cannot be installed plug & play, as the database is not included and configured to.
-* However, one can download and install the **[latest ZIP](https://rcsadventureworac85.blob.core.windows.net/adventureworks-releases/latest/RCS.AdventureWorks.Services.Products.zip)** .
+* However, one can download and install the lastest versions of both services.
+  * **[WCF service](https://rcsadventureworac85.blob.core.windows.net/adventureworks-releases/latest/RCS.AdventureWorks.Services.Products.zip)**.
+  * **[API service](https://rcsadventureworac85.blob.core.windows.net/adventureworks-releases/latest/RCS.AdventureWorks.Api.Products.zip)**.
