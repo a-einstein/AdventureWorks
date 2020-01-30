@@ -29,5 +29,4 @@ Currently they are AS GENERATED.
 - On the location they were put.
 - Apparently for the whole Database, with far more entities and properties than I use.
 
-Solution builds, but has not been tested in any way.
 I probably will do a reduction to what I need.

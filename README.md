@@ -2,21 +2,21 @@
 ## AdventureWorks
 
 #### Description
-WCF database service tailored for my shop projects, working on the standard AdventureWorks database.
+Both Web API and WCF database service tailored for my shop projects, working on the standard AdventureWorks database.
 
 #### News
+* Added Web API service as alternative to WCF.
+* A certified domain is now available for these services to run on. On request.
 * Integrated with Azure Devops build and release pipelines.
-* This data service  is no longer fully functional on Azure.
 
 #### Purpose
-* Explore various techniques based on C#, EF and WCF.
+* Explore various techniques based on C#, EF, WCF and Web API.
 * Manage the code by Git and GitHub.
 * Explore continuous integration by using combinations of Git, GitHub, TeamCity and Azure DevOps.
 * Explore Scrum process management by integration with Jira and Azure DevOps.
 
 #### Prerequisites
 * The service assumes the presence of an AdventureWorks2014 database, to which a connection should be configured.
-* Note that currently a self signed certifcate on the server is enough to let the https binding function and be accepted by an Android device.
 * For the contents of this database I refer to http://msftdbprodsamples.codeplex.com/releases/view/125550
 
 #### Notes
@@ -26,15 +26,16 @@ WCF database service tailored for my shop projects, working on the standard Adve
 #### Aspects
 * C#.
 * SQL Server.
-* Use a Azure Database.
-* Be deployed as an Azure service.
 * Entity Framework.
-* WCF + SSL.
-* Asynchronisity.
 * LINQ.
 * LinqKit.
+* WCF service on .Net Framework.
+* Web API service on .Net Standard & .Net Core.
+* SSL certification.
+* Asynchronisity.
+* Has been deployed as an Azure service with an Azure Database.
 
 #### Installation
-The service cannot be installed plug & play, as the database is not included and configured to. But for demo purposes the following stubs are available. 
-* One can download and install the **[latest ZIP](https://rcsadventureworac85.blob.core.windows.net/adventureworks-releases/latest/RCS.AdventureWorks.Services.Products.zip)** .
-* The deployed service is up and running and can be **[referred to](https://rcs-adventureworksservices.azurewebsites.net/ProductsService.svc)**, but is not correctly configured.
+* This service is mainly intended to be installed on my domain and used by my clients. Running and acces is on request.
+* The service cannot be installed plug & play, as the database is not included and configured to.
+* However, one can download and install the **[latest ZIP](https://rcsadventureworac85.blob.core.windows.net/adventureworks-releases/latest/RCS.AdventureWorks.Services.Products.zip)** .
