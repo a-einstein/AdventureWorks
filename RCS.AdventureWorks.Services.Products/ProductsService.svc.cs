@@ -1,4 +1,5 @@
 ﻿using LinqKit;
+using RCS.AdventureWorks.Products;
 using RCS.AdventureWorks.Services.Products.ProductsModel;
 using System;
 using System.Linq;
@@ -62,46 +63,6 @@ namespace RCS.AdventureWorks.Services.Products
         #endregion
 
         #region Private ProductsOverviewList
-        private static Expression<Func<bool>> IsCategoryFilter(int? productCategoryId, int? productSubcategoryId, string searchString)
-        {
-            return () =>
-                productCategoryId.HasValue &&
-                !productSubcategoryId.HasValue &&
-                string.IsNullOrEmpty(searchString);
-        }
-
-        private static Expression<Func<bool>> IsSubcategoryFilter(int? productCategoryId, int? productSubcategoryId, string searchString)
-        {
-            return () =>
-                productCategoryId.HasValue &&
-                productSubcategoryId.HasValue &&
-                string.IsNullOrEmpty(searchString);
-        }
-
-        private static Expression<Func<bool>> IsCategoryAndStringFilter(int? productCategoryId, int? productSubcategoryId, string searchString)
-        {
-            return () =>
-                productCategoryId.HasValue &&
-                !productSubcategoryId.HasValue &&
-                !string.IsNullOrEmpty(searchString);
-        }
-
-        private static Expression<Func<bool>> IsFullFilter(int? productCategoryId, int? productSubcategoryId, string searchString)
-        {
-            return () =>
-                productCategoryId.HasValue &&
-                productSubcategoryId.HasValue &&
-                !string.IsNullOrEmpty(searchString);
-        }
-
-        private static Expression<Func<bool>> IsStringFilter(int? productCategoryId, int? productSubcategoryId, string searchString)
-        {
-            return () =>
-                !productCategoryId.HasValue &&
-                !productSubcategoryId.HasValue &&
-                !string.IsNullOrEmpty(searchString);
-        }
-
         private static Expression<Func<Product, bool>> CategoryTest(int? productCategoryId)
         {
             return product =>
@@ -130,11 +91,11 @@ namespace RCS.AdventureWorks.Services.Products
             // But for a ProductCategory to be applied on a Product, a ProductSubcategory has to be set too.
             // This actually occurs in the current DB and has to be tested for.
 
-            var isCategoryFilter = IsCategoryFilter(productCategoryId, productSubcategoryId, searchString);
-            var isSubcategoryFilter = IsSubcategoryFilter(productCategoryId, productSubcategoryId, searchString);
-            var isCategoryAndStringFilter = IsCategoryAndStringFilter(productCategoryId, productSubcategoryId, searchString);
-            var isFullFilter = IsFullFilter(productCategoryId, productSubcategoryId, searchString);
-            var isStringFilter = IsStringFilter(productCategoryId, productSubcategoryId, searchString);
+            var isCategoryFilter = Expressions.IsCategoryFilter(productCategoryId, productSubcategoryId, searchString);
+            var isSubcategoryFilter = Expressions.IsSubcategoryFilter(productCategoryId, productSubcategoryId, searchString);
+            var isCategoryAndStringFilter = Expressions.IsCategoryAndStringFilter(productCategoryId, productSubcategoryId, searchString);
+            var isFullFilter = Expressions.IsFullFilter(productCategoryId, productSubcategoryId, searchString);
+            var isStringFilter = Expressions.IsStringFilter(productCategoryId, productSubcategoryId, searchString);
 
             var categoryTest = CategoryTest(productCategoryId);
             var subcategoryTest = SubcategoryTest(productSubcategoryId);
