@@ -248,7 +248,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
             return result;
         }
 
-        private DomainClasses.Product GetProductDetails(int productID)
+        private DomainClasses.Product GetProductDetails(int productId)
         {
             IQueryable<DomainClasses.Product> query =
                 // Note this benefits from the joins already defined in the model.
@@ -257,7 +257,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
                 from productModelProductDescriptionCulture in product.ProductModel.ProductModelProductDescriptionCulture
                 where
                 (
-                    (product.ProductId == productID) &&
+                    (product.ProductId == productId) &&
 
                     // TODO Should this be used by &&?
                     (productModelProductDescriptionCulture.CultureId == "en") // HACK

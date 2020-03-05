@@ -9,7 +9,7 @@ namespace  RCS.AdventureWorks.Services.Products
     interface IProductsService
     {
         [OperationContract(AsyncPattern = true)]
-        Task<ProductsOverviewList> GetProductsOverviewBy(int? productCategoryID, int? productSubcategoryID, string productNameString);
+        Task<ProductsOverviewList> GetProductsOverviewBy(int? productCategoryId, int? productSubcategoryId, string productNameString);
 
         [OperationContract(AsyncPattern = true)]
         Task<Product> GetProductDetails(int productId);

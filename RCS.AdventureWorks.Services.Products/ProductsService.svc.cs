@@ -13,11 +13,11 @@ namespace RCS.AdventureWorks.Services.Products
     public class ProductsService : IProductsService
     {
         #region Public
-        async Task<Dtos.ProductsOverviewList> IProductsService.GetProductsOverviewBy(int? productCategoryID, int? productSubcategoryID, string productNameString)
+        async Task<Dtos.ProductsOverviewList> IProductsService.GetProductsOverviewBy(int? productCategoryId, int? productSubcategoryId, string productNameString)
         {
             var task = Task.Run(() =>
             {
-                var listDto = GetProductsOverview(productCategoryID, productSubcategoryID, productNameString);
+                var listDto = GetProductsOverview(productCategoryId, productSubcategoryId, productNameString);
 
                 return listDto;
             });
@@ -185,7 +185,7 @@ namespace RCS.AdventureWorks.Services.Products
         #endregion
 
         #region Private ProductDetails
-        private DomainClasses.Product GetProductDetails(int productID)
+        private DomainClasses.Product GetProductDetails(int productId)
         {
             using (var entitiesContext = new Entities())
             {
@@ -196,7 +196,7 @@ namespace RCS.AdventureWorks.Services.Products
                     from productModelProductDescriptionCulture in product.ProductModel.ProductModelProductDescriptionCultures
                     where
                     (
-                        (product.ProductID == productID) &&
+                        (product.ProductID == productId) &&
 
                         // TODO Should this be used by &&?
                         (productModelProductDescriptionCulture.CultureID == "en") // HACK
