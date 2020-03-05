@@ -158,7 +158,7 @@ namespace RCS.AdventureWorks.Services.Products
         // TODO Maybe change into universal filter descriptors.
         private Dtos.ProductsOverviewList GetProductsOverview(int? productCategoryId, int? productSubcategoryId, string searchString)
         {
-            using (var entitiesContext = new ProductsModel.Entities())
+            using (var entitiesContext = new Entities())
             {
                 // The expression is broken down using LINQKit, which extends with Invoke, Expand, AsExpandable.
                 // For details and examples:
@@ -190,7 +190,7 @@ namespace RCS.AdventureWorks.Services.Products
         #region Private ProductDetails
         private DomainClasses.Product GetProductDetails(int productID)
         {
-            using (var entitiesContext = new ProductsModel.Entities())
+            using (var entitiesContext = new Entities())
             {
                 IQueryable<DomainClasses.Product> query =
                     // Note this benefits from the joins already defined in the model.
@@ -241,7 +241,7 @@ namespace RCS.AdventureWorks.Services.Products
         #region Private Categories
         private Dtos.ProductCategoryList GetProductCategories()
         {
-            using (var entitiesContext = new ProductsModel.Entities())
+            using (var entitiesContext = new Entities())
             {
                 IQueryable<DomainClasses.ProductCategory> query =
                     from productCategory in entitiesContext.ProductCategories
@@ -266,7 +266,7 @@ namespace RCS.AdventureWorks.Services.Products
 
         private Dtos.ProductSubcategoryList GetProductSubcategories()
         {
-            using (var entitiesContext = new ProductsModel.Entities())
+            using (var entitiesContext = new Entities())
             {
                 IQueryable<DomainClasses.ProductSubcategory> query =
                     from productSubcategory in entitiesContext.ProductSubcategories
