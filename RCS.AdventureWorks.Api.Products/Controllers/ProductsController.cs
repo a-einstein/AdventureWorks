@@ -243,12 +243,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
             var result = new Dtos.ProductsOverviewList();
 
             // Note that the query executes on ToList.
-            var queryResult = query.ToList();
-
-            foreach (var item in queryResult)
-            {
-                result.Add(item);
-            }
+            result.AddRange(query.ToList());
 
             return result;
         }

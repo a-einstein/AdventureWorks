@@ -141,10 +141,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
             var result = new Dtos.ProductCategoryList();
 
             // Note that the query executes on the ToList.
-            foreach (var item in query.ToList())
-            {
-                result.Add(item);
-            }
+            result.AddRange(query.ToList());
 
             return result;
         }
@@ -164,10 +161,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
             var result = new Dtos.ProductSubcategoryList();
 
             // Note that the query executes on the ToList.
-            foreach (var item in query.ToList())
-            {
-                result.Add(item);
-            }
+            result.AddRange(query.ToList());
 
             return result;
         }
