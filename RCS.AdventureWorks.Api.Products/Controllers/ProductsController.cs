@@ -213,7 +213,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
                 SizeUnitMeasureCode = product.SizeUnitMeasureCode,
 
                 WeightUnitMeasureCode = product.WeightUnitMeasureCode,
-                // Note navigation properies are still applicable.
+                // Note navigation properties are still applicable.
                 ThumbNailPhoto = product.ProductProductPhoto.FirstOrDefault().ProductPhoto.ThumbNailPhoto,
 
                 ProductCategoryId = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductCategoryId : (int?)null,
