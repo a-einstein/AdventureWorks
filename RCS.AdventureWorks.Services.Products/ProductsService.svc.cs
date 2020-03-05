@@ -156,7 +156,7 @@ namespace RCS.AdventureWorks.Services.Products
         }
 
         // TODO Maybe change into universal filter descriptors.
-        private Dtos.ProductsOverviewList GetProductsOverview(int? productCategoryId, int? productSubcategoryId, string searchString)
+        private static Dtos.ProductsOverviewList GetProductsOverview(int? productCategoryId, int? productSubcategoryId, string searchString)
         {
             using (var entitiesContext = new Entities())
             {
@@ -185,7 +185,7 @@ namespace RCS.AdventureWorks.Services.Products
         #endregion
 
         #region Private ProductDetails
-        private DomainClasses.Product GetProductDetails(int productId)
+        private static DomainClasses.Product GetProductDetails(int productId)
         {
             using (var entitiesContext = new Entities())
             {
@@ -236,7 +236,7 @@ namespace RCS.AdventureWorks.Services.Products
         #endregion
 
         #region Private Categories
-        private Dtos.ProductCategoryList GetProductCategories()
+        private static Dtos.ProductCategoryList GetProductCategories()
         {
             using (var entitiesContext = new Entities())
             {
@@ -258,7 +258,7 @@ namespace RCS.AdventureWorks.Services.Products
             }
         }
 
-        private Dtos.ProductSubcategoryList GetProductSubcategories()
+        private static Dtos.ProductSubcategoryList GetProductSubcategories()
         {
             using (var entitiesContext = new Entities())
             {
