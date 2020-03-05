@@ -125,7 +125,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
 
         private Dtos.ProductSubcategoryList GetProductSubcategories()
         {
-            IQueryable<DomainClasses.ProductSubcategory> query =
+            var query =
                 from productSubcategory in dbContext.ProductSubcategory
                 orderby productSubcategory.Name
                 select new DomainClasses.ProductSubcategory()

@@ -250,7 +250,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
 
         private DomainClasses.Product GetProductDetails(int productId)
         {
-            IQueryable<DomainClasses.Product> query =
+            var query =
                 // Note this benefits from the joins already defined in the model.
                 from product in dbContext.Product
                 from productProductPhoto in product.ProductProductPhoto

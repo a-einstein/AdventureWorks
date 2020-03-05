@@ -189,7 +189,7 @@ namespace RCS.AdventureWorks.Services.Products
         {
             using (var entitiesContext = new Entities())
             {
-                IQueryable<DomainClasses.Product> query =
+                var query =
                     // Note this benefits from the joins already defined in the model.
                     from product in entitiesContext.Products
                     from productProductPhoto in product.ProductProductPhotoes
@@ -240,7 +240,7 @@ namespace RCS.AdventureWorks.Services.Products
         {
             using (var entitiesContext = new Entities())
             {
-                IQueryable<DomainClasses.ProductCategory> query =
+                var query =
                     from productCategory in entitiesContext.ProductCategories
                     orderby productCategory.Name
                     select new DomainClasses.ProductCategory()
@@ -262,7 +262,7 @@ namespace RCS.AdventureWorks.Services.Products
         {
             using (var entitiesContext = new Entities())
             {
-                IQueryable<DomainClasses.ProductSubcategory> query =
+                var query =
                     from productSubcategory in entitiesContext.ProductSubcategories
                     orderby productSubcategory.Name
                     select new DomainClasses.ProductSubcategory()
