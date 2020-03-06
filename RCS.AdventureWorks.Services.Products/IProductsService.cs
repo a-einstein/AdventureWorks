@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace  RCS.AdventureWorks.Services.Products
 {
     [ServiceContract]
-    interface IProductsService
+    internal interface IProductsService
     {
         [OperationContract(AsyncPattern = true)]
         Task<ProductsOverviewList> GetProductsOverviewBy(int? productCategoryId, int? productSubcategoryId, string productNameString);
