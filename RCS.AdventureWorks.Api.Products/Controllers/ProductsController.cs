@@ -213,7 +213,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
                 SizeUnitMeasureCode = product.SizeUnitMeasureCode,
 
                 WeightUnitMeasureCode = product.WeightUnitMeasureCode,
-                // Note navigation properies are still applicable.
+                // Note navigation properties are still applicable.
                 ThumbNailPhoto = product.ProductProductPhoto.FirstOrDefault().ProductPhoto.ThumbNailPhoto,
 
                 ProductCategoryId = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductCategoryId : (int?)null,
@@ -243,26 +243,21 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
             var result = new Dtos.ProductsOverviewList();
 
             // Note that the query executes on ToList.
-            var queryResult = query.ToList();
-
-            foreach (var item in queryResult)
-            {
-                result.Add(item);
-            }
+            result.AddRange(query.ToList());
 
             return result;
         }
 
-        private DomainClasses.Product GetProductDetails(int productID)
+        private DomainClasses.Product GetProductDetails(int productId)
         {
-            IQueryable<DomainClasses.Product> query =
+            var query =
                 // Note this benefits from the joins already defined in the model.
                 from product in dbContext.Product
                 from productProductPhoto in product.ProductProductPhoto
                 from productModelProductDescriptionCulture in product.ProductModel.ProductModelProductDescriptionCulture
                 where
                 (
-                    (product.ProductId == productID) &&
+                    (product.ProductId == productId) &&
 
                     // TODO Should this be used by &&?
                     (productModelProductDescriptionCulture.CultureId == "en") // HACK

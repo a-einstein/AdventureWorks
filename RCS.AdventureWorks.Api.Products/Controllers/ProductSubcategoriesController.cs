@@ -125,7 +125,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
 
         private Dtos.ProductSubcategoryList GetProductSubcategories()
         {
-            IQueryable<DomainClasses.ProductSubcategory> query =
+            var query =
                 from productSubcategory in dbContext.ProductSubcategory
                 orderby productSubcategory.Name
                 select new DomainClasses.ProductSubcategory()
@@ -138,10 +138,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
             var result = new Dtos.ProductSubcategoryList();
 
             // Note that the query executes on the ToList.
-            foreach (var item in query.ToList())
-            {
-                result.Add(item);
-            }
+            result.AddRange(query.ToList());
 
             return result;
         }

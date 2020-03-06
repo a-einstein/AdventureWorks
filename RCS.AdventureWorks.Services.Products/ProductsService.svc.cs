@@ -13,11 +13,11 @@ namespace RCS.AdventureWorks.Services.Products
     public class ProductsService : IProductsService
     {
         #region Public
-        async Task<Dtos.ProductsOverviewList> IProductsService.GetProductsOverviewBy(int? productCategoryID, int? productSubcategoryID, string productNameString)
+        async Task<Dtos.ProductsOverviewList> IProductsService.GetProductsOverviewBy(int? productCategoryId, int? productSubcategoryId, string productNameString)
         {
             var task = Task.Run(() =>
             {
-                var listDto = GetProductsOverview(productCategoryID, productSubcategoryID, productNameString);
+                var listDto = GetProductsOverview(productCategoryId, productSubcategoryId, productNameString);
 
                 return listDto;
             });
@@ -144,7 +144,7 @@ namespace RCS.AdventureWorks.Services.Products
                 SizeUnitMeasureCode = product.SizeUnitMeasureCode,
 
                 WeightUnitMeasureCode = product.WeightUnitMeasureCode,
-                // Note navigation properies are still applicable.
+                // Note navigation properties are still applicable.
                 ThumbNailPhoto = product.ProductProductPhotoes.FirstOrDefault().ProductPhoto.ThumbNailPhoto,
 
                 ProductCategoryId = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductCategoryID : (int?)null,
@@ -156,9 +156,9 @@ namespace RCS.AdventureWorks.Services.Products
         }
 
         // TODO Maybe change into universal filter descriptors.
-        private Dtos.ProductsOverviewList GetProductsOverview(int? productCategoryId, int? productSubcategoryId, string searchString)
+        private static Dtos.ProductsOverviewList GetProductsOverview(int? productCategoryId, int? productSubcategoryId, string searchString)
         {
-            using (var entitiesContext = new ProductsModel.Entities())
+            using (var entitiesContext = new Entities())
             {
                 // The expression is broken down using LINQKit, which extends with Invoke, Expand, AsExpandable.
                 // For details and examples:
@@ -177,10 +177,7 @@ namespace RCS.AdventureWorks.Services.Products
                 var result = new Dtos.ProductsOverviewList();
 
                 // Note that the query executes on ToList.
-                foreach (var item in query.ToList())
-                {
-                    result.Add(item);
-                }
+                result.AddRange(query.ToList());
 
                 return result;
             }
@@ -188,18 +185,18 @@ namespace RCS.AdventureWorks.Services.Products
         #endregion
 
         #region Private ProductDetails
-        private DomainClasses.Product GetProductDetails(int productID)
+        private static DomainClasses.Product GetProductDetails(int productId)
         {
-            using (var entitiesContext = new ProductsModel.Entities())
+            using (var entitiesContext = new Entities())
             {
-                IQueryable<DomainClasses.Product> query =
+                var query =
                     // Note this benefits from the joins already defined in the model.
                     from product in entitiesContext.Products
                     from productProductPhoto in product.ProductProductPhotoes
                     from productModelProductDescriptionCulture in product.ProductModel.ProductModelProductDescriptionCultures
                     where
                     (
-                        (product.ProductID == productID) &&
+                        (product.ProductID == productId) &&
 
                         // TODO Should this be used by &&?
                         (productModelProductDescriptionCulture.CultureID == "en") // HACK
@@ -239,11 +236,11 @@ namespace RCS.AdventureWorks.Services.Products
         #endregion
 
         #region Private Categories
-        private Dtos.ProductCategoryList GetProductCategories()
+        private static Dtos.ProductCategoryList GetProductCategories()
         {
-            using (var entitiesContext = new ProductsModel.Entities())
+            using (var entitiesContext = new Entities())
             {
-                IQueryable<DomainClasses.ProductCategory> query =
+                var query =
                     from productCategory in entitiesContext.ProductCategories
                     orderby productCategory.Name
                     select new DomainClasses.ProductCategory()
@@ -255,20 +252,17 @@ namespace RCS.AdventureWorks.Services.Products
                 var result = new Dtos.ProductCategoryList();
 
                 // Note that the query executes on the ToList.
-                foreach (var item in query.ToList())
-                {
-                    result.Add(item);
-                }
+                result.AddRange(query.ToList());
 
                 return result;
             }
         }
 
-        private Dtos.ProductSubcategoryList GetProductSubcategories()
+        private static Dtos.ProductSubcategoryList GetProductSubcategories()
         {
-            using (var entitiesContext = new ProductsModel.Entities())
+            using (var entitiesContext = new Entities())
             {
-                IQueryable<DomainClasses.ProductSubcategory> query =
+                var query =
                     from productSubcategory in entitiesContext.ProductSubcategories
                     orderby productSubcategory.Name
                     select new DomainClasses.ProductSubcategory()
@@ -281,10 +275,7 @@ namespace RCS.AdventureWorks.Services.Products
                 var result = new Dtos.ProductSubcategoryList();
 
                 // Note that the query executes on the ToList.
-                foreach (var item in query.ToList())
-                {
-                    result.Add(item);
-                }
+                result.AddRange(query.ToList());
 
                 return result;
             }

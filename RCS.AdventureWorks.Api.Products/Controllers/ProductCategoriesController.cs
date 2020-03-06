@@ -129,7 +129,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
 
         private Dtos.ProductCategoryList GetProductCategories()
         {
-            IQueryable<DomainClasses.ProductCategory> query =
+            var query =
                 from productCategory in dbContext.ProductCategory
                 orderby productCategory.Name
                 select new DomainClasses.ProductCategory()
@@ -141,17 +141,14 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
             var result = new Dtos.ProductCategoryList();
 
             // Note that the query executes on the ToList.
-            foreach (var item in query.ToList())
-            {
-                result.Add(item);
-            }
+            result.AddRange(query.ToList());
 
             return result;
         }
 
         private Dtos.ProductSubcategoryList GetProductSubcategories()
         {
-            IQueryable<DomainClasses.ProductSubcategory> query =
+            var query =
                 from productSubcategory in dbContext.ProductCategory
                 orderby productSubcategory.Name
                 select new DomainClasses.ProductSubcategory()
@@ -164,10 +161,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
             var result = new Dtos.ProductSubcategoryList();
 
             // Note that the query executes on the ToList.
-            foreach (var item in query.ToList())
-            {
-                result.Add(item);
-            }
+            result.AddRange(query.ToList());
 
             return result;
         }
