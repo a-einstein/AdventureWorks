@@ -147,8 +147,10 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
 
         private static Expression<Func<Product, bool>> StringTest(string searchString)
         {
-            return product =>
-               product.Color.Contains(searchString) || product.Name.Contains(searchString);
+            // Added IsNullOrEmpty as extra precaution because Contains returns true on an empty searchString.
+            return product => 
+                !string.IsNullOrEmpty(searchString) && 
+                (product.Color.Contains(searchString) || product.Name.Contains(searchString));
         }
 
         private static Expression<Func<Product, bool>> ProductsFilterExpression(int? productCategoryId, int? productSubcategoryId, string searchString)

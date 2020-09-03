@@ -63,6 +63,8 @@ namespace RCS.AdventureWorks.Services.Products
         #endregion
 
         #region Private ProductsOverviewList
+        // Note this part is very comparable to class ProductsController, but has minor naming differences in the Entity Framework model.
+
         private static Expression<Func<Product, bool>> CategoryTest(int? productCategoryId)
         {
             return product =>
@@ -78,8 +80,10 @@ namespace RCS.AdventureWorks.Services.Products
 
         private static Expression<Func<Product, bool>> StringTest(string searchString)
         {
+            // Added IsNullOrEmpty as extra precaution because Contains returns true on an empty searchString.
             return product =>
-               product.Color.Contains(searchString) || product.Name.Contains(searchString);
+                !string.IsNullOrEmpty(searchString) &&
+                (product.Color.Contains(searchString) || product.Name.Contains(searchString));
         }
 
         private static Expression<Func<Product, bool>> ProductsFilterExpression(int? productCategoryId, int? productSubcategoryId, string searchString)
