@@ -1,0 +1,5 @@
+exclude:
+- /RCS.AdventureWorks.Products.Standard/.*
+component_depth: 1
+languages:
+- csharp
