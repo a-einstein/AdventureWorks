@@ -46,7 +46,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         [HttpGet("{id}")]
         private async Task<ActionResult<ProductCategory>> GetProductCategory(int id)
         {
-            var productCategory = await dbContext.ProductCategory.FindAsync(id);
+            var productCategory = await dbContext.ProductCategories.FindAsync(id);
 
             if (productCategory == null)
             {
@@ -94,7 +94,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         [HttpPost]
         private async Task<ActionResult<ProductCategory>> PostProductCategory(ProductCategory productCategory)
         {
-            dbContext.ProductCategory.Add(productCategory);
+            dbContext.ProductCategories.Add(productCategory);
             await dbContext.SaveChangesAsync();
 
             return CreatedAtAction("GetProductCategory", new { id = productCategory.ProductCategoryId }, productCategory);
@@ -105,13 +105,13 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         [HttpDelete("{id}")]
         private async Task<ActionResult<ProductCategory>> DeleteProductCategory(int id)
         {
-            var productCategory = await dbContext.ProductCategory.FindAsync(id);
+            var productCategory = await dbContext.ProductCategories.FindAsync(id);
             if (productCategory == null)
             {
                 return NotFound();
             }
 
-            dbContext.ProductCategory.Remove(productCategory);
+            dbContext.ProductCategories.Remove(productCategory);
             await dbContext.SaveChangesAsync();
 
             return productCategory;
@@ -124,13 +124,13 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         #region private
         private bool ProductCategoryExists(int id)
         {
-            return dbContext.ProductCategory.Any(e => e.ProductCategoryId == id);
+            return dbContext.ProductCategories.Any(e => e.ProductCategoryId == id);
         }
 
         private Dtos.ProductCategoryList GetProductCategories()
         {
             var query =
-                from productCategory in dbContext.ProductCategory
+                from productCategory in dbContext.ProductCategories
                 orderby productCategory.Name
                 select new DomainClasses.ProductCategory()
                 {
@@ -149,7 +149,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         private Dtos.ProductSubcategoryList GetProductSubcategories()
         {
             var query =
-                from productSubcategory in dbContext.ProductCategory
+                from productSubcategory in dbContext.ProductCategories
                 orderby productSubcategory.Name
                 select new DomainClasses.ProductSubcategory()
                 {

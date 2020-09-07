@@ -46,7 +46,7 @@ namespace RCS.AdventureWorks.Products.Standard
         public virtual DbSet<PersonPhone> PersonPhone { get; set; }
         public virtual DbSet<PhoneNumberType> PhoneNumberType { get; set; }
         public virtual DbSet<Product> Product { get; set; }
-        public virtual DbSet<ProductCategory> ProductCategory { get; set; }
+        public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<ProductCostHistory> ProductCostHistory { get; set; }
         public virtual DbSet<ProductDescription> ProductDescription { get; set; }
         public virtual DbSet<ProductInventory> ProductInventory { get; set; }
@@ -57,7 +57,7 @@ namespace RCS.AdventureWorks.Products.Standard
         public virtual DbSet<ProductPhoto> ProductPhoto { get; set; }
         public virtual DbSet<ProductProductPhoto> ProductProductPhoto { get; set; }
         public virtual DbSet<ProductReview> ProductReview { get; set; }
-        public virtual DbSet<ProductSubcategory> ProductSubcategory { get; set; }
+        public virtual DbSet<ProductSubcategory> ProductSubcategories { get; set; }
         public virtual DbSet<ProductVendor> ProductVendor { get; set; }
         public virtual DbSet<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
         public virtual DbSet<PurchaseOrderHeader> PurchaseOrderHeader { get; set; }
@@ -1884,7 +1884,7 @@ namespace RCS.AdventureWorks.Products.Standard
                 entity.Property(e => e.Primary).HasComment("0 = Photo is not the principal image. 1 = Photo is the principal image.");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany(p => p.ProductProductPhoto)
+                    .WithMany(p => p.ProductProductPhotoes)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
 

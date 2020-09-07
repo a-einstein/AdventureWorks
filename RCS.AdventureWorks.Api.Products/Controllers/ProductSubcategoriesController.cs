@@ -46,7 +46,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         [HttpGet("{id}")]
         private async Task<ActionResult<ProductSubcategory>> GetProductSubcategory(int id)
         {
-            var productSubcategory = await dbContext.ProductSubcategory.FindAsync(id);
+            var productSubcategory = await dbContext.ProductSubcategories.FindAsync(id);
 
             if (productSubcategory == null)
             {
@@ -94,7 +94,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         [HttpPost]
         private async Task<ActionResult<ProductSubcategory>> PostProductSubcategory(ProductSubcategory productSubcategory)
         {
-            dbContext.ProductSubcategory.Add(productSubcategory);
+            dbContext.ProductSubcategories.Add(productSubcategory);
             await dbContext.SaveChangesAsync();
 
             return CreatedAtAction("GetProductSubcategory", new { id = productSubcategory.ProductSubcategoryId }, productSubcategory);
@@ -104,13 +104,13 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         [HttpDelete("{id}")]
         private async Task<ActionResult<ProductSubcategory>> DeleteProductSubcategory(int id)
         {
-            var productSubcategory = await dbContext.ProductSubcategory.FindAsync(id);
+            var productSubcategory = await dbContext.ProductSubcategories.FindAsync(id);
             if (productSubcategory == null)
             {
                 return NotFound();
             }
 
-            dbContext.ProductSubcategory.Remove(productSubcategory);
+            dbContext.ProductSubcategories.Remove(productSubcategory);
             await dbContext.SaveChangesAsync();
 
             return productSubcategory;
@@ -120,13 +120,13 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         #region private
         private bool ProductSubcategoryExists(int id)
         {
-            return dbContext.ProductSubcategory.Any(e => e.ProductSubcategoryId == id);
+            return dbContext.ProductSubcategories.Any(e => e.ProductSubcategoryId == id);
         }
 
         private Dtos.ProductSubcategoryList GetProductSubcategories()
         {
             var query =
-                from productSubcategory in dbContext.ProductSubcategory
+                from productSubcategory in dbContext.ProductSubcategories
                 orderby productSubcategory.Name
                 select new DomainClasses.ProductSubcategory()
                 {

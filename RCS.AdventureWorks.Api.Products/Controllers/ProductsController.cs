@@ -216,7 +216,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
 
                 WeightUnitMeasureCode = product.WeightUnitMeasureCode,
                 // Note navigation properties are still applicable.
-                ThumbNailPhoto = product.ProductProductPhoto.FirstOrDefault().ProductPhoto.ThumbNailPhoto,
+                ThumbNailPhoto = product.ProductProductPhotoes.FirstOrDefault().ProductPhoto.ThumbNailPhoto,
 
                 ProductCategoryId = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductCategoryId : (int?)null,
                 ProductCategory = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductCategory.Name : null,
@@ -255,7 +255,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
             var query =
                 // Note this benefits from the joins already defined in the model.
                 from product in dbContext.Product
-                from productProductPhoto in product.ProductProductPhoto
+                from productProductPhoto in product.ProductProductPhotoes
                 from productModelProductDescriptionCulture in product.ProductModel.ProductModelProductDescriptionCulture
                 where
                 (
