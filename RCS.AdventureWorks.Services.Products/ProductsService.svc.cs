@@ -72,7 +72,9 @@ namespace RCS.AdventureWorks.Services.Products
         #endregion
 
         #region Private ProductsOverviewList
-        // Note this part is very comparable to class ProductsController, but has minor naming differences in the Entity Framework model.
+        // Note this part is literally equal as in class ProductsController.
+        // It should be shared. 
+        // Problem is that they are based on different frameworks, like for DbContext, Expression, ...
 
         private static Expression<Func<Product, bool>> CategoryTest(int? productCategoryId)
         {

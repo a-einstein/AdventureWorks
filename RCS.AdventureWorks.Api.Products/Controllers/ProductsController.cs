@@ -125,7 +125,9 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         #endregion
 
         #region private
-        // Note this part is very comparable to class ProductsService, but has minor naming differences in the Entity Framework model.
+        // Note this part is literally equal as in class ProductsService.
+        // It should be shared. 
+        // Problem is that they are based on different frameworks, like for DbContext, Expression, ...
 
         private bool ProductExists(int id)
         {
