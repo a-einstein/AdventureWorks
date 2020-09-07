@@ -45,7 +45,7 @@ namespace RCS.AdventureWorks.Products.Standard
         public virtual DbSet<PersonCreditCard> PersonCreditCard { get; set; }
         public virtual DbSet<PersonPhone> PersonPhone { get; set; }
         public virtual DbSet<PhoneNumberType> PhoneNumberType { get; set; }
-        public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<ProductCostHistory> ProductCostHistory { get; set; }
         public virtual DbSet<ProductDescription> ProductDescription { get; set; }
@@ -1825,7 +1825,7 @@ namespace RCS.AdventureWorks.Products.Standard
                     .OnDelete(DeleteBehavior.ClientSetNull);
 
                 entity.HasOne(d => d.ProductModel)
-                    .WithMany(p => p.ProductModelProductDescriptionCulture)
+                    .WithMany(p => p.ProductModelProductDescriptionCultures)
                     .HasForeignKey(d => d.ProductModelId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
             });

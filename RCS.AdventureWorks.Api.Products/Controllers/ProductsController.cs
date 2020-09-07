@@ -101,7 +101,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         [HttpPost]
         private async Task<ActionResult<Product>> PostProduct(Product product)
         {
-            dbContext.Product.Add(product);
+            dbContext.Products.Add(product);
             await dbContext.SaveChangesAsync();
 
             return CreatedAtAction("GetProduct", new { id = product.ProductId }, product);
@@ -111,13 +111,13 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         [HttpDelete("{id}")]
         private async Task<ActionResult<Product>> DeleteProduct(int id)
         {
-            var product = await dbContext.Product.FindAsync(id);
+            var product = await dbContext.Products.FindAsync(id);
             if (product == null)
             {
                 return NotFound();
             }
 
-            dbContext.Product.Remove(product);
+            dbContext.Products.Remove(product);
             await dbContext.SaveChangesAsync();
 
             return product;
@@ -129,7 +129,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
 
         private bool ProductExists(int id)
         {
-            return dbContext.Product.Any(e => e.ProductId == id);
+            return dbContext.Products.Any(e => e.ProductId == id);
         }
 
         private static Expression<Func<Product, bool>> CategoryTest(int? productCategoryId)
@@ -237,7 +237,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
 
             // Need to Expand on variables instead of function calls.
             IQueryable<DomainClasses.ProductsOverviewObject> query =
-                dbContext.Product.AsExpandable().
+                dbContext.Products.AsExpandable().
                 Where(productsFilterExpression.Expand()).
                 Select(productsOverviewObjectExpression.Expand()).
                 OrderBy(product => product.Name);
@@ -254,9 +254,9 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         {
             var query =
                 // Note this benefits from the joins already defined in the model.
-                from product in dbContext.Product
+                from product in dbContext.Products
                 from productProductPhoto in product.ProductProductPhotoes
-                from productModelProductDescriptionCulture in product.ProductModel.ProductModelProductDescriptionCulture
+                from productModelProductDescriptionCulture in product.ProductModel.ProductModelProductDescriptionCultures
                 where
                 (
                     (product.ProductId == productId) &&
