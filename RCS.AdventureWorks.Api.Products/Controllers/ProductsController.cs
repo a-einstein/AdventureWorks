@@ -158,7 +158,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
             // Note that ProductCategory is reached through ProductSubcategory. 
             // - Product.ProductSubcategoryId -> ProductSubcategory
             // - ProductSubcategory.ProductCategoryId -> ProductCategory
-            // Note that Product.ProductSubcategoryID is nullable. So Product may have no ProductSubcategory and thus no ProductCategory.
+            // Note that Product.ProductSubcategoryId is nullable. So Product may have no ProductSubcategory and thus no ProductCategory.
             // But for a ProductCategory to be applied on a Product, a ProductSubcategory has to be set too.
             // This actually occurs in the current DB and has to be tested for.
 

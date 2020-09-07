@@ -69,13 +69,13 @@ namespace RCS.AdventureWorks.Services.Products
         {
             return product =>
                 product.ProductSubcategory != null &&
-                product.ProductSubcategory.ProductCategoryID == productCategoryId;
+                product.ProductSubcategory.ProductCategoryId == productCategoryId;
         }
 
         private static Expression<Func<Product, bool>> SubcategoryTest(int? productSubcategoryId)
         {
             return product =>
-                product.ProductSubcategoryID == productSubcategoryId;
+                product.ProductSubcategoryId == productSubcategoryId;
         }
 
         private static Expression<Func<Product, bool>> StringTest(string searchString)
@@ -91,7 +91,7 @@ namespace RCS.AdventureWorks.Services.Products
             // Note that ProductCategory is reached through ProductSubcategory. 
             // - Product.ProductSubcategoryId -> ProductSubcategory
             // - ProductSubcategory.ProductCategoryId -> ProductCategory
-            // Note that Product.ProductSubcategoryID is nullable. So Product may have no ProductSubcategory and thus no ProductCategory.
+            // Note that Product.ProductSubcategoryId is nullable. So Product may have no ProductSubcategory and thus no ProductCategory.
             // But for a ProductCategory to be applied on a Product, a ProductSubcategory has to be set too.
             // This actually occurs in the current DB and has to be tested for.
 
@@ -139,7 +139,7 @@ namespace RCS.AdventureWorks.Services.Products
         {
             return product => new DomainClasses.ProductsOverviewObject()
             {
-                Id = product.ProductID,
+                Id = product.ProductId,
                 Name = product.Name,
                 Color = product.Color,
                 ListPrice = product.ListPrice,
@@ -151,10 +151,10 @@ namespace RCS.AdventureWorks.Services.Products
                 // Note navigation properties are still applicable.
                 ThumbNailPhoto = product.ProductProductPhotoes.FirstOrDefault().ProductPhoto.ThumbNailPhoto,
 
-                ProductCategoryId = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductCategoryID : (int?)null,
+                ProductCategoryId = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductCategoryId : (int?)null,
                 ProductCategory = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductCategory.Name : null,
 
-                ProductSubcategoryId = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductSubcategoryID : (int?)null,
+                ProductSubcategoryId = (product.ProductSubcategory != null) ? product.ProductSubcategory.ProductSubcategoryId : (int?)null,
                 ProductSubcategory = (product.ProductSubcategory != null) ? product.ProductSubcategory.Name : null
             };
         }
@@ -200,14 +200,14 @@ namespace RCS.AdventureWorks.Services.Products
                     from productModelProductDescriptionCulture in product.ProductModel.ProductModelProductDescriptionCultures
                     where
                     (
-                        (product.ProductID == productId) &&
+                        (product.ProductId == productId) &&
 
                         // TODO Should this be used by &&?
-                        (productModelProductDescriptionCulture.CultureID == "en") // HACK
+                        (productModelProductDescriptionCulture.CultureId == "en") // HACK
                     )
                     select new DomainClasses.Product()
                     {
-                        Id = product.ProductID,
+                        Id = product.ProductId,
                         Name = product.Name,
                         ProductNumber = product.ProductNumber,
                         Color = product.Color,
@@ -221,10 +221,10 @@ namespace RCS.AdventureWorks.Services.Products
 
                         LargePhoto = productProductPhoto.ProductPhoto.LargePhoto,
 
-                        ProductCategoryId = product.ProductSubcategory.ProductCategoryID,
+                        ProductCategoryId = product.ProductSubcategory.ProductCategoryId,
                         ProductCategory = product.ProductSubcategory.ProductCategory.Name,
 
-                        ProductSubcategoryId = product.ProductSubcategory.ProductSubcategoryID,
+                        ProductSubcategoryId = product.ProductSubcategory.ProductSubcategoryId,
                         ProductSubcategory = product.ProductSubcategory.Name,
 
                         ModelName = product.ProductModel.Name,
@@ -249,7 +249,7 @@ namespace RCS.AdventureWorks.Services.Products
                     orderby productCategory.Name
                     select new DomainClasses.ProductCategory()
                     {
-                        Id = productCategory.ProductCategoryID,
+                        Id = productCategory.ProductCategoryId,
                         Name = productCategory.Name
                     };
 
@@ -271,9 +271,9 @@ namespace RCS.AdventureWorks.Services.Products
                     orderby productSubcategory.Name
                     select new DomainClasses.ProductSubcategory()
                     {
-                        Id = productSubcategory.ProductSubcategoryID,
+                        Id = productSubcategory.ProductSubcategoryId,
                         Name = productSubcategory.Name,
-                        ProductCategoryId = productSubcategory.ProductCategoryID
+                        ProductCategoryId = productSubcategory.ProductCategoryId
                     };
 
                 var result = new Dtos.ProductSubcategoryList();

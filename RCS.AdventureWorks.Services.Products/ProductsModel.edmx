@@ -234,9 +234,9 @@
       <Schema Namespace="RCS.AdventureWorks.Services.Products.ProductsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Product">
           <Key>
-            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="ProductId" />
           </Key>
-          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProductNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MakeFlag" Type="Boolean" Nullable="false" />
@@ -254,8 +254,8 @@
           <Property Name="ProductLine" Type="String" MaxLength="2" FixedLength="true" Unicode="true" />
           <Property Name="Class" Type="String" MaxLength="2" FixedLength="true" Unicode="true" />
           <Property Name="Style" Type="String" MaxLength="2" FixedLength="true" Unicode="true" />
-          <Property Name="ProductSubcategoryID" Type="Int32" />
-          <Property Name="ProductModelID" Type="Int32" />
+          <Property Name="ProductSubcategoryId" Type="Int32" />
+          <Property Name="ProductModelId" Type="Int32" />
           <Property Name="SellStartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SellEndDate" Type="DateTime" Precision="3" />
           <Property Name="DiscontinuedDate" Type="DateTime" Precision="3" />
@@ -267,9 +267,9 @@
         </EntityType>
         <EntityType Name="ProductCategory">
           <Key>
-            <PropertyRef Name="ProductCategoryID" />
+            <PropertyRef Name="ProductCategoryId" />
           </Key>
-          <Property Name="ProductCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="rowguid" Type="Guid" Nullable="false" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -277,9 +277,9 @@
         </EntityType>
         <EntityType Name="ProductPhoto">
           <Key>
-            <PropertyRef Name="ProductPhotoID" />
+            <PropertyRef Name="ProductPhotoId" />
           </Key>
-          <Property Name="ProductPhotoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductPhotoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ThumbNailPhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="ThumbnailPhotoFileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LargePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
@@ -289,11 +289,11 @@
         </EntityType>
         <EntityType Name="ProductProductPhoto">
           <Key>
-            <PropertyRef Name="ProductID" />
-            <PropertyRef Name="ProductPhotoID" />
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="ProductPhotoId" />
           </Key>
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="ProductPhotoID" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="ProductPhotoId" Type="Int32" Nullable="false" />
           <Property Name="Primary" Type="Boolean" Nullable="false" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductProductPhoto_Product_ProductID" FromRole="ProductProductPhoto" ToRole="Product" />
@@ -301,10 +301,10 @@
         </EntityType>
         <EntityType Name="ProductSubcategory">
           <Key>
-            <PropertyRef Name="ProductSubcategoryID" />
+            <PropertyRef Name="ProductSubcategoryId" />
           </Key>
-          <Property Name="ProductSubcategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductCategoryID" Type="Int32" Nullable="false" />
+          <Property Name="ProductSubcategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductCategoryId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="rowguid" Type="Guid" Nullable="false" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -316,10 +316,10 @@
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProductSubcategory">
-              <PropertyRef Name="ProductSubcategoryID" />
+              <PropertyRef Name="ProductSubcategoryId" />
             </Principal>
             <Dependent Role="Product">
-              <PropertyRef Name="ProductSubcategoryID" />
+              <PropertyRef Name="ProductSubcategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -328,10 +328,10 @@
           <End Role="ProductProductPhoto" Type="Self.ProductProductPhoto" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
-              <PropertyRef Name="ProductID" />
+              <PropertyRef Name="ProductId" />
             </Principal>
             <Dependent Role="ProductProductPhoto">
-              <PropertyRef Name="ProductID" />
+              <PropertyRef Name="ProductId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -340,10 +340,10 @@
           <End Role="ProductSubcategory" Type="Self.ProductSubcategory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProductCategory">
-              <PropertyRef Name="ProductCategoryID" />
+              <PropertyRef Name="ProductCategoryId" />
             </Principal>
             <Dependent Role="ProductSubcategory">
-              <PropertyRef Name="ProductCategoryID" />
+              <PropertyRef Name="ProductCategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -352,10 +352,10 @@
           <End Role="ProductProductPhoto" Type="Self.ProductProductPhoto" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProductPhoto">
-              <PropertyRef Name="ProductPhotoID" />
+              <PropertyRef Name="ProductPhotoId" />
             </Principal>
             <Dependent Role="ProductProductPhoto">
-              <PropertyRef Name="ProductPhotoID" />
+              <PropertyRef Name="ProductPhotoId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -399,9 +399,9 @@
         </EntityContainer>
         <EntityType Name="ProductDescription">
           <Key>
-            <PropertyRef Name="ProductDescriptionID" />
+            <PropertyRef Name="ProductDescriptionId" />
           </Key>
-          <Property Name="ProductDescriptionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductDescriptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
           <Property Name="rowguid" Type="Guid" Nullable="false" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -409,9 +409,9 @@
         </EntityType>
         <EntityType Name="ProductModel">
           <Key>
-            <PropertyRef Name="ProductModelID" />
+            <PropertyRef Name="ProductModelId" />
           </Key>
-          <Property Name="ProductModelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductModelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CatalogDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Instructions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -422,13 +422,13 @@
         </EntityType>
         <EntityType Name="ProductModelProductDescriptionCulture">
           <Key>
-            <PropertyRef Name="ProductModelID" />
-            <PropertyRef Name="ProductDescriptionID" />
-            <PropertyRef Name="CultureID" />
+            <PropertyRef Name="ProductModelId" />
+            <PropertyRef Name="ProductDescriptionId" />
+            <PropertyRef Name="CultureId" />
           </Key>
-          <Property Name="ProductModelID" Type="Int32" Nullable="false" />
-          <Property Name="ProductDescriptionID" Type="Int32" Nullable="false" />
-          <Property Name="CultureID" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
+          <Property Name="ProductModelId" Type="Int32" Nullable="false" />
+          <Property Name="ProductDescriptionId" Type="Int32" Nullable="false" />
+          <Property Name="CultureId" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="ProductDescription" Relationship="RCS.AdventureWorks.Services.Products.ProductsModel.FK_ProductModelProductDescriptionCulture_ProductDescription_ProductDescriptionID" FromRole="ProductModelProductDescriptionCulture" ToRole="ProductDescription" />
           <NavigationProperty Name="ProductModel" Relationship="RCS.AdventureWorks.Services.Products.ProductsModel.FK_ProductModelProductDescriptionCulture_ProductModel_ProductModelID" FromRole="ProductModelProductDescriptionCulture" ToRole="ProductModel" />
@@ -438,10 +438,10 @@
           <End Type="RCS.AdventureWorks.Services.Products.ProductsModel.Product" Role="Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProductModel">
-              <PropertyRef Name="ProductModelID" />
+              <PropertyRef Name="ProductModelId" />
             </Principal>
             <Dependent Role="Product">
-              <PropertyRef Name="ProductModelID" />
+              <PropertyRef Name="ProductModelId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -450,10 +450,10 @@
           <End Type="RCS.AdventureWorks.Services.Products.ProductsModel.ProductModelProductDescriptionCulture" Role="ProductModelProductDescriptionCulture" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProductDescription">
-              <PropertyRef Name="ProductDescriptionID" />
+              <PropertyRef Name="ProductDescriptionId" />
             </Principal>
             <Dependent Role="ProductModelProductDescriptionCulture">
-              <PropertyRef Name="ProductDescriptionID" />
+              <PropertyRef Name="ProductDescriptionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -462,10 +462,10 @@
           <End Type="RCS.AdventureWorks.Services.Products.ProductsModel.ProductModelProductDescriptionCulture" Role="ProductModelProductDescriptionCulture" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProductModel">
-              <PropertyRef Name="ProductModelID" />
+              <PropertyRef Name="ProductModelId" />
             </Principal>
             <Dependent Role="ProductModelProductDescriptionCulture">
-              <PropertyRef Name="ProductModelID" />
+              <PropertyRef Name="ProductModelId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -478,7 +478,7 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="RCS.AdventureWorks.Services.Products.ProductsModel.Product">
               <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ProductNumber" ColumnName="ProductNumber" />
                 <ScalarProperty Name="MakeFlag" ColumnName="MakeFlag" />
@@ -496,8 +496,8 @@
                 <ScalarProperty Name="ProductLine" ColumnName="ProductLine" />
                 <ScalarProperty Name="Class" ColumnName="Class" />
                 <ScalarProperty Name="Style" ColumnName="Style" />
-                <ScalarProperty Name="ProductSubcategoryID" ColumnName="ProductSubcategoryID" />
-                <ScalarProperty Name="ProductModelID" ColumnName="ProductModelID" />
+                <ScalarProperty Name="ProductSubcategoryId" ColumnName="ProductSubcategoryID" />
+                <ScalarProperty Name="ProductModelId" ColumnName="ProductModelID" />
                 <ScalarProperty Name="SellStartDate" ColumnName="SellStartDate" />
                 <ScalarProperty Name="SellEndDate" ColumnName="SellEndDate" />
                 <ScalarProperty Name="DiscontinuedDate" ColumnName="DiscontinuedDate" />
@@ -509,7 +509,7 @@
           <EntitySetMapping Name="ProductCategories">
             <EntityTypeMapping TypeName="RCS.AdventureWorks.Services.Products.ProductsModel.ProductCategory">
               <MappingFragment StoreEntitySet="ProductCategory">
-                <ScalarProperty Name="ProductCategoryID" ColumnName="ProductCategoryID" />
+                <ScalarProperty Name="ProductCategoryId" ColumnName="ProductCategoryID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="rowguid" ColumnName="rowguid" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
@@ -519,7 +519,7 @@
           <EntitySetMapping Name="ProductPhotoes">
             <EntityTypeMapping TypeName="RCS.AdventureWorks.Services.Products.ProductsModel.ProductPhoto">
               <MappingFragment StoreEntitySet="ProductPhoto">
-                <ScalarProperty Name="ProductPhotoID" ColumnName="ProductPhotoID" />
+                <ScalarProperty Name="ProductPhotoId" ColumnName="ProductPhotoID" />
                 <ScalarProperty Name="ThumbNailPhoto" ColumnName="ThumbNailPhoto" />
                 <ScalarProperty Name="ThumbnailPhotoFileName" ColumnName="ThumbnailPhotoFileName" />
                 <ScalarProperty Name="LargePhoto" ColumnName="LargePhoto" />
@@ -531,8 +531,8 @@
           <EntitySetMapping Name="ProductProductPhotoes">
             <EntityTypeMapping TypeName="RCS.AdventureWorks.Services.Products.ProductsModel.ProductProductPhoto">
               <MappingFragment StoreEntitySet="ProductProductPhoto">
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="ProductPhotoID" ColumnName="ProductPhotoID" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductPhotoId" ColumnName="ProductPhotoID" />
                 <ScalarProperty Name="Primary" ColumnName="Primary" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
@@ -541,8 +541,8 @@
           <EntitySetMapping Name="ProductSubcategories">
             <EntityTypeMapping TypeName="RCS.AdventureWorks.Services.Products.ProductsModel.ProductSubcategory">
               <MappingFragment StoreEntitySet="ProductSubcategory">
-                <ScalarProperty Name="ProductSubcategoryID" ColumnName="ProductSubcategoryID" />
-                <ScalarProperty Name="ProductCategoryID" ColumnName="ProductCategoryID" />
+                <ScalarProperty Name="ProductSubcategoryId" ColumnName="ProductSubcategoryID" />
+                <ScalarProperty Name="ProductCategoryId" ColumnName="ProductCategoryID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="rowguid" ColumnName="rowguid" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
@@ -555,7 +555,7 @@
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="rowguid" ColumnName="rowguid" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ProductDescriptionID" ColumnName="ProductDescriptionID" />
+                <ScalarProperty Name="ProductDescriptionId" ColumnName="ProductDescriptionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -567,7 +567,7 @@
                 <ScalarProperty Name="Instructions" ColumnName="Instructions" />
                 <ScalarProperty Name="CatalogDescription" ColumnName="CatalogDescription" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ProductModelID" ColumnName="ProductModelID" />
+                <ScalarProperty Name="ProductModelId" ColumnName="ProductModelID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -575,9 +575,9 @@
             <EntityTypeMapping TypeName="RCS.AdventureWorks.Services.Products.ProductsModel.ProductModelProductDescriptionCulture">
               <MappingFragment StoreEntitySet="ProductModelProductDescriptionCulture">
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="CultureID" ColumnName="CultureID" />
-                <ScalarProperty Name="ProductDescriptionID" ColumnName="ProductDescriptionID" />
-                <ScalarProperty Name="ProductModelID" ColumnName="ProductModelID" />
+                <ScalarProperty Name="CultureId" ColumnName="CultureID" />
+                <ScalarProperty Name="ProductDescriptionId" ColumnName="ProductDescriptionID" />
+                <ScalarProperty Name="ProductModelId" ColumnName="ProductModelID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

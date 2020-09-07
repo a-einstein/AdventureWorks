@@ -7,15 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace  RCS.AdventureWorks.Services.Products.ProductsModel
+namespace RCS.AdventureWorks.Services.Products.ProductsModel
 {
     using System;
     using System.Collections.Generic;
     
     public partial class ProductProductPhoto
     {
-        public int ProductID { get; set; }
-        public int ProductPhotoID { get; set; }
+        public int ProductId { get; set; }
+        public int ProductPhotoId { get; set; }
         public bool Primary { get; set; }
         public System.DateTime ModifiedDate { get; set; }
     

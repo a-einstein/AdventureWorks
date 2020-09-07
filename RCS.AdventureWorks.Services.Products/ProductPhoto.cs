@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace  RCS.AdventureWorks.Services.Products.ProductsModel
+namespace RCS.AdventureWorks.Services.Products.ProductsModel
 {
     using System;
     using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace  RCS.AdventureWorks.Services.Products.ProductsModel
             this.ProductProductPhotoes = new HashSet<ProductProductPhoto>();
         }
     
-        public int ProductPhotoID { get; set; }
+        public int ProductPhotoId { get; set; }
         public byte[] ThumbNailPhoto { get; set; }
         public string ThumbnailPhotoFileName { get; set; }
         public byte[] LargePhoto { get; set; }
