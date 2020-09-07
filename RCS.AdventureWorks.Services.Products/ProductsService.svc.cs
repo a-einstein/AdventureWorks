@@ -162,7 +162,7 @@ namespace RCS.AdventureWorks.Services.Products
         // TODO Maybe change into universal filter descriptors.
         private static Dtos.ProductsOverviewList GetProductsOverview(int? productCategoryId, int? productSubcategoryId, string searchString)
         {
-            using (var entitiesContext = new Entities())
+            using (var dbContext = new Entities())
             {
                 // The expression is broken down using LINQKit, which extends with Invoke, Expand, AsExpandable.
                 // For details and examples:
@@ -173,7 +173,7 @@ namespace RCS.AdventureWorks.Services.Products
 
                 // Need to Expand on variables instead of function calls.
                 IQueryable<DomainClasses.ProductsOverviewObject> query =
-                    entitiesContext.Products.AsExpandable().
+                    dbContext.Products.AsExpandable().
                     Where(productsFilterExpression.Expand()).
                     Select(productsOverviewObjectExpression.Expand()).
                     OrderBy(product => product.Name);
@@ -191,11 +191,11 @@ namespace RCS.AdventureWorks.Services.Products
         #region Private ProductDetails
         private static DomainClasses.Product GetProductDetails(int productId)
         {
-            using (var entitiesContext = new Entities())
+            using (var dbContext = new Entities())
             {
                 var query =
                     // Note this benefits from the joins already defined in the model.
-                    from product in entitiesContext.Products
+                    from product in dbContext.Products
                     from productProductPhoto in product.ProductProductPhotoes
                     from productModelProductDescriptionCulture in product.ProductModel.ProductModelProductDescriptionCultures
                     where
@@ -242,10 +242,10 @@ namespace RCS.AdventureWorks.Services.Products
         #region Private Categories
         private static Dtos.ProductCategoryList GetProductCategories()
         {
-            using (var entitiesContext = new Entities())
+            using (var dbContext = new Entities())
             {
                 var query =
-                    from productCategory in entitiesContext.ProductCategories
+                    from productCategory in dbContext.ProductCategories
                     orderby productCategory.Name
                     select new DomainClasses.ProductCategory()
                     {
@@ -264,10 +264,10 @@ namespace RCS.AdventureWorks.Services.Products
 
         private static Dtos.ProductSubcategoryList GetProductSubcategories()
         {
-            using (var entitiesContext = new Entities())
+            using (var dbContext = new Entities())
             {
                 var query =
-                    from productSubcategory in entitiesContext.ProductSubcategories
+                    from productSubcategory in dbContext.ProductSubcategories
                     orderby productSubcategory.Name
                     select new DomainClasses.ProductSubcategory()
                     {
