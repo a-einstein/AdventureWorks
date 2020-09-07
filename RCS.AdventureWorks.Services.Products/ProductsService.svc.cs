@@ -12,6 +12,15 @@ namespace RCS.AdventureWorks.Services.Products
 {
     public class ProductsService : IProductsService
     {
+        #region construction
+        private readonly Entities dbContext;
+
+        public ProductsService()
+        {
+            dbContext = new Entities();
+        }
+        #endregion
+
         #region Public
         async Task<Dtos.ProductsOverviewList> IProductsService.GetProductsOverviewBy(int? productCategoryId, int? productSubcategoryId, string productNameString)
         {
@@ -160,129 +169,117 @@ namespace RCS.AdventureWorks.Services.Products
         }
 
         // TODO Maybe change into universal filter descriptors.
-        private static Dtos.ProductsOverviewList GetProductsOverview(int? productCategoryId, int? productSubcategoryId, string searchString)
+        private Dtos.ProductsOverviewList GetProductsOverview(int? productCategoryId, int? productSubcategoryId, string searchString)
         {
-            using (var dbContext = new Entities())
-            {
-                // The expression is broken down using LINQKit, which extends with Invoke, Expand, AsExpandable.
-                // For details and examples:
-                // http://www.albahari.com/nutshell/linqkit.aspx
-                // https://github.com/scottksmith95/LINQKit
-                var productsFilterExpression = ProductsFilterExpression(productCategoryId, productSubcategoryId, searchString);
-                var productsOverviewObjectExpression = ProductsOverviewObjectExpression();
+            // The expression is broken down using LINQKit, which extends with Invoke, Expand, AsExpandable.
+            // For details and examples:
+            // http://www.albahari.com/nutshell/linqkit.aspx
+            // https://github.com/scottksmith95/LINQKit
+            var productsFilterExpression = ProductsFilterExpression(productCategoryId, productSubcategoryId, searchString);
+            var productsOverviewObjectExpression = ProductsOverviewObjectExpression();
 
-                // Need to Expand on variables instead of function calls.
-                IQueryable<DomainClasses.ProductsOverviewObject> query =
-                    dbContext.Products.AsExpandable().
-                    Where(productsFilterExpression.Expand()).
-                    Select(productsOverviewObjectExpression.Expand()).
-                    OrderBy(product => product.Name);
+            // Need to Expand on variables instead of function calls.
+            IQueryable<DomainClasses.ProductsOverviewObject> query =
+                dbContext.Products.AsExpandable().
+                Where(productsFilterExpression.Expand()).
+                Select(productsOverviewObjectExpression.Expand()).
+                OrderBy(product => product.Name);
 
-                var result = new Dtos.ProductsOverviewList();
+            var result = new Dtos.ProductsOverviewList();
 
-                // Note that the query executes on ToList.
-                result.AddRange(query.ToList());
+            // Note that the query executes on ToList.
+            result.AddRange(query.ToList());
 
-                return result;
-            }
+            return result;
         }
         #endregion
 
         #region Private ProductDetails
-        private static DomainClasses.Product GetProductDetails(int productId)
+        private DomainClasses.Product GetProductDetails(int productId)
         {
-            using (var dbContext = new Entities())
-            {
-                var query =
-                    // Note this benefits from the joins already defined in the model.
-                    from product in dbContext.Products
-                    from productProductPhoto in product.ProductProductPhotoes
-                    from productModelProductDescriptionCulture in product.ProductModel.ProductModelProductDescriptionCultures
-                    where
-                    (
-                        (product.ProductId == productId) &&
+            var query =
+                // Note this benefits from the joins already defined in the model.
+                from product in dbContext.Products
+                from productProductPhoto in product.ProductProductPhotoes
+                from productModelProductDescriptionCulture in product.ProductModel.ProductModelProductDescriptionCultures
+                where
+                (
+                    (product.ProductId == productId) &&
 
-                        // TODO Should this be used by &&?
-                        (productModelProductDescriptionCulture.CultureId == "en") // HACK
-                    )
-                    select new DomainClasses.Product()
-                    {
-                        Id = product.ProductId,
-                        Name = product.Name,
-                        ProductNumber = product.ProductNumber,
-                        Color = product.Color,
-                        ListPrice = product.ListPrice,
+                    // TODO Should this be used by &&?
+                    (productModelProductDescriptionCulture.CultureId == "en") // HACK
+                )
+                select new DomainClasses.Product()
+                {
+                    Id = product.ProductId,
+                    Name = product.Name,
+                    ProductNumber = product.ProductNumber,
+                    Color = product.Color,
+                    ListPrice = product.ListPrice,
 
-                        Size = product.Size,
-                        SizeUnitMeasureCode = product.SizeUnitMeasureCode,
+                    Size = product.Size,
+                    SizeUnitMeasureCode = product.SizeUnitMeasureCode,
 
-                        Weight = product.Weight,
-                        WeightUnitMeasureCode = product.WeightUnitMeasureCode,
+                    Weight = product.Weight,
+                    WeightUnitMeasureCode = product.WeightUnitMeasureCode,
 
-                        LargePhoto = productProductPhoto.ProductPhoto.LargePhoto,
+                    LargePhoto = productProductPhoto.ProductPhoto.LargePhoto,
 
-                        ProductCategoryId = product.ProductSubcategory.ProductCategoryId,
-                        ProductCategory = product.ProductSubcategory.ProductCategory.Name,
+                    ProductCategoryId = product.ProductSubcategory.ProductCategoryId,
+                    ProductCategory = product.ProductSubcategory.ProductCategory.Name,
 
-                        ProductSubcategoryId = product.ProductSubcategory.ProductSubcategoryId,
-                        ProductSubcategory = product.ProductSubcategory.Name,
+                    ProductSubcategoryId = product.ProductSubcategory.ProductSubcategoryId,
+                    ProductSubcategory = product.ProductSubcategory.Name,
 
-                        ModelName = product.ProductModel.Name,
-                        Description = productModelProductDescriptionCulture.ProductDescription.Description
-                    };
+                    ModelName = product.ProductModel.Name,
+                    Description = productModelProductDescriptionCulture.ProductDescription.Description
+                };
 
-                // Note that the query executes on the FirstOrDefault.
-                var result = query.FirstOrDefault();
+            // Note that the query executes on the FirstOrDefault.
+            var result = query.FirstOrDefault();
 
-                return result;
-            }
+            return result;
         }
         #endregion
 
         #region Private Categories
-        private static Dtos.ProductCategoryList GetProductCategories()
+        private Dtos.ProductCategoryList GetProductCategories()
         {
-            using (var dbContext = new Entities())
-            {
-                var query =
-                    from productCategory in dbContext.ProductCategories
-                    orderby productCategory.Name
-                    select new DomainClasses.ProductCategory()
-                    {
-                        Id = productCategory.ProductCategoryId,
-                        Name = productCategory.Name
-                    };
+            var query =
+                from productCategory in dbContext.ProductCategories
+                orderby productCategory.Name
+                select new DomainClasses.ProductCategory()
+                {
+                    Id = productCategory.ProductCategoryId,
+                    Name = productCategory.Name
+                };
 
-                var result = new Dtos.ProductCategoryList();
+            var result = new Dtos.ProductCategoryList();
 
-                // Note that the query executes on the ToList.
-                result.AddRange(query.ToList());
+            // Note that the query executes on the ToList.
+            result.AddRange(query.ToList());
 
-                return result;
-            }
+            return result;
         }
 
-        private static Dtos.ProductSubcategoryList GetProductSubcategories()
+        private Dtos.ProductSubcategoryList GetProductSubcategories()
         {
-            using (var dbContext = new Entities())
-            {
-                var query =
-                    from productSubcategory in dbContext.ProductSubcategories
-                    orderby productSubcategory.Name
-                    select new DomainClasses.ProductSubcategory()
-                    {
-                        Id = productSubcategory.ProductSubcategoryId,
-                        Name = productSubcategory.Name,
-                        ProductCategoryId = productSubcategory.ProductCategoryId
-                    };
+            var query =
+                from productSubcategory in dbContext.ProductSubcategories
+                orderby productSubcategory.Name
+                select new DomainClasses.ProductSubcategory()
+                {
+                    Id = productSubcategory.ProductSubcategoryId,
+                    Name = productSubcategory.Name,
+                    ProductCategoryId = productSubcategory.ProductCategoryId
+                };
 
-                var result = new Dtos.ProductSubcategoryList();
+            var result = new Dtos.ProductSubcategoryList();
 
-                // Note that the query executes on the ToList.
-                result.AddRange(query.ToList());
+            // Note that the query executes on the ToList.
+            result.AddRange(query.ToList());
 
-                return result;
-            }
+            return result;
         }
         #endregion
     }
