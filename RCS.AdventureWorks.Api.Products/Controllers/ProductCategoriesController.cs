@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using RCS.AdventureWorks.Products.Standard;
 using System.Linq;
 using System.Threading.Tasks;
-using DomainClasses = RCS.AdventureWorks.Common.DomainClasses;
 using Dtos = RCS.AdventureWorks.Common.Dtos;
 
 namespace RCS.AdventureWorks.Api.Products.Controllers
@@ -16,10 +15,12 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         #region construction
         // Note this is shared instead created in usings as in ProductsService.
         private readonly AdventureWorks2014Context dbContext;
+        private readonly ContextExtension contextExtension;
 
         public ProductCategoriesController(AdventureWorks2014Context context)
         {
             dbContext = context;
+            contextExtension = new ContextExtension(dbContext);
         }
         #endregion
 
@@ -31,7 +32,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         {
             var task = Task.Run(() =>
             {
-                var listDto = GetProductCategories();
+                var listDto = contextExtension.GetProductCategories();
 
                 return listDto;
             });
@@ -125,45 +126,6 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         private bool ProductCategoryExists(int id)
         {
             return dbContext.ProductCategories.Any(e => e.ProductCategoryId == id);
-        }
-
-        private Dtos.ProductCategoryList GetProductCategories()
-        {
-            var query =
-                from productCategory in dbContext.ProductCategories
-                orderby productCategory.Name
-                select new DomainClasses.ProductCategory()
-                {
-                    Id = productCategory.ProductCategoryId,
-                    Name = productCategory.Name
-                };
-
-            var result = new Dtos.ProductCategoryList();
-
-            // Note that the query executes on the ToList.
-            result.AddRange(query.ToList());
-
-            return result;
-        }
-
-        private Dtos.ProductSubcategoryList GetProductSubcategories()
-        {
-            var query =
-                from productSubcategory in dbContext.ProductCategories
-                orderby productSubcategory.Name
-                select new DomainClasses.ProductSubcategory()
-                {
-                    Id = productSubcategory.ProductCategoryId,
-                    Name = productSubcategory.Name,
-                    ProductCategoryId = productSubcategory.ProductCategoryId
-                };
-
-            var result = new Dtos.ProductSubcategoryList();
-
-            // Note that the query executes on the ToList.
-            result.AddRange(query.ToList());
-
-            return result;
         }
         #endregion
     }
