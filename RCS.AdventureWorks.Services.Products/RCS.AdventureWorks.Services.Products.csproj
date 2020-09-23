@@ -197,6 +197,7 @@
       <CustomToolNamespace>RCS.AdventureWorks.Services.Products.ProductsModel</CustomToolNamespace>
     </Content>
     <Content Include="ProductsService.svc" />
+    <Content Include="ReadMe.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
