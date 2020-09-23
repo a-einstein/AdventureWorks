@@ -5,6 +5,7 @@
 Both Web API and WCF database service tailored for my shop projects, working on the standard AdventureWorks database.
 
 #### News
+* Release is now to GitHub with an automatic change summary.
 * Added Web API service as alternative to WCF.
 * A certified domain is now available for these services to run on. On request.
 * Integrated with Azure Devops build and release pipelines.
@@ -36,8 +37,8 @@ Both Web API and WCF database service tailored for my shop projects, working on 
 * Has been deployed as an Azure service with an Azure Database.
 
 #### Installation
-* This service is mainly intended to be installed on my domain and used by my clients. Running and acces is on request.
+* This service is mainly intended to be installed on my domain and used by my clients. Running and access is on request.
 * The service cannot be installed plug & play, as the database is not included and configured to.
-* However, one can download and install the lastest versions of both services.
-  * **[WCF service](https://rcsadventureworac85.blob.core.windows.net/adventureworks-releases/latest/RCS.AdventureWorks.Services.Products.zip)**.
-  * **[API service](https://rcsadventureworac85.blob.core.windows.net/adventureworks-releases/latest/RCS.AdventureWorks.Api.Products.zip)**.
+* Download the appropriate .zip file under Assets at the **[releases page](https://github.com/a-einstein/AdventureWorks/releases).**
+* Extract if needed. (Note the directory structure currently is kind of 'rough').
+* Install in IIS.
