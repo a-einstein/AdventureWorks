@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace  RCS.AdventureWorks.Services.Products.ProductsModel
+namespace RCS.AdventureWorks.Services.Products.ProductsModel
 {
     using System;
     using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace  RCS.AdventureWorks.Services.Products.ProductsModel
             this.ProductSubcategories = new HashSet<ProductSubcategory>();
         }
     
-        public int ProductCategoryID { get; set; }
+        public int ProductCategoryId { get; set; }
         public string Name { get; set; }
         public System.Guid rowguid { get; set; }
         public System.DateTime ModifiedDate { get; set; }

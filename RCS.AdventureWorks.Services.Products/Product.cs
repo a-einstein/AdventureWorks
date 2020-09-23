@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace  RCS.AdventureWorks.Services.Products.ProductsModel
+namespace RCS.AdventureWorks.Services.Products.ProductsModel
 {
     using System;
     using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace  RCS.AdventureWorks.Services.Products.ProductsModel
             this.ProductProductPhotoes = new HashSet<ProductProductPhoto>();
         }
     
-        public int ProductID { get; set; }
+        public int ProductId { get; set; }
         public string Name { get; set; }
         public string ProductNumber { get; set; }
         public bool MakeFlag { get; set; }
@@ -38,8 +38,8 @@ namespace  RCS.AdventureWorks.Services.Products.ProductsModel
         public string ProductLine { get; set; }
         public string Class { get; set; }
         public string Style { get; set; }
-        public Nullable<int> ProductSubcategoryID { get; set; }
-        public Nullable<int> ProductModelID { get; set; }
+        public Nullable<int> ProductSubcategoryId { get; set; }
+        public Nullable<int> ProductModelId { get; set; }
         public System.DateTime SellStartDate { get; set; }
         public Nullable<System.DateTime> SellEndDate { get; set; }
         public Nullable<System.DateTime> DiscontinuedDate { get; set; }

@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using RCS.AdventureWorks.Products.Standard;
 using System.Linq;
 using System.Threading.Tasks;
-using DomainClasses = RCS.AdventureWorks.Common.DomainClasses;
 using Dtos = RCS.AdventureWorks.Common.Dtos;
 
 namespace RCS.AdventureWorks.Api.Products.Controllers
@@ -16,10 +15,12 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         #region construction
         // Note this is shared instead created in usings as in ProductsService.
         private readonly AdventureWorks2014Context dbContext;
+        private readonly ContextExtension contextExtension;
 
         public ProductSubcategoriesController(AdventureWorks2014Context context)
         {
             dbContext = context;
+            contextExtension = new ContextExtension(dbContext);
         }
         #endregion
 
@@ -31,7 +32,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         {
             var task = Task.Run(() =>
             {
-                var listDto = GetProductSubcategories();
+                var listDto = contextExtension.GetProductSubcategories();
 
                 return listDto;
             });
@@ -46,7 +47,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         [HttpGet("{id}")]
         private async Task<ActionResult<ProductSubcategory>> GetProductSubcategory(int id)
         {
-            var productSubcategory = await dbContext.ProductSubcategory.FindAsync(id);
+            var productSubcategory = await dbContext.ProductSubcategories.FindAsync(id);
 
             if (productSubcategory == null)
             {
@@ -94,7 +95,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         [HttpPost]
         private async Task<ActionResult<ProductSubcategory>> PostProductSubcategory(ProductSubcategory productSubcategory)
         {
-            dbContext.ProductSubcategory.Add(productSubcategory);
+            dbContext.ProductSubcategories.Add(productSubcategory);
             await dbContext.SaveChangesAsync();
 
             return CreatedAtAction("GetProductSubcategory", new { id = productSubcategory.ProductSubcategoryId }, productSubcategory);
@@ -104,13 +105,13 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         [HttpDelete("{id}")]
         private async Task<ActionResult<ProductSubcategory>> DeleteProductSubcategory(int id)
         {
-            var productSubcategory = await dbContext.ProductSubcategory.FindAsync(id);
+            var productSubcategory = await dbContext.ProductSubcategories.FindAsync(id);
             if (productSubcategory == null)
             {
                 return NotFound();
             }
 
-            dbContext.ProductSubcategory.Remove(productSubcategory);
+            dbContext.ProductSubcategories.Remove(productSubcategory);
             await dbContext.SaveChangesAsync();
 
             return productSubcategory;
@@ -120,27 +121,7 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
         #region private
         private bool ProductSubcategoryExists(int id)
         {
-            return dbContext.ProductSubcategory.Any(e => e.ProductSubcategoryId == id);
-        }
-
-        private Dtos.ProductSubcategoryList GetProductSubcategories()
-        {
-            var query =
-                from productSubcategory in dbContext.ProductSubcategory
-                orderby productSubcategory.Name
-                select new DomainClasses.ProductSubcategory()
-                {
-                    Id = productSubcategory.ProductSubcategoryId,
-                    Name = productSubcategory.Name,
-                    ProductCategoryId = productSubcategory.ProductCategoryId
-                };
-
-            var result = new Dtos.ProductSubcategoryList();
-
-            // Note that the query executes on the ToList.
-            result.AddRange(query.ToList());
-
-            return result;
+            return dbContext.ProductSubcategories.Any(e => e.ProductSubcategoryId == id);
         }
         #endregion
     }

@@ -25,8 +25,9 @@ The column 'Purchasing.Vendor.PreferredVendorStatus' would normally be mapped to
 The column 'Purchasing.Vendor.ActiveFlag' would normally be mapped to a non-nullable bool property, but it has a default constraint. Such a column is mapped to a nullable bool property to allow a difference between setting the property to false and invoking the default constraint. See https://go.microsoft.com/fwlink/?linkid=851278 for details.
 The column 'Sales.SalesOrderHeader.OnlineOrderFlag' would normally be mapped to a non-nullable bool property, but it has a default constraint. Such a column is mapped to a nullable bool property to allow a difference between setting the property to false and invoking the default constraint. See https://go.microsoft.com/fwlink/?linkid=851278 for details.
 
-Currently they are AS GENERATED.
+1. Intially they are AS GENERATED.
 - On the location they were put.
-- Apparently for the whole Database, with far more entities and properties than I use.
+- Apparently for the whole Database, with far more entities and properties than I use. Those could be reduced in the future.
+- Also the definition of the individual entities are more extended compared to the EDMX versions and could be reduced.
 
-I probably will do a reduction to what I need.
+2.It has been standardized on plurals with the EDMX version for the relevant parts.

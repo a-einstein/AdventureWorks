@@ -9,7 +9,7 @@ namespace RCS.AdventureWorks.Products.Standard
         {
             Product = new HashSet<Product>();
             ProductModelIllustration = new HashSet<ProductModelIllustration>();
-            ProductModelProductDescriptionCulture = new HashSet<ProductModelProductDescriptionCulture>();
+            ProductModelProductDescriptionCultures = new HashSet<ProductModelProductDescriptionCulture>();
         }
 
         public int ProductModelId { get; set; }
@@ -21,6 +21,6 @@ namespace RCS.AdventureWorks.Products.Standard
 
         public virtual ICollection<Product> Product { get; set; }
         public virtual ICollection<ProductModelIllustration> ProductModelIllustration { get; set; }
-        public virtual ICollection<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCulture { get; set; }
+        public virtual ICollection<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures { get; set; }
     }
 }
