@@ -40,5 +40,5 @@ Both Web API and WCF database service tailored for my shop projects, working on 
 * This service is mainly intended to be installed on my domain and used by my clients. Running and access is on request.
 * The service cannot be installed plug & play, as the database is not included and configured to.
 * Download the appropriate .zip file under Assets at the **[releases page](https://github.com/a-einstein/AdventureWorks/releases).**
-* Extract if needed. (Note the directory structure currently is kind of 'rough').
+* Extract if needed.
 * Install in IIS.
