@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RCS.AdventureWorks.Products.Standard
+namespace RCS.AdventureWorks.Products.Standard.Model
 {
     public partial class PurchaseOrderHeader
     {

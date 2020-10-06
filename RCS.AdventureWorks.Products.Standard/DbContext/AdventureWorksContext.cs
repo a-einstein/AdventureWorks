@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RCS.AdventureWorks.Products.Standard.Model;
 
 namespace RCS.AdventureWorks.Products.Standard
 {
+    //Note this class has been lifted out of the Model and had a more specific name when generated.
     public partial class AdventureWorksContext : DbContext
     {
         public AdventureWorksContext()
@@ -216,7 +218,7 @@ namespace RCS.AdventureWorks.Products.Standard
 
                 entity.ToTable("AWBuildVersion");
 
-                entity.HasComment("Current version number of the AdventureWorks 2014 sample database. ");
+                entity.HasComment("Current version number of the AdventureWorks sample database. ");
 
                 entity.Property(e => e.SystemInformationId)
                     .HasColumnName("SystemInformationID")

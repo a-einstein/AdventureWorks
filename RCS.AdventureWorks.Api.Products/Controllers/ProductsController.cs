@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RCS.AdventureWorks.Products.Standard;
+using RCS.AdventureWorks.Products.Standard.Model;
 using System.Linq;
 using System.Threading.Tasks;
 using DomainClasses = RCS.AdventureWorks.Common.DomainClasses;
