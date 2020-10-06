@@ -5,14 +5,14 @@ using Dtos = RCS.AdventureWorks.Common.Dtos;
 
 namespace RCS.AdventureWorks.Products.Standard
 {
-    // TODO Make this partial of AdventureWorks2014Context, or an extension? Move there? 
+    // TODO Make this partial of AdventureWorksContext, or an extension? Move there? 
     // Combine with Expressions?
     public class ContextExtension
     {
         #region construction
-        private readonly AdventureWorks2014Context dbContext;
+        private readonly AdventureWorksContext dbContext;
 
-        public ContextExtension(AdventureWorks2014Context dbContext)
+        public ContextExtension(AdventureWorksContext dbContext)
         {
             /*
             TODO >>>> Problem from WPF "DbContext instance cannot be used inside OnConfiguring"

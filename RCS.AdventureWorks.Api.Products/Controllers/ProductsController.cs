@@ -15,10 +15,10 @@ namespace RCS.AdventureWorks.Api.Products.Controllers
     {
         // TODO This could be shared.
         #region construction
-        private readonly AdventureWorks2014Context dbContext;
+        private readonly AdventureWorksContext dbContext;
         private readonly ContextExtension contextExtension;
 
-        public ProductsController(AdventureWorks2014Context context)
+        public ProductsController(AdventureWorksContext context)
         {
             dbContext = context;
             contextExtension = new ContextExtension(dbContext);

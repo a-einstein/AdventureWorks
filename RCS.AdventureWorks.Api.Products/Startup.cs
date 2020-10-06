@@ -19,7 +19,7 @@ namespace RCS.AdventureWorks.Api.Products
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AdventureWorks2014Context>();
+            services.AddDbContext<AdventureWorksContext>();
 
             services.AddControllers();
         }

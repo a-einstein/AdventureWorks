@@ -1,16 +1,14 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace RCS.AdventureWorks.Products.Standard
 {
-    public partial class AdventureWorks2014Context : DbContext
+    public partial class AdventureWorksContext : DbContext
     {
-        public AdventureWorks2014Context()
+        public AdventureWorksContext()
         {
         }
 
-        public AdventureWorks2014Context(DbContextOptions<AdventureWorks2014Context> options)
+        public AdventureWorksContext(DbContextOptions<AdventureWorksContext> options)
             : base(options)
         {
         }
