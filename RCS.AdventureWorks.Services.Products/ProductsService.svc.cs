@@ -11,7 +11,10 @@ namespace RCS.AdventureWorks.Services.Products
         // Could the project files also be converted to the new format, to make it more implicit and compact? See a remark elsewehere.
 
         #region construction
-        // Note that the Entities context currently is no longer used!        
+        /*
+         NOTE THAT THE Entities CONTEXT CURRENTLY IS NO LONGER USED!
+         THIS DbContext IS SHARED WITH the web API.
+        */
         private readonly AdventureWorks2014Context dbContext;
         private readonly ContextExtension contextExtension;
 
