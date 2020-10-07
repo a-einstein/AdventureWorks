@@ -5,6 +5,7 @@
 Both Web API and WCF database service tailored for my shop projects, working on the standard AdventureWorks database.
 
 #### News
+* The database is updated to AdventureWorks2019.
 * Release is now to GitHub with an automatic change summary.
 * Added Web API service as alternative to WCF.
 * A certified domain is now available for these services to run on. On request.
@@ -17,7 +18,7 @@ Both Web API and WCF database service tailored for my shop projects, working on 
 * Explore Scrum process management by integration with Jira and Azure DevOps.
 
 #### Prerequisites
-* The service assumes the presence of an AdventureWorks2014 database, to which a connection should be configured.
+* The service assumes the presence of an AdventureWorks2019 database, to which a connection should be configured.
 * For the contents of this database I refer to the **[AdventureWorks page](https://docs.microsoft.com/en-us/sql/samples/adventureworks-install-configure)**.
 
 #### Notes

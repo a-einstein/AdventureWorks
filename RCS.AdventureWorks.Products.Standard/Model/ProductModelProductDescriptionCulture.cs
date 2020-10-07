@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace RCS.AdventureWorks.Products.Standard
+namespace RCS.AdventureWorks.Products.Standard.Model
 {
     public partial class ProductModelProductDescriptionCulture
     {
@@ -10,7 +9,6 @@ namespace RCS.AdventureWorks.Products.Standard
         public string CultureId { get; set; }
         public DateTime ModifiedDate { get; set; }
 
-        public virtual Culture Culture { get; set; }
         public virtual ProductDescription ProductDescription { get; set; }
         public virtual ProductModel ProductModel { get; set; }
     }

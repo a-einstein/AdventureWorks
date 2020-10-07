@@ -1,25 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RCS.AdventureWorks.Products.Standard
+namespace RCS.AdventureWorks.Products.Standard.Model
 {
     public partial class Product
     {
         public Product()
         {
-            BillOfMaterialsComponent = new HashSet<BillOfMaterials>();
-            BillOfMaterialsProductAssembly = new HashSet<BillOfMaterials>();
-            ProductCostHistory = new HashSet<ProductCostHistory>();
-            ProductInventory = new HashSet<ProductInventory>();
-            ProductListPriceHistory = new HashSet<ProductListPriceHistory>();
             ProductProductPhotoes = new HashSet<ProductProductPhoto>();
-            ProductReview = new HashSet<ProductReview>();
-            ProductVendor = new HashSet<ProductVendor>();
-            PurchaseOrderDetail = new HashSet<PurchaseOrderDetail>();
-            ShoppingCartItem = new HashSet<ShoppingCartItem>();
-            SpecialOfferProduct = new HashSet<SpecialOfferProduct>();
-            TransactionHistory = new HashSet<TransactionHistory>();
-            WorkOrder = new HashSet<WorkOrder>();
         }
 
         public int ProductId { get; set; }
@@ -50,20 +38,6 @@ namespace RCS.AdventureWorks.Products.Standard
 
         public virtual ProductModel ProductModel { get; set; }
         public virtual ProductSubcategory ProductSubcategory { get; set; }
-        public virtual UnitMeasure SizeUnitMeasureCodeNavigation { get; set; }
-        public virtual UnitMeasure WeightUnitMeasureCodeNavigation { get; set; }
-        public virtual ICollection<BillOfMaterials> BillOfMaterialsComponent { get; set; }
-        public virtual ICollection<BillOfMaterials> BillOfMaterialsProductAssembly { get; set; }
-        public virtual ICollection<ProductCostHistory> ProductCostHistory { get; set; }
-        public virtual ICollection<ProductInventory> ProductInventory { get; set; }
-        public virtual ICollection<ProductListPriceHistory> ProductListPriceHistory { get; set; }
         public virtual ICollection<ProductProductPhoto> ProductProductPhotoes { get; set; }
-        public virtual ICollection<ProductReview> ProductReview { get; set; }
-        public virtual ICollection<ProductVendor> ProductVendor { get; set; }
-        public virtual ICollection<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
-        public virtual ICollection<ShoppingCartItem> ShoppingCartItem { get; set; }
-        public virtual ICollection<SpecialOfferProduct> SpecialOfferProduct { get; set; }
-        public virtual ICollection<TransactionHistory> TransactionHistory { get; set; }
-        public virtual ICollection<WorkOrder> WorkOrder { get; set; }
     }
 }

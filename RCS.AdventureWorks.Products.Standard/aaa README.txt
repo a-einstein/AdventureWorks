@@ -3,7 +3,7 @@ https://docs.microsoft.com/en-gb/ef/efcore-and-ef6/porting/port-edmx
 
 With the following command & output in the Package Manager Console, with RCS.AdventureWorks.Api.Products as startup project:
 
-PM> Scaffold-DbContext "data source=RCS-VOSTRO\sqlexpress;initial catalog=AdventureWorks2014;integrated security=True" Microsoft.EntityFrameworkCore.SqlServer
+PM> Scaffold-DbContext "data source=RCS-VOSTRO\sqlexpress;initial catalog=AdventureWorks2019;integrated security=True" Microsoft.EntityFrameworkCore.SqlServer -Force -Project "RCS.AdventureWorks.Products.Standard" -OutputDir "Model"
 Build started...
 Build succeeded.
 Could not find type mapping for column 'HumanResources.Employee.OrganizationNode' with data type 'hierarchyid'. Skipping column.
@@ -27,7 +27,9 @@ The column 'Sales.SalesOrderHeader.OnlineOrderFlag' would normally be mapped to 
 
 1. Intially they are AS GENERATED.
 - On the location they were put.
-- Apparently for the whole Database, with far more entities and properties than I use. Those could be reduced in the future.
-- Also the definition of the individual entities are more extended compared to the EDMX versions and could be reduced.
+- Apparently for the whole Database, with far more entities and properties than I use.
+- Also the definition of the individual entities are more extended compared to the EDMX versions.
 
-2.It has been standardized on plurals with the EDMX version for the relevant parts.
+2. It has been standardized on plurals with the EDMX version for the relevant parts.
+
+3. Unused entities, properties and related code have been removed.

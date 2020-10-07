@@ -1,4 +1,5 @@
 ﻿using LinqKit;
+using RCS.AdventureWorks.Products.Standard.Model;
 using System;
 using System.Linq;
 using System.Linq.Expressions;

@@ -11,16 +11,19 @@ namespace RCS.AdventureWorks.Services.Products
         // Could the project files also be converted to the new format, to make it more implicit and compact? See a remark elsewehere.
 
         #region construction
-        // Note that the Entities context currently is no longer used!        
-        private readonly AdventureWorks2014Context dbContext;
+        /*
+         NOTE THAT THE Entities CONTEXT CURRENTLY IS NO LONGER USED!
+         THIS DbContext IS SHARED WITH the web API.
+        */
+        private readonly AdventureWorksContext dbContext;
         private readonly ContextExtension contextExtension;
 
         public ProductsService()
         {
             // Note that the API service gets an instance by a (singleton) injection.
             // This service currently has multiple instances each with their own dbContext instance.
-            // Addvantage is that it avoid configuring problems with multiple threads of AdventureWorks2014Context. See notes there.
-            dbContext = new AdventureWorks2014Context();
+            // Addvantage is that it avoid configuring problems with multiple threads of AdventureWorksContext. See notes there.
+            dbContext = new AdventureWorksContext();
 
             contextExtension = new ContextExtension(dbContext);
         }
