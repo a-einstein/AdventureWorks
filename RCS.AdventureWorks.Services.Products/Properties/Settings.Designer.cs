@@ -28,9 +28,9 @@ namespace RCS.AdventureWorks.Services.Products.Properties {
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=RCS-VOSTRO\\sqlexpress;Initial Catalog=AdventureWorks2019;Integrated S" +
             "ecurity=True")]
-        public string Entities {
+        public string AdventureWorks {
             get {
-                return ((string)(this["Entities"]));
+                return ((string)(this["AdventureWorks"]));
             }
         }
     }

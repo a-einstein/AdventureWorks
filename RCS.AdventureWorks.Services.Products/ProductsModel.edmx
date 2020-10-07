@@ -190,7 +190,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ProductsServiceProductsModelStoreContainer">
+        <EntityContainer Name="RCSAdventureWorksServicesProductsProductsModelStoreContainer">
           <EntitySet Name="Product" EntityType="Self.Product" Schema="Production" store:Type="Tables" />
           <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="Production" store:Type="Tables" />
           <EntitySet Name="ProductDescription" EntityType="Self.ProductDescription" Schema="Production" store:Type="Tables" />
@@ -474,7 +474,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ProductsServiceProductsModelStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="RCSAdventureWorksServicesProductsProductsModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="RCS.AdventureWorks.Services.Products.ProductsModel.Product">
               <MappingFragment StoreEntitySet="Product">
