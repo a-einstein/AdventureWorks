@@ -27,7 +27,9 @@ The column 'Sales.SalesOrderHeader.OnlineOrderFlag' would normally be mapped to 
 
 1. Intially they are AS GENERATED.
 - On the location they were put.
-- Apparently for the whole Database, with far more entities and properties than I use. Those could be reduced in the future.
-- Also the definition of the individual entities are more extended compared to the EDMX versions and could be reduced.
+- Apparently for the whole Database, with far more entities and properties than I use.
+- Also the definition of the individual entities are more extended compared to the EDMX versions.
 
-2.It has been standardized on plurals with the EDMX version for the relevant parts.
+2. It has been standardized on plurals with the EDMX version for the relevant parts.
+
+3. Unused entities, properties and related code have been removed.

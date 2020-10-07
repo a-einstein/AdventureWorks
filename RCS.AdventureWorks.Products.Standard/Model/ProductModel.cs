@@ -8,7 +8,6 @@ namespace RCS.AdventureWorks.Products.Standard.Model
         public ProductModel()
         {
             Product = new HashSet<Product>();
-            ProductModelIllustration = new HashSet<ProductModelIllustration>();
             ProductModelProductDescriptionCultures = new HashSet<ProductModelProductDescriptionCulture>();
         }
 
@@ -20,7 +19,6 @@ namespace RCS.AdventureWorks.Products.Standard.Model
         public DateTime ModifiedDate { get; set; }
 
         public virtual ICollection<Product> Product { get; set; }
-        public virtual ICollection<ProductModelIllustration> ProductModelIllustration { get; set; }
         public virtual ICollection<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures { get; set; }
     }
 }
