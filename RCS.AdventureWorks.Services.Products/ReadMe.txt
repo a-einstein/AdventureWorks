@@ -1,4 +1,8 @@
 ﻿An attempt has been made to convert the .csproj file to the new SDK format.
+This would make it a lot more compact.
+It might also prevent unexpected references to like Core libraries.
+Those cause runtime errors when left out.
+
 This has largely succedeeded. Some more parts could probably still be reduced.
 Check out the latest stash.
 
