@@ -268,11 +268,8 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Properties\PublishProfiles\Dimension IIS  - files.pubxml" />
-    <None Include="Properties\PublishProfiles\Local Folder.pubxml" />
-    <None Include="Properties\PublishProfiles\Local IIS - files.pubxml" />
-    <None Include="Properties\PublishProfiles\Local IIS - web.pubxml" />
-    <None Include="Properties\PublishProfiles\Azure - web.pubxml" />
+    <None Include="Properties\PublishProfiles\IisDirectoryProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\PublishDirectoryProfile.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
