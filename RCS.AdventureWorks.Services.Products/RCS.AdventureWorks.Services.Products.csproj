@@ -1,202 +1,82 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <ProductVersion />
-    <ProjectGuid>{B87838B1-217A-45C8-943F-C380F92F548F}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
-    <TargetFramework>net48</TargetFramework>
-    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>65348</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
-    <UseGlobalApplicationHostFile />
-    <Use64BitIISExpress />
-    <AssemblyTitle>RCS.AdventureWorks.Services.Products</AssemblyTitle>
-    <Product>RCS.AdventureWorks.Services.Products</Product>
-    <Copyright>Copyright ©  2015</Copyright>
-    <AssemblyVersion>0.3.0.0</AssemblyVersion>
-    <FileVersion>0.3.0.0</FileVersion>
-    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
-    <OutputPath>bin\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugType>full</DebugType>
-    <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
-    <EnableExcludeFilesByExtension>false</EnableExcludeFilesByExtension>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
-    <EnableExcludeFilesByExtension>true</EnableExcludeFilesByExtension>
-  </PropertyGroup>
-  <PropertyGroup>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
-  <ItemGroup>
-    <PackageReference Include="Azure.Core" Version="1.19.0" />
-    <PackageReference Include="Azure.Identity" Version="1.4.1" />
-    <PackageReference Include="EntityFramework" Version="6.4.4" />
-    <PackageReference Include="LinqKit.Core" Version="1.1.26" />
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="3.0.0" />
-    <PackageReference Include="Microsoft.Data.SqlClient.SNI" Version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="3.1.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="5.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Primitives" Version="5.0.1" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.36.1" />
-    <PackageReference Include="Microsoft.Identity.Client.Extensions.Msal" Version="2.19.1" />
-    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.12.2" />
-    <PackageReference Include="Microsoft.IdentityModel.Logging" Version="6.12.2" />
-    <PackageReference Include="Microsoft.IdentityModel.Protocols" Version="6.12.2" />
-    <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.12.2" />
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.12.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="System.Buffers" Version="4.5.1" />
-    <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
-    <PackageReference Include="System.Data.Common" Version="4.3.0" />
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="5.0.1" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.2" />
-    <PackageReference Include="System.Memory" Version="4.5.4" />
-    <PackageReference Include="System.Memory.Data" Version="1.0.2" />
-    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
-    <PackageReference Include="System.Security.AccessControl" Version="5.0.0" />
-    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="5.0.0" />
-    <PackageReference Include="System.Security.Permissions" Version="5.0.0" />
-    <PackageReference Include="System.Security.Principal.Windows" Version="5.0.0" />
-    <PackageReference Include="System.Text.Encodings.Web" Version="5.0.1" />
-    <PackageReference Include="System.Text.Json" Version="5.0.2" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data.OracleClient" />
-    <Reference Include="System.IdentityModel" />
-    <Reference Include="System.Net" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceProcess" />
-    <Reference Include="System.Transactions" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ProductsModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ProductsModel.edmx</DependentUpon>
-      <LastGenOutput>ProductsModel.Context.cs</LastGenOutput>
-      <CustomToolNamespace>RCS.AdventureWorks.Services.Products.ProductsModel</CustomToolNamespace>
-    </Content>
-    <Content Include="ProductsModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ProductsModel.edmx</DependentUpon>
-      <LastGenOutput>ProductsModel.cs</LastGenOutput>
-      <CustomToolNamespace>RCS.AdventureWorks.Services.Products.ProductsModel</CustomToolNamespace>
-    </Content>
-    <Content Include="ProductsService.svc" />
-    <Content Include="ReadMe.txt" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Product.cs">
-      <DependentUpon>ProductsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Update="ProductCategory.cs">
-      <DependentUpon>ProductsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Update="ProductDescription.cs">
-      <DependentUpon>ProductsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Update="ProductModel.cs">
-      <DependentUpon>ProductsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Update="ProductModelProductDescriptionCulture.cs">
-      <DependentUpon>ProductsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Update="ProductPhoto.cs">
-      <DependentUpon>ProductsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Update="ProductProductPhoto.cs">
-      <DependentUpon>ProductsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Update="ProductsModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProductsModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Update="ProductsModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProductsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Update="ProductsModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProductsModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Update="ProductsService.svc.cs">
-      <DependentUpon>ProductsService.svc</DependentUpon>
-    </Compile>
-    <Compile Update="ProductSubcategory.cs">
-      <DependentUpon>ProductsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="ProductsModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ProductsModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="ProductsModel.edmx.diagram">
-      <DependentUpon>ProductsModel.edmx</DependentUpon>
-    </Content>
-    <None Include="Properties\PublishProfiles\IisDirectoryProfile.pubxml" />
-    <None Include="Properties\PublishProfiles\PublishDirectoryProfile.pubxml" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RCS.AdventureWorks.Common\RCS.AdventureWorks.Common.csproj" />
-    <ProjectReference Include="..\RCS.AdventureWorks.Products.Standard\RCS.AdventureWorks.Products.Standard.csproj" />
-  </ItemGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<ProductVersion />
+		<ProjectGuid>{B87838B1-217A-45C8-943F-C380F92F548F}</ProjectGuid>
+		<ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+		<TargetFramework>net48</TargetFramework>
+		<WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+		<UseIISExpress>true</UseIISExpress>
+		<IISExpressSSLPort>65348</IISExpressSSLPort>
+		<IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+		<IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+		<IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+		<UseGlobalApplicationHostFile />
+		<Use64BitIISExpress />
+		<AssemblyTitle>RCS.AdventureWorks.Services.Products</AssemblyTitle>
+		<Product>RCS.AdventureWorks.Services.Products</Product>
+		<Copyright>Copyright ©  2015</Copyright>
+		<AssemblyVersion>0.3.0.0</AssemblyVersion>
+		<FileVersion>0.3.0.0</FileVersion>
+		<FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+		<OutputPath>bin\</OutputPath>
+	</PropertyGroup>
+	<Target Name="ForceGenerationOfBindingRedirects"
+			AfterTargets="ResolveAssemblyReferences"
+			BeforeTargets="GenerateBindingRedirects"
+			Condition="'$(AutoGenerateBindingRedirects)' == 'true'">
+		<PropertyGroup>
+			<!--Needs to be set in a target because it has to be set after the initial evaluation in the common targets-->
+			<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+		</PropertyGroup>
+	</Target>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DebugType>full</DebugType>
+		<ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
+		<EnableExcludeFilesByExtension>false</EnableExcludeFilesByExtension>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DebugType>none</DebugType>
+		<EnableExcludeFilesByExtension>true</EnableExcludeFilesByExtension>
+	</PropertyGroup>
+	<PropertyGroup>
+		<VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+	</PropertyGroup>
+	<PropertyGroup>
+		<StartupObject />
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<ApplicationIcon />
+		<OutputType>Library</OutputType>
+	</PropertyGroup>
+	<Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+	<Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+	<ItemGroup>
+		<Reference Include="System.ServiceModel" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="ProductsService.svc" />
+		<Content Include="ReadMe.txt" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="ProductsService.svc.cs">
+			<DependentUpon>ProductsService.svc</DependentUpon>
+		</Compile>
+		<Compile Update="Properties\Settings.Designer.cs">
+			<AutoGen>True</AutoGen>
+			<DesignTimeSharedInput>True</DesignTimeSharedInput>
+			<DependentUpon>Settings.settings</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="Properties\PublishProfiles\IisDirectoryProfile.pubxml" />
+		<None Include="Properties\PublishProfiles\PublishDirectoryProfile.pubxml" />
+		<None Include="Properties\Settings.settings">
+			<Generator>SettingsSingleFileGenerator</Generator>
+			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\RCS.AdventureWorks.Common\RCS.AdventureWorks.Common.csproj" />
+		<ProjectReference Include="..\RCS.AdventureWorks.Products.Standard\RCS.AdventureWorks.Products.Standard.csproj" />
+	</ItemGroup>
 </Project>

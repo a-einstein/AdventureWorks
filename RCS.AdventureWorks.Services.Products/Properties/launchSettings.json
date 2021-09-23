@@ -3,29 +3,27 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:65395",
-      "sslPort": 44372
+      "applicationUrl": "http://localhost:53321/",
+      "sslPort": 44300
     }
   },
-  "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "ProductCategories",
+      "launchUrl": "ProductsService.svc",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "nativeDebugging": false
+      }
     },
-    "RCS.AdventureWorks.Api.Products": {
+    "RCS.AdventureWorks.Services.Products": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "ProductCategories",
+      "launchUrl": "ProductsService.svc",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "nativeDebugging": true
+      "applicationUrl": "http://localhost:5000"
     }
   }
 }
