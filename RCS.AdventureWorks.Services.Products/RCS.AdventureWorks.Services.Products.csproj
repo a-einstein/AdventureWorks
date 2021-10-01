@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.web">
 	<PropertyGroup>
 		<ProductVersion />
 		<ProjectGuid>{B87838B1-217A-45C8-943F-C380F92F548F}</ProjectGuid>
@@ -20,11 +20,9 @@
 		<FileVersion>0.3.0.0</FileVersion>
 		<FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
 		<OutputPath>bin\</OutputPath>
+		<EnableDefaultContentItems>false</EnableDefaultContentItems>
 	</PropertyGroup>
-	<Target Name="ForceGenerationOfBindingRedirects"
-			AfterTargets="ResolveAssemblyReferences"
-			BeforeTargets="GenerateBindingRedirects"
-			Condition="'$(AutoGenerateBindingRedirects)' == 'true'">
+	<Target Name="ForceGenerationOfBindingRedirects" AfterTargets="ResolveAssemblyReferences" BeforeTargets="GenerateBindingRedirects" Condition="'$(AutoGenerateBindingRedirects)' == 'true'">
 		<PropertyGroup>
 			<!--Needs to be set in a target because it has to be set after the initial evaluation in the common targets-->
 			<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
@@ -54,8 +52,12 @@
 		<Reference Include="System.ServiceModel" />
 	</ItemGroup>
 	<ItemGroup>
-		<Content Include="ProductsService.svc" />
-		<Content Include="ReadMe.txt" />
+		<Content Include="ProductsService.svc">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Web.config">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Update="ProductsService.svc.cs">
