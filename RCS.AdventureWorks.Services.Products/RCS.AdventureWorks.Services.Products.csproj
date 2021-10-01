@@ -4,6 +4,7 @@
 		<ProjectGuid>{B87838B1-217A-45C8-943F-C380F92F548F}</ProjectGuid>
 		<ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
 		<TargetFramework>net48</TargetFramework>
+		<DeployDefaultTargetFrameworkVersion>net48</DeployDefaultTargetFrameworkVersion>
 		<WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 		<UseIISExpress>true</UseIISExpress>
