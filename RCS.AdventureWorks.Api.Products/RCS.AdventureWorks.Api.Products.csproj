@@ -7,12 +7,11 @@
 		<FileVersion>0.3.0.0</FileVersion>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+		<Company>RCS</Company>
+		<Authors>Robert</Authors>
 	</PropertyGroup>
 
-	<Target Name="ForceGenerationOfBindingRedirects"
-			AfterTargets="ResolveAssemblyReferences"
-			BeforeTargets="GenerateBindingRedirects"
-			Condition="'$(AutoGenerateBindingRedirects)' == 'true'">
+	<Target Name="ForceGenerationOfBindingRedirects" AfterTargets="ResolveAssemblyReferences" BeforeTargets="GenerateBindingRedirects" Condition="'$(AutoGenerateBindingRedirects)' == 'true'">
 		<PropertyGroup>
 			<!-- Needs to be set in a target because it has to be set after the initial evaluation in the common targets -->
 			<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
