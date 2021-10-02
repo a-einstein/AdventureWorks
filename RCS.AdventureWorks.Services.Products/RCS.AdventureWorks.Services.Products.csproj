@@ -16,8 +16,8 @@
 		<Use64BitIISExpress />
 		<AssemblyTitle>RCS.AdventureWorks.Services.Products</AssemblyTitle>
 		<Product>RCS.AdventureWorks.Services.Products</Product>
-		<AssemblyVersion>0.3.0.0</AssemblyVersion>
-		<FileVersion>0.3.0.0</FileVersion>
+		<AssemblyVersion>0.4.0.0</AssemblyVersion>
+		<FileVersion>0.4.0.0</FileVersion>
 		<FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
 		<OutputPath>bin\</OutputPath>
 		<EnableDefaultContentItems>false</EnableDefaultContentItems>
