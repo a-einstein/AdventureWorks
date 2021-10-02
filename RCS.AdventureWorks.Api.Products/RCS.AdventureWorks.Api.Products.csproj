@@ -19,10 +19,6 @@
 	</Target>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\RCS.AdventureWorks.Common\RCS.AdventureWorks.Common.csproj" />
 		<ProjectReference Include="..\RCS.AdventureWorks.Products.Standard\RCS.AdventureWorks.Products.Standard.csproj" />
 	</ItemGroup>
