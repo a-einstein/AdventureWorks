@@ -6,7 +6,7 @@
 		<TargetFramework>net48</TargetFramework>
 		<DeployDefaultTargetFrameworkVersion>net48</DeployDefaultTargetFrameworkVersion>
 		<WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
-		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+		<AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
 		<UseIISExpress>true</UseIISExpress>
 		<IISExpressSSLPort>65348</IISExpressSSLPort>
 		<IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
@@ -24,7 +24,10 @@
 	</PropertyGroup>
 	<Target Name="ForceGenerationOfBindingRedirects" AfterTargets="ResolveAssemblyReferences" BeforeTargets="GenerateBindingRedirects" Condition="'$(AutoGenerateBindingRedirects)' == 'true'">
 		<PropertyGroup>
-			<!--Needs to be set in a target because it has to be set after the initial evaluation in the common targets-->
+			<!--
+			https://stackoverflow.com/questions/43995432/could-not-load-file-or-assembly-microsoft-extensions-dependencyinjection-abstrac
+			Needs to be set in a target because it has to be set after the initial evaluation in the common targets
+			-->
 			<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
 		</PropertyGroup>
 	</Target>

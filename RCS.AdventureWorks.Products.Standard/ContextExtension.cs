@@ -43,9 +43,8 @@ namespace RCS.AdventureWorks.Products.Standard
             var productsFilterExpression = Expressions.ProductsFilterExpression(productCategoryId, productSubcategoryId, searchString);
             var productsOverviewObjectExpression = Expressions.ProductsOverviewObjectExpression();
 
-            // Need to Expand on variables instead of function calls.
             IQueryable<DomainClasses.ProductsOverviewObject> query =
-                dbContext.Products.AsExpandable().
+                dbContext.Products.
                 Where(productsFilterExpression.Expand()).
                 Select(productsOverviewObjectExpression.Expand()).
                 OrderBy(product => product.Name);
