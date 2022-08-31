@@ -35,6 +35,7 @@ namespace RCS.AdventureWorks.Products.Standard
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                // TODO Better share the encrypted connectionString currently in the web.config of the WCF project.
                 optionsBuilder.UseSqlServer("data source=RCS-VOSTRO;initial catalog=AdventureWorks2019;integrated security=True");
             }
         }

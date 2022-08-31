@@ -68,19 +68,10 @@
 		<Compile Update="ProductsService.svc.cs">
 			<DependentUpon>ProductsService.svc</DependentUpon>
 		</Compile>
-		<Compile Update="Properties\Settings.Designer.cs">
-			<AutoGen>True</AutoGen>
-			<DesignTimeSharedInput>True</DesignTimeSharedInput>
-			<DependentUpon>Settings.settings</DependentUpon>
-		</Compile>
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="Properties\PublishProfiles\IisDirectoryProfile.pubxml" />
 		<None Include="Properties\PublishProfiles\PublishDirectoryProfile.pubxml" />
-		<None Include="Properties\Settings.settings">
-			<Generator>SettingsSingleFileGenerator</Generator>
-			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
-		</None>
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\RCS.AdventureWorks.Common\RCS.AdventureWorks.Common.csproj" />
