@@ -7,15 +7,6 @@
       "launchUrl": "http://localhost/ProductsApi/ProductCategories",
       "nativeDebugging": false
     },
-    "RCS.AdventureWorks.Api.Products": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "ProductCategories",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "nativeDebugging": true
-    },
     "API-IIS": {
       "commandName": "IIS",
       "workingDirectory": "bin\\Debug\\net6.0",
