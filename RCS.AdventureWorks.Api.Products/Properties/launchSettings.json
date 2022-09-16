@@ -1,12 +1,10 @@
 {
   "profiles": {
-    "IIS Express": {
+    "API IIS Express": {
       "commandName": "IISExpress",
+      "workingDirectory": "bin\\Debug\\net6.0",
       "launchBrowser": true,
-      "launchUrl": "ProductCategories",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
+      "launchUrl": "http://localhost/ProductsApi/ProductCategories",
       "nativeDebugging": false
     },
     "RCS.AdventureWorks.Api.Products": {
@@ -34,8 +32,8 @@
       "sslPort": 0
     },
     "iisExpress": {
-      "applicationUrl": "http://localhost:65395",
-      "sslPort": 44372
+      "applicationUrl": "http://localhost/ProductsApi",
+      "sslPort": 44334
     }
   }
 }
