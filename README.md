@@ -5,12 +5,12 @@
 Both Web API and WCF database service tailored for my shop projects, working on the standard AdventureWorks database.
 
 #### News
-* The API project has been migrated to .Net 5.
+* The API project has been migrated to .Net 7.
 * The WCF project has had its project-file modernized, and undergone a massive cleanup.
 * The database is updated to AdventureWorks2019.
 * Release is now to GitHub with an automatic change summary.
 * Added Web API service as alternative to WCF.
-* A certified domain is now available for these services to run on. On request.
+* A certified domain is now available for these services to run on.
 * Integrated with Azure Devops build and release pipelines.
 
 #### Purpose
