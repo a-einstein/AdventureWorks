@@ -3,7 +3,7 @@
 		<ProductVersion />
 		<ProjectGuid>{B87838B1-217A-45C8-943F-C380F92F548F}</ProjectGuid>
 		<ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
-		<TargetFramework>net48</TargetFramework>
+		<TargetFramework>net481</TargetFramework>
 		<DeployDefaultTargetFrameworkVersion>net48</DeployDefaultTargetFrameworkVersion>
 		<WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
 		<AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
@@ -75,8 +75,6 @@
 		</Compile>
 	</ItemGroup>
 	<ItemGroup>
-		<None Include="Properties\PublishProfiles\IisDirectoryProfile.pubxml" />
-		<None Include="Properties\PublishProfiles\PublishDirectoryProfile.pubxml" />
 		<None Include="Properties\Settings.settings">
 			<Generator>SettingsSingleFileGenerator</Generator>
 			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
