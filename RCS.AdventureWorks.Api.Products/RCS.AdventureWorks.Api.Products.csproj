@@ -19,6 +19,10 @@
 	</Target>
 
 	<ItemGroup>
+	  <_WebToolingArtifacts Remove="Properties\PublishProfiles\IisFolderProfile.pubxml" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\RCS.AdventureWorks.Common\RCS.AdventureWorks.Common.csproj" />
 		<ProjectReference Include="..\RCS.AdventureWorks.Products.Standard\RCS.AdventureWorks.Products.Standard.csproj" />
 	</ItemGroup>
