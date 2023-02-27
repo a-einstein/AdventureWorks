@@ -1,4 +1,5 @@
 ﻿using LinqKit;
+using System;
 using System.Linq;
 using DomainClasses = RCS.AdventureWorks.Common.DomainClasses;
 using Dtos = RCS.AdventureWorks.Common.Dtos;
@@ -51,10 +52,18 @@ namespace RCS.AdventureWorks.Products.Standard
 
             var result = new Dtos.ProductsOverviewList();
 
-            // Note that the query executes on ToList.
-            result.AddRange(query.ToList());
+            try
+            {
+                // Note that the query executes on ToList.
+                // Note application pool (currently) can't be ApplicationPoolIdentity.
+                result.AddRange(query.ToList());
 
-            return result;
+                return result;
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
         }
         #endregion
 
@@ -99,10 +108,18 @@ namespace RCS.AdventureWorks.Products.Standard
                     Description = productModelProductDescriptionCulture.ProductDescription.Description
                 };
 
-            // Note that the query executes on the FirstOrDefault.
-            var result = query.FirstOrDefault();
+            try
+            {
+                // Note that the query executes on the FirstOrDefault.
+                // Note application pool (currently) can't be ApplicationPoolIdentity.
+                var result = query.FirstOrDefault();
 
-            return result;
+                return result;
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
         }
         #endregion
 
@@ -120,10 +137,18 @@ namespace RCS.AdventureWorks.Products.Standard
 
             var result = new Dtos.ProductCategoryList();
 
-            // Note that the query executes on the ToList.
-            result.AddRange(query.ToList());
+            try
+            {
+                // Note that the query executes on the ToList.
+                // Note application pool (currently) can't be ApplicationPoolIdentity.
+                result.AddRange(query.ToList());
 
-            return result;
+                return result;
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
         }
 
         public Dtos.ProductSubcategoryList GetProductSubcategories()
@@ -140,10 +165,18 @@ namespace RCS.AdventureWorks.Products.Standard
 
             var result = new Dtos.ProductSubcategoryList();
 
-            // Note that the query executes on the ToList.
-            result.AddRange(query.ToList());
+            try
+            {
+                // Note that the query executes on the ToList.
+                // Note application pool (currently) can't be ApplicationPoolIdentity.
+                result.AddRange(query.ToList());
 
-            return result;
+                return result;
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
         }
         #endregion
     }
