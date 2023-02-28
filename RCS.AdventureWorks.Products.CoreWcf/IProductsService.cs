@@ -3,7 +3,9 @@ using RCS.AdventureWorks.Common.Dtos;
 
 namespace RCS.AdventureWorks.Products.CoreWcf
 {
-    // TODO Share this with plain WCF.
+    // Note This cant't be shared with plain WCF (through another project),
+    // apparently because of the discrepancy between between dependencies of System.ServiceModel and CoreWCF.
+    // Essentially it's a duplicate now.
 
     [ServiceContract]
     internal interface IProductsService

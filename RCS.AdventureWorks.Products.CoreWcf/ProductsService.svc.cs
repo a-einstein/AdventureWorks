@@ -4,7 +4,9 @@ using Dtos = RCS.AdventureWorks.Common.Dtos;
 
 namespace RCS.AdventureWorks.Products.CoreWcf
 {
-    // TODO Share this with plain WCF?
+    // Note This cant't be shared with plain WCF (through another project),
+    // see IProductsService.
+    // Essentially it's a duplicate now.
 
     public class ProductsService : IProductsService
     {
