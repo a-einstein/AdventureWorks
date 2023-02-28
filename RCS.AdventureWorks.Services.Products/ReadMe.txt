@@ -26,5 +26,9 @@ Hopefully this will be supported in the future.
 But that future seems dark for WCF and WPF  support in .net Core or .net 5.
 https://www.michaeltaylorp3.net/migrating-to-sdk-project-format/
 
-A possible next step may be applying Core WCF.
-https://github.com/CoreWCF
+TODO Having implemented CoreWcf elsewhere too, this project may be removed and problems left behind.
+Check consequences in other projects.
+Clients will have to be updated too.
+
+TODO Alternatively, naming of this project and the service should be made more in line with that for CoreWcf.
+This also goes for the API version.
