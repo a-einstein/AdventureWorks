@@ -6,6 +6,7 @@ namespace RCS.AdventureWorks.Products.CoreWcf
     // Note This cant't be shared with plain WCF (through another project),
     // apparently because of the discrepancy between between dependencies of System.ServiceModel and CoreWCF.
     // Essentially it's a duplicate now.
+    // TODO Plain WCF could be removed, possibly getting rid or upgrading of the Standard project. Clients need to be adapted as well.
 
     [ServiceContract]
     internal interface IProductsService
