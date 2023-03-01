@@ -5,12 +5,6 @@ VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCS.AdventureWorks.Services.Products", "RCS.AdventureWorks.Services.Products\RCS.AdventureWorks.Services.Products.csproj", "{B87838B1-217A-45C8-943F-C380F92F548F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F85BF55B-C88A-43E2-8BDA-5A00882BD294}"
-	ProjectSection(SolutionItems) = preProject
-		.bettercodehub.yml = .bettercodehub.yml
-		README.md = README.md
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCS.AdventureWorks.Common", "RCS.AdventureWorks.Common\RCS.AdventureWorks.Common.csproj", "{493D8ED2-1BA9-436C-981F-3A84523FA8A0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCS.AdventureWorks.Api.Products", "RCS.AdventureWorks.Api.Products\RCS.AdventureWorks.Api.Products.csproj", "{46F583DD-74BA-4D08-92D6-F8F020BABBD0}"
