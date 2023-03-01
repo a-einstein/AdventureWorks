@@ -17,7 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCS.AdventureWorks.Api.Prod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCS.AdventureWorks.Products.Standard", "RCS.AdventureWorks.Products.Standard\RCS.AdventureWorks.Products.Standard.csproj", "{2C139711-21AC-4C74-9CC8-DAE922F8305C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RCS.AdventureWorks.Products.CoreWcf", "RCS.AdventureWorks.Products.CoreWcf\RCS.AdventureWorks.Products.CoreWcf.csproj", "{A15A9DB1-F587-46FB-8385-F4857B94ECF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCS.AdventureWorks.Products.CoreWcf", "RCS.AdventureWorks.Products.CoreWcf\RCS.AdventureWorks.Products.CoreWcf.csproj", "{A15A9DB1-F587-46FB-8385-F4857B94ECF3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{EC2BA717-6471-4ADA-B371-E57C7BF4E7C0}"
+	ProjectSection(SolutionItems) = preProject
+		docs\README.md = docs\README.md
+		docs\ReleaseNotes.md = docs\ReleaseNotes.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
