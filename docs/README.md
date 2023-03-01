@@ -1,43 +1,33 @@
 
 ## AdventureWorks
 
-#### Description
-Both Web API and WCF database service tailored for my shop projects, working on the standard AdventureWorks database.
-
-#### News
-* The API project has been migrated to .Net 7.
-* The WCF project has had its project-file modernized, and undergone a massive cleanup.
-* The database is updated to AdventureWorks2019.
-* Release is now to GitHub with an automatic change summary.
-* Added Web API service as alternative to WCF.
-* A certified domain is now available for these services to run on.
-* Integrated with Azure Devops build and release pipelines.
+#### Summary
+Data services tailored for my shop projects, working on the standard AdventureWorks database.
 
 #### Purpose
-* Explore various techniques based on C#, EF, WCF and Web API.
-* Manage the code by Git and GitHub.
-* Explore continuous integration by using combinations of Git, GitHub, TeamCity and Azure DevOps.
-* Explore Scrum process management by integration with Jira and Azure DevOps.
+* Explore coding techniques based on C#, EF, WCF, CoreWcf and Web API.
+* Explore continuous integration by using combination of Git, GitHub, and Azure DevOps.
 
-#### Prerequisites
-* The service assumes the presence of an AdventureWorks2019 database, to which a connection should be configured.
-* For the contents of this database I refer to the **[AdventureWorks page](https://docs.microsoft.com/en-us/sql/samples/adventureworks-install-configure)**.
+#### Context
+* Connected to Azure Devops self hosted build pipeline. Current build status for master branch: ![](https://dev.azure.com/RcsProjects/AdventureWorks/_apis/build/status/Build?branchName=master)
+* Azure DevOps release pipeline to GitHub.
+* See **[Release Notes](ReleaseNotes.md)** for the latest developments.
 
-#### Notes
-* Submitted to code analysis by [Better Code Hub](https://bettercodehub.com). Current score: [![BCH compliance](https://bettercodehub.com/edge/badge/a-einstein/AdventureWorks)](https://bettercodehub.com)  
-* Connected to automated Azure Devops build and release pipelines. Current build status for the master branch: [![Build Status](https://dev.azure.com/RcsProjects/AdventureWorks/_apis/build/status/Build?branchName=master)](https://dev.azure.com/RcsProjects/AdventureWorks/_build/latest?definitionId=16&branchName=master)
-
-#### Aspects
+#### Project aspects
 * C#.
 * SQL Server.
 * Entity Framework.
 * LINQ.
 * LinqKit.
-* WCF service on .Net Framework.
-* Web API service on .Net Standard & .Net Core.
+* WCF service on .Net Framework 4.8.
+* CoreWcf service on .Net 7.
+* Web API service on .Net Standard 2.0 & .Net 7.
 * SSL certification.
 * Asynchronisity.
-* Has been deployed as an Azure service with an Azure Database.
+
+#### Prerequisites
+* The service assumes the presence of an AdventureWorks2019 database, to which a connection should be configured.
+* For the contents of this database I refer to the **[AdventureWorks page](https://docs.microsoft.com/en-us/sql/samples/adventureworks-install-configure)**.
 
 #### Installation
 * This service is mainly intended to be installed on my domain and used by my clients. Running and access is on request.
