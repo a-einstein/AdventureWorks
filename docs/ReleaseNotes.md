@@ -1,4 +1,4 @@
-## AdventureWorks: ReleaseNotes 3.0
+## AdventureWorks: ReleaseNotes 3.0.0
 
 #### Summary
 * First release incorporating CoreWcf.
