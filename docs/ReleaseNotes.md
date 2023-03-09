@@ -14,3 +14,4 @@
 #### Fixed
 
 #### Known issues
+* The Azure built version on calling WCF has an exception on assembly System.Threading.Tasks.Extensions.
