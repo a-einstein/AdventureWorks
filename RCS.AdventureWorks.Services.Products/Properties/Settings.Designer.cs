@@ -26,7 +26,7 @@ namespace RCS.AdventureWorks.Services.Products.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=RCS-VOSTRO;Initial Catalog=AdventureWorks2019;Integrated Security=Tru" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=RCS-VOSTRO\\SQLEXPRESS;Initial Catalog=AdventureWorks2019;Integrated Security=Tru" +
             "e")]
         public string AdventureWorks {
             get {
