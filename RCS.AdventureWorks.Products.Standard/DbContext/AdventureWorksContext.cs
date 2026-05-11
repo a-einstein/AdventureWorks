@@ -34,8 +34,10 @@ namespace RCS.AdventureWorks.Products.Standard
         {
             if (!optionsBuilder.IsConfigured)
             {
+                // TrustServerCertificate added because of https://learn.microsoft.com/en-us/troubleshoot/sql/database-engine/connect/certificate-chain-not-trusted.
+                // TODO Consider options.
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("data source=RCS-VOSTRO;initial catalog=AdventureWorks2019;integrated security=True");
+                optionsBuilder.UseSqlServer("data source=RCS-VOSTRO;initial catalog=AdventureWorks2019;integrated security=True;TrustServerCertificate=true");
             }
         }
 
